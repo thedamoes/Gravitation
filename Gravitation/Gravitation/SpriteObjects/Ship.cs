@@ -14,6 +14,10 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics.Contacts;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
+
 
 namespace Gravitation.SpriteObjects
 {

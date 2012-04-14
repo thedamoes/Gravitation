@@ -13,6 +13,9 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics.Contacts;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
 
 
 namespace Gravitation.SpriteObjects
@@ -95,9 +98,9 @@ namespace Gravitation.SpriteObjects
                 Size = new Rectangle(0, 0, (int)(Source.Width * WidthScale), (int)(Source.Height * HeightScale));
             }
         }
+        public Body mSpriteBody;
 
         protected Texture2D mSpriteTexture;
-        protected Body mSpriteBody;
         protected const float MeterInPixels = 64f;
 
         private float mWidthScale = 1f;

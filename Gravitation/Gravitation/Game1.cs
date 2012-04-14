@@ -13,6 +13,9 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics.Contacts;
+using FarseerPhysics.Common;
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Common.PolygonManipulation;
 
 namespace Gravitation
 {
@@ -189,20 +192,20 @@ namespace Gravitation
             else
             {
                 // We make it possible to rotate the circle body
-                /*if (state.IsKeyDown(Keys.A))//g
-                    _rectangleBody.ApplyForce(new Vector2(-10, 0));
+                if (state.IsKeyDown(Keys.A))
+                    player1.mSpriteBody.ApplyForce(new Vector2(-10, 0));
 
                 if (state.IsKeyDown(Keys.D))
-                    _rectangleBody.ApplyForce(new Vector2(10, 0));
+                    player1.mSpriteBody.ApplyForce(new Vector2(10, 0));
 
                 if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
-                    _rectangleBody.ApplyLinearImpulse(new Vector2(0, -10));
+                    player1.mSpriteBody.ApplyLinearImpulse(new Vector2(0, -10));
                 
                 if (state.IsKeyDown(Keys.E))
-                    _rectangleBody.ApplyTorque(10);
+                    player1.mSpriteBody.ApplyTorque(10);
 
                 if (state.IsKeyDown(Keys.Q))
-                    _rectangleBody.ApplyTorque(-10);*/
+                    player1.mSpriteBody.ApplyTorque(-10);
 
             }
 
