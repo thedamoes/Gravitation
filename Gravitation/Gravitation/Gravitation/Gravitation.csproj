@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FarseerPhysicsXNA">
-      <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\Farseer Physics Engine 3.3 XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
+      <HintPath>..\..\..\Physics\Branches\XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
@@ -110,10 +110,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControllerAgents\AIAgent.cs" />
-    <Compile Include="ControllerAgents\IControllerInterface.cs" />
-    <Compile Include="ControllerAgents\LocalAgent.cs" />
-    <Compile Include="ControllerAgents\NetworkedAgent.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
     <Compile Include="SpriteObjects\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
