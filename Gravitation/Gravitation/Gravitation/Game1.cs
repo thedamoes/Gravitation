@@ -44,7 +44,8 @@ namespace Gravitation
 
         private const float MeterInPixels = 64f;
 
-        private ControllerAgents.LocalAgent mPlayer1;
+        //gay ass member variables that should be removed....77
+        private SpriteObjects.Ship player1;
 
         public Game1()
         {
@@ -54,11 +55,10 @@ namespace Gravitation
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
 
-            _world = new World(new Vector2(0, 20));
-            mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
-                                                graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2(0, -1.5f)));
 
-            
+            _world = new World(new Vector2(0, 20));
+            player1 = new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
+                                                graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2(0, -1.5f));
 
         }
 
@@ -97,7 +97,7 @@ namespace Gravitation
             // Load sprites
             _groundSprite = Content.Load<Texture2D>("platform"); // 512px x 64px =>   8m x 1m
 
-            mPlayer1.loadShip(Content);
+            player1.LoadContent(Content, "floor");
 
 
             /* Ground */
@@ -136,17 +136,20 @@ namespace Gravitation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             
+            
+
             HandleKeyboard();
-         
+            // TODO: Add your update logic here
+
+            //We update the world
+
             //maintain camera position
-            _cameraPosition.X = (mPlayer1.myPosition.X * -MeterInPixels) + graphics.PreferredBackBufferWidth / 2;
-            _cameraPosition.Y = (mPlayer1.myPosition.Y * -MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
+            _cameraPosition.X = (player1.Position.X * -MeterInPixels) + graphics.PreferredBackBufferWidth / 2;
+            _cameraPosition.Y = (player1.Position.Y * -MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
+
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
-
-            //update Controlling agients
-            mPlayer1.applyMovement();
+        Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
 
             _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
 
@@ -190,22 +193,19 @@ namespace Gravitation
             {
                 // We make it possible to rotate the circle body
                 if (state.IsKeyDown(Keys.A))
-                    mPlayer1.moveLeft();
+                    player1.mSpriteBody.ApplyForce(new Vector2(-10, 0));
 
                 if (state.IsKeyDown(Keys.D))
-                    mPlayer1.moveRight();
+                    player1.mSpriteBody.ApplyForce(new Vector2(10, 0));
 
-                if (state.IsKeyDown(Keys.W))
-                    mPlayer1.moveForward();
-
-                /*if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
+                if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
                     player1.mSpriteBody.ApplyLinearImpulse(new Vector2(0, -10));
                 
                 if (state.IsKeyDown(Keys.E))
                     player1.mSpriteBody.ApplyTorque(10);
 
                 if (state.IsKeyDown(Keys.Q))
-                    player1.mSpriteBody.ApplyTorque(-10);*/
+                    player1.mSpriteBody.ApplyTorque(-10);
 
             }
 
@@ -239,8 +239,7 @@ namespace Gravitation
 
             //Draw ground
             spriteBatch.Draw(_groundSprite, groundPos, null, Color.White, 0f, groundOrigin, 1f, SpriteEffects.None, 0f);
-
-            mPlayer1.Draw(spriteBatch);
+            player1.Draw(spriteBatch);
 
             spriteBatch.End();
             
