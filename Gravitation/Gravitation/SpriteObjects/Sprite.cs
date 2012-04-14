@@ -99,6 +99,9 @@ namespace Gravitation.SpriteObjects
             }
         }
         public Body mSpriteBody;
+        public Vector2 spriteOrigin; //= new Vector2(mSpriteTexture.Width / 2f, mSpriteTexture.Height / 2f);
+        public List<Vertices> list;
+
 
         protected Texture2D mSpriteTexture;
         protected const float MeterInPixels = 64f;
@@ -109,18 +112,20 @@ namespace Gravitation.SpriteObjects
      
         #endregion
 
-        public void LoadContent(ContentManager theContentManager, string theAssetName)
+        public virtual void LoadContent(ContentManager theContentManager, string theAssetName)
         {
             mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
             AssetName = theAssetName;
             Source = new Rectangle(0, 0, mSpriteTexture.Width, mSpriteTexture.Height);
             Size = new Rectangle(0, 0, (int)(mSpriteTexture.Width * WidthScale), (int)(mSpriteTexture.Height * HeightScale));
+
+
         }
 
         public virtual void Draw(SpriteBatch theSpriteBatch)
         {
             Vector2 spritePos = mSpriteBody.Position * MeterInPixels;
-            Vector2 spriteOrigin = new Vector2(mSpriteTexture.Width / 2f, mSpriteTexture.Height / 2f);
+
 
             theSpriteBatch.Draw(mSpriteTexture, spritePos, Source,
                 Color.White, mSpriteBody.Rotation, spriteOrigin,
