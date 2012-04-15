@@ -16,6 +16,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.DebugViews;
 
 namespace Gravitation
 {
@@ -26,6 +27,8 @@ namespace Gravitation
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        protected DebugViewXNA debugView;
 
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
@@ -56,7 +59,7 @@ namespace Gravitation
 
             _world = new World(new Vector2(0, 20));
             mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
-                                                graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2(0, -1.5f)));
+                                                graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
 
             
 
@@ -92,7 +95,7 @@ namespace Gravitation
             _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
                                                 graphics.GraphicsDevice.Viewport.Height / 2f);
 
-           // _font = Content.Load<SpriteFont>("font");
+            _font = Content.Load<SpriteFont>("font");
 
             // Load sprites
             _groundSprite = Content.Load<Texture2D>("platform"); // 512px x 64px =>   8m x 1m
@@ -101,15 +104,29 @@ namespace Gravitation
 
 
             /* Ground */
-            Vector2 groundPosition = (_screenCenter / MeterInPixels) + new Vector2(0, 1.25f);
+            Vector2 groundPosition = (_screenCenter / MeterInPixels)+ new Vector2(0, 1.25f);
+          
+
 
             // Create the ground fixture
-            _groundBody = BodyFactory.CreateRectangle(_world, 512f / MeterInPixels, 64f / MeterInPixels, 1f, groundPosition);
+            _groundBody = BodyFactory.CreateRectangle(_world, 1024f / MeterInPixels, 64f / MeterInPixels, 1f, groundPosition);
             _groundBody.IsStatic = true;
             _groundBody.Restitution = 0.3f;
             _groundBody.Friction = 0.5f;
 
 
+
+
+            debugView = new DebugViewXNA(_world);
+            debugView.AppendFlags(DebugViewFlags.DebugPanel);
+            debugView.DefaultShapeColor = Color.White;
+            debugView.SleepingShapeColor = Color.LightGray;
+            debugView.RemoveFlags(DebugViewFlags.Controllers);
+            debugView.RemoveFlags(DebugViewFlags.Joint);
+  
+
+
+            debugView.LoadContent(GraphicsDevice, Content);
 
 
 
@@ -139,8 +156,8 @@ namespace Gravitation
             HandleKeyboard();
          
             //maintain camera position
-            _cameraPosition.X = (mPlayer1.myPosition.X * -MeterInPixels) + graphics.PreferredBackBufferWidth / 2;
-            _cameraPosition.Y = (mPlayer1.myPosition.Y * -MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
+            _cameraPosition.X = (-mPlayer1.myPosition.X * MeterInPixels) + graphics.PreferredBackBufferWidth / 2;
+            _cameraPosition.Y = (-mPlayer1.myPosition.Y * MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
                 Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
@@ -171,7 +188,7 @@ namespace Gravitation
             if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
             {
                 // Move camera
-               /* if (state.IsKeyDown(Keys.A))
+                if (state.IsKeyDown(Keys.A))
                     _cameraPosition.X += 1.5f;
 
                 if (state.IsKeyDown(Keys.D))
@@ -181,7 +198,7 @@ namespace Gravitation
                     _cameraPosition.Y += 1.5f;
 
                 if (state.IsKeyDown(Keys.S))
-                    _cameraPosition.Y -= 1.5f;*/
+                    _cameraPosition.Y -= 1.5f;
 
                 _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
                         Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
@@ -198,14 +215,15 @@ namespace Gravitation
                 if (state.IsKeyDown(Keys.W))
                     mPlayer1.moveForward();
 
-                /*if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
-                    player1.mSpriteBody.ApplyLinearImpulse(new Vector2(0, -10));
-                
-                if (state.IsKeyDown(Keys.E))
-                    player1.mSpriteBody.ApplyTorque(10);
+                if (state.IsKeyUp(Keys.D) && _oldKeyState.IsKeyDown(Keys.D))
+                    mPlayer1.stall();
 
-                if (state.IsKeyDown(Keys.Q))
-                    player1.mSpriteBody.ApplyTorque(-10);*/
+                if (state.IsKeyUp(Keys.A) && _oldKeyState.IsKeyDown(Keys.A))
+                    mPlayer1.stall();
+
+                if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
+                    mPlayer1.reset();
+               
 
             }
 
@@ -241,6 +259,17 @@ namespace Gravitation
             spriteBatch.Draw(_groundSprite, groundPos, null, Color.White, 0f, groundOrigin, 1f, SpriteEffects.None, 0f);
 
             mPlayer1.Draw(spriteBatch);
+
+
+            // calculate the projection and view adjustments for the debug view
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, graphics.GraphicsDevice.Viewport.Width / MeterInPixels,
+                                                             graphics.GraphicsDevice.Viewport.Height / MeterInPixels, 0f, 0f,
+                                                             1f);
+            Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f));
+
+
+
+            debugView.RenderDebugData(ref projection, ref view);
 
             spriteBatch.End();
             

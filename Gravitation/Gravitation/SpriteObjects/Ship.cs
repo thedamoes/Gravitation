@@ -17,6 +17,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
+using FarseerPhysics.DebugViews;
 
 
 namespace Gravitation.SpriteObjects
@@ -29,13 +30,6 @@ namespace Gravitation.SpriteObjects
 
         public Ship(World world, Vector2 position)
         {
-           // base.AssetName = "floor";
-          /*  base.mSpriteBody = BodyFactory.CreateRectangle(world, 96f / Sprite.MeterInPixels, 64f / Sprite.MeterInPixels, 1f, position);
-            base.mSpriteBody.BodyType = BodyType.Dynamic;
-            base.mSpriteBody.Restitution = 0.3f;
-            base.mSpriteBody.Friction = 0.1f;
-            base.mSpriteBody.IsStatic = false;*/
-
             this.world = world;
             this.position = position;
         }
@@ -69,19 +63,26 @@ namespace Gravitation.SpriteObjects
             base.spriteOrigin = -centroid;
 
             //We simplify the vertices found in the texture.
-            textureVertices = SimplifyTools.ReduceByDistance(textureVertices, 4f);
+            textureVertices = SimplifyTools.ReduceByDistance(textureVertices, 4f); //WOOOOOT
 
             //Since it is a concave polygon, we need to partition it into several smaller convex polygons
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
+            //Scale the vertices so that they're not HUUUGE.
+            Vector2 vertScale = new Vector2(1 / MeterInPixels, 1 / MeterInPixels)* 1f;
+            foreach (Vertices verti in list)
+            {
+                verti.Scale(ref vertScale);
+            }
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, BodyType.Dynamic);
-           // base.mSpriteBody.BodyType = BodyType.Dynamic;
+
+
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, (position / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;
-            base.mSpriteBody.Friction = 0.1f;
+            base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;
         }
-
+        
 
 
 
@@ -90,12 +91,9 @@ namespace Gravitation.SpriteObjects
         public override void Draw(SpriteBatch theSpriteBatch)
         {
 
-
-
-
             //Create a single body with multiple fixtures
 
-            Vector2 spritePos = /*base.mSpriteBody.*/ position * MeterInPixels;
+            Vector2 spritePos = base.mSpriteBody.Position * MeterInPixels;
 
             theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
                 Color.White, base.mSpriteBody.Rotation, base.spriteOrigin,

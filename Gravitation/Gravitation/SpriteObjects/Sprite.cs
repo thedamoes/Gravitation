@@ -16,7 +16,7 @@ using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
-
+using FarseerPhysics.DebugViews;
 
 namespace Gravitation.SpriteObjects
 {
@@ -99,7 +99,7 @@ namespace Gravitation.SpriteObjects
             }
         }
         public Body mSpriteBody;
-        public Vector2 spriteOrigin; //= new Vector2(mSpriteTexture.Width / 2f, mSpriteTexture.Height / 2f);
+        public Vector2 spriteOrigin;
         public List<Vertices> list;
 
 
@@ -130,9 +130,6 @@ namespace Gravitation.SpriteObjects
             theSpriteBatch.Draw(mSpriteTexture, spritePos, Source,
                 Color.White, mSpriteBody.Rotation, spriteOrigin,
                 new Vector2(WidthScale, HeightScale), SpriteEffects.None, 0f);
-
-            
-
 
         }
 

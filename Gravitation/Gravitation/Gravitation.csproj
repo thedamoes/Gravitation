@@ -60,6 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DebugViewXNA">
+      <HintPath>..\..\..\Physics\DebugViews\DebugViewXNA\bin\x86\Debug\DebugViewXNA.dll</HintPath>
+    </Reference>
     <Reference Include="FarseerPhysicsXNA">
       <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\Farseer Physics Engine 3.3 XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
     </Reference>

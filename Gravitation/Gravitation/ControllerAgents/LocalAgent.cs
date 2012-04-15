@@ -17,8 +17,8 @@ namespace Gravitation.ControllerAgents
         private Vector2 mDirection; // X = unless you want weard stuff to happen this should be 0 (could have a powerup that sets this value to non 0)
                                     // Y = how mutch forward
         private float mRotatation = 0;
-        private const float DIRECTION_WEIGHT = 50f;
-        private const float ROTATION_WEIGHT = 2f;
+        private const float DIRECTION_WEIGHT = 10f;
+        private const float ROTATION_WEIGHT = 0.5f;
 
         public Vector2 myPosition
         {
@@ -55,6 +55,18 @@ namespace Gravitation.ControllerAgents
         {
             // implement later
         }
+        public void stall()
+        {
+            mShip.mSpriteBody.AngularVelocity = 0;
+            mRotatation = 0;
+        }
+        public void reset()
+        {
+            mShip.mSpriteBody.Position = new Vector2(6.25f, 3.75f);
+            mShip.mSpriteBody.Rotation = 0;
+            mShip.mSpriteBody.LinearVelocity = new Vector2(0, 0);
+            
+        }
 
         #endregion
 
@@ -77,7 +89,7 @@ namespace Gravitation.ControllerAgents
         }
         public void loadShip(ContentManager cm)
         {
-            mShip.LoadContent(cm ,"floor");
+            mShip.LoadContent(cm ,"Ship");
         }
         public void Draw(SpriteBatch sBatch)
         {
