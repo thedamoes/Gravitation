@@ -1,10 +1,15 @@
 <?xml version="1.0"?>
-<map
+
+<Map
 xmlns="http://www.w3schools.com"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 
 	<Surfaces>
-		<BackgoundPicture assetName="map1Background" scale="1" />
+		<BackgoundPicture>	
+			<AssetName>map1Background</AssetName>
+			<Scale>1</Scale>
+		</BackgoundPicture>
 		
 		<MapWalls>
 			<Wall walltype="left">
@@ -106,4 +111,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		
   	</Powerups>
 	
-</map>
+</Map>

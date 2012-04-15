@@ -2,6 +2,77 @@
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+<xs:element name="Map">
+  <xs:complexType>
+    <xs:all>
+      <xs:element name="Surfaces">
+	<xs:complexType>
+	<xs:all>
+		<xs:element name="BackgoundPicture">
+		<xs:complexType>
+		<xs:all>
+			<xs:element name="AssetName" type="xs:string"/>
+			<xs:element name="Scale">
+				  <xs:simpleType>
+					<xs:restriction base="xs:decimal">
+					    <xs:minInclusive value="0"/>
+					    <xs:maxInclusive value="1"/>
+					</xs:restriction>
+				  </xs:simpleType>
+			</xs:element>
+		</xs:all>
+		</xs:complexType>
+		</xs:element>
+		<xs:element name="MapWalls">
+			<xs:complexType>
+			<xs:all>
+				<xs:element name="Wall">
+					<xs:complexType>
+					<xs:all>
+						<xs:element ref="Asset" maxOccurs="1" minOccurs="1"/>
+					</xs:all>
+					<xs:attribute name="walltype">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								    <xs:enumeration value="top"/>
+								    <xs:enumeration value="left"/>
+								    <xs:enumeration value="bottom"/>
+								    <xs:enumeration value="right"/>
+								</xs:restriction>
+							  </xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+			</xs:complexType>
+		</xs:element>
+		<xs:element name="Obsticals">
+			<xs:complexType>
+				<xs:all>
+					<xs:element ref="Asset"/>
+				</xs:all>
+			</xs:complexType>
+		</xs:element>
+	</xs:all>
+	</xs:complexType>
+	</xs:element>
+      <xs:element name="Powerups">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="Powerup">
+					<xs:complexType>
+						<xs:all>
+							<xs:element ref="Asset"/>
+						</xs:all>
+						<xs:attribute name="powerupType" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+</xs:element>
 
 <xs:element name="Asset">
     <xs:complexType>
@@ -27,69 +98,6 @@
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" />
     </xs:complexType>
-</xs:element>
-
-<xs:element name="map">
-  <xs:complexType>
-    <xs:all>
-      <xs:element name="Surfaces">
-	<xs:complexType>
-	<xs:all>
-		<xs:element name="BackgoundPicture">
-		<xs:simpleType/>
-			<xs:attribute name="assetName" type="xs:decimal"/>
-			<xs:attribute name="scale" type="xs:string">
-				  <xs:simpleType>
-					<xs:restriction base="xs:decimal">
-					    <xs:minInclusive value="0"/>
-					    <xs:maxInclusive value="1"/>
-					</xs:restriction>
-				  </xs:simpleType>
-			</xs:attribute>
-		</xs:element>
-		<xs:element name="MapWalls">
-			<xs:complexType>
-				<xs:element name="Wall" maxOccurs="4" minOccurs="4">
-					<xs:attribute name="walltype" type="xs:string">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-							    <xs:enumeration value="top"/>
-							    <xs:enumeration value="left"/>
-							    <xs:enumeration value="bottom"/>
-							    <xs:enumeration value="right"/>
-							</xs:restriction>
-						  </xs:simpleType>
-					</xs:attribute>
-					<xs:element ref="Asset" maxOccurs="1" minOccurs="1"/>
-				</xs:element>
-			</xs:complexType>
-		</xs:element>
-		<xs:element name="Obsticals">
-			<xs:complexType>
-				<xs:all>
-					<xs:element ref="Asset" maxOccurs="10" minOccurs="1"/>
-				</xs:all>
-			</xs:complexType>
-		</xs:element>
-	</xs:all>
-	</xs:complexType>
-	</xs:element>
-      <xs:element name="Powerups">
-		<xs:complexType>
-			<xs:all>
-				<xs:element name="Powerup">
-					<xs:complexType>
-						<xs:all>
-							<xs:attribute name="powerupType" type="xs:string"/>
-							<xs:element ref="Asset" maxOccurs="10" minOccurs="1"/>
-						</xs:all>
-					</xs:complexType>
-				</xs:element>
-			</xs:all>
-		</xs:complexType>
-      </xs:element>
-    </xs:all>
-  </xs:complexType>
 </xs:element>
 
 </xs:schema>
