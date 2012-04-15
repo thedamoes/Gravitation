@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<map
+xmlns="http://www.w3schools.com"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Surfaces>
+		<BackgoundPicture assetName="map1Background" scale="1" />
+		
+		<MapWalls>
+			<Wall walltype="left">
+				<Asset name="map1LeftWall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>0</X>
+						<Y>150</Y>
+					</Position>
+				</Asset>
+			</Wall>
+			
+			<Wall walltype="right">
+				<Asset name="map1RightWall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>400</X>
+						<Y>150</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+			<Wall walltype="bottom">
+				<Asset name="map1BottomWall">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>150</X>
+						<Y>0</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+		
+			<Wall walltype="top">
+				<Asset name="map1TopWall">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>150</X>
+						<Y>0</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+
+		</MapWalls>
+
+		<Obsticals>
+			<Asset name="map1floatingBlock">
+					<Height>100</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>50</X>
+						<Y>100</Y>
+					</Position>
+			</Asset>
+		</Obsticals>
+
+	</Surfaces>
+
+	<Powerups>
+		<Powerup powerupType="ZeroGravity">
+			<Asset name="zeroGravityPowerup">
+					<Height>100</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>50</X>
+						<Y>100</Y>
+					</Position>
+				</Asset>
+		</Powerup>
+		
+  	</Powerups>
+	
+</map>
