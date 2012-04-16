@@ -17,13 +17,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					<Height>300</Height>
 					<Width>100</Width>
 					<Scale>
-						<X>10</X>
-						<Y>1</Y>
+						<X>0.5</X>
+						<Y>10</Y>
 					</Scale>
           <Rotation>0</Rotation>
 					<Position>
-						<X>0</X>
-						<Y>300</Y>
+            <X>-400</X>
+            <Y>0</Y>
 					</Position>
 				</Asset>
 			</Wall>
@@ -33,13 +33,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					<Height>300</Height>
 					<Width>100</Width>
 					<Scale>
-						<X>1</X>
-						<Y>1</Y>
+						<X>0.5</X>
+						<Y>10</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
-						<X>400</X>
-						<Y>0</Y>
+            <X>600</X>
+            <Y>0</Y>
 					</Position>
 				</Asset>
 			</Wall>
@@ -49,13 +49,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
-						<X>1</X>
+						<X>10</X>
 						<Y>1</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
 						<X>150</X>
-						<Y>0</Y>
+            <Y>400</Y>
 					</Position>
 				</Asset>
 			</Wall>
@@ -66,13 +66,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
-						<X>1</X>
+						<X>10</X>
 						<Y>1</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
 						<X>150</X>
-						<Y>0</Y>
+						<Y>-500</Y>
 					</Position>
 				</Asset>
 			</Wall>

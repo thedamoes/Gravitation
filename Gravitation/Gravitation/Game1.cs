@@ -36,8 +36,6 @@ namespace Gravitation
 
         private World _world;
 
-        private Body _groundBody;
-
         private Texture2D _groundSprite;
 
         // Simple camera controls
@@ -110,13 +108,6 @@ namespace Gravitation
             /* Ground */
             Vector2 groundPosition = (_screenCenter / MeterInPixels)+ new Vector2(0, 1.25f);
           
-
-
-            // Create the ground fixture
-            _groundBody = BodyFactory.CreateRectangle(_world, 1024f / MeterInPixels, 64f / MeterInPixels, 1f, groundPosition);
-            _groundBody.IsStatic = true;
-            _groundBody.Restitution = 0.3f;
-            _groundBody.Friction = 0.5f;
 
             // load the map
             mMapLoader.loadMap(Content);
@@ -262,15 +253,11 @@ namespace Gravitation
 
             // TODO: Add your drawing code here
 
-            /* Ground position and origin */
-            Vector2 groundPos = _groundBody.Position * MeterInPixels;
-            Vector2 groundOrigin = new Vector2(_groundSprite.Width / 2f, _groundSprite.Height / 2f);
 
      
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _view);
 
-            //Draw ground
-            spriteBatch.Draw(_groundSprite, groundPos, null, Color.White, 0f, groundOrigin, 1f, SpriteEffects.None, 0f);
+          
 
             mPlayer1.Draw(spriteBatch);
 

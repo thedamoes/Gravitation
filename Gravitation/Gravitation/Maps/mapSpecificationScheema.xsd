@@ -28,8 +28,8 @@
                                 <xs:element name="Scale">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="X" type="xs:unsignedByte" />
-                                      <xs:element name="Y" type="xs:unsignedByte" />
+                                      <xs:element name="X" type="xs:decimal" />
+                                      <xs:element name="Y" type="xs:decimal" />
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>

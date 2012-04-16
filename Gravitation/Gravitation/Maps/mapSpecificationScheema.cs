@@ -252,12 +252,12 @@ public partial class MapSurfacesWallAsset {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapSurfacesWallAssetScale {
     
-    private byte xField;
+    private decimal xField;
     
-    private byte yField;
+    private decimal yField;
     
     /// <remarks/>
-    public byte X {
+    public decimal X {
         get {
             return this.xField;
         }
@@ -267,7 +267,7 @@ public partial class MapSurfacesWallAssetScale {
     }
     
     /// <remarks/>
-    public byte Y {
+    public decimal Y {
         get {
             return this.yField;
         }

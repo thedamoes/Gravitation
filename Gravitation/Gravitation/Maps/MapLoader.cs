@@ -38,6 +38,9 @@ namespace Gravitation.Maps
         public void unloadBodies()
         {
             mWorld.RemoveBody(wall1.mSpriteBody);
+            mWorld.RemoveBody(wall2.mSpriteBody);
+            mWorld.RemoveBody(wall3.mSpriteBody);
+            mWorld.RemoveBody(wall4.mSpriteBody);
         }
 #endif
         public void loadMap(ContentManager cm)
@@ -65,8 +68,8 @@ namespace Gravitation.Maps
                                         );
 
             Vector2 scale = new Vector2(
-                                        wallSpec.Asset.Scale.X,
-                                        wallSpec.Asset.Scale.Y
+                                        (float)Convert.ToDecimal(wallSpec.Asset.Scale.X),
+                                        (float)Convert.ToDecimal(wallSpec.Asset.Scale.Y)
                 );
 
             wall = new SpriteObjects.Wall(mWorld, wallPos);
