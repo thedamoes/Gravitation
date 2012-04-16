@@ -228,6 +228,15 @@ namespace Gravitation
 
                 if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
                     mPlayer1.reset();
+#if DEBUG
+                if (state.IsKeyUp(Keys.R) && _oldKeyState.IsKeyDown(Keys.R))
+                {
+                       // reinitalise and reload the map from xml DEBUG
+                    mMapLoader.unloadBodies();
+                    mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml", _world);
+                    mMapLoader.loadMap(Content);
+                }
+#endif
                
 
             }
