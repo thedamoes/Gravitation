@@ -17,7 +17,7 @@ namespace Gravitation.ControllerAgents
         private Vector2 mDirection; // X = unless you want weard stuff to happen this should be 0 (could have a powerup that sets this value to non 0)
                                     // Y = how mutch forward
         private float mRotatation = 0;
-        private const float DIRECTION_WEIGHT = 10f;
+        private const float DIRECTION_WEIGHT = 2.5f;
         private const float ROTATION_WEIGHT = 0.5f;
 
         public Vector2 myPosition
@@ -80,7 +80,21 @@ namespace Gravitation.ControllerAgents
             
             float shipAngle;
 
-            mShip.mSpriteBody.ApplyTorque(mRotatation);
+
+            //following if satement is to limit the rotation velocity so we don't spin LIGHT SPPPEEEED
+            if (mShip.mSpriteBody.AngularVelocity > 5)
+            {
+                //do nothing
+            }
+            else if (mShip.mSpriteBody.AngularVelocity < -5)
+            {
+                //do nothing
+            }
+            else
+            {
+                mShip.mSpriteBody.ApplyTorque(mRotatation);
+            }
+
             shipAngle = mShip.mSpriteBody.Rotation;
 
             mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));

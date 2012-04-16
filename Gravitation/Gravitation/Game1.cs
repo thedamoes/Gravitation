@@ -58,7 +58,7 @@ namespace Gravitation
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
 
-            _world = new World(new Vector2(0, 20));
+            _world = new World(new Vector2(0, 2));
             mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
                                                 graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
 
@@ -155,8 +155,10 @@ namespace Gravitation
             HandleKeyboard();
          
             //maintain camera position
-            _cameraPosition.X = (-mPlayer1.myPosition.X * MeterInPixels) + graphics.PreferredBackBufferWidth / 2;
-            _cameraPosition.Y = (-mPlayer1.myPosition.Y * MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
+            _cameraPosition.X = ((-mPlayer1.myPosition.X * MeterInPixels) + graphics.PreferredBackBufferWidth / 2) + 361.5f; // these here variables
+            _cameraPosition.Y = ((-mPlayer1.myPosition.Y * MeterInPixels) + graphics.PreferredBackBufferHeight / 2) + 192f; // are what the "zoom"
+                                                                                                                            // offsets the camera by
+                                                                                                                            // from it's origin
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
                 Matrix.CreateTranslation(new Vector3(_screenCenter, 0f))*
