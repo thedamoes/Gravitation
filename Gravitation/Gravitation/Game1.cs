@@ -159,7 +159,8 @@ namespace Gravitation
             _cameraPosition.Y = (-mPlayer1.myPosition.Y * MeterInPixels) + graphics.PreferredBackBufferHeight / 2;
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
+                Matrix.CreateTranslation(new Vector3(_screenCenter, 0f))*
+                 Matrix.CreateScale(_cameraZoom);
 
             //update Controlling agients
             mPlayer1.applyMovement();
