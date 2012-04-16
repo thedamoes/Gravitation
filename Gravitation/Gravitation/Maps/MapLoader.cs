@@ -15,6 +15,10 @@ namespace Gravitation.Maps
     {
         Map currentmap;
         SpriteObjects.Wall wall1;
+        SpriteObjects.Wall wall2;
+        SpriteObjects.Wall wall3;
+        SpriteObjects.Wall wall4;
+
         World mWorld;
 
         public MapLoader(String fileName, World world)
@@ -24,12 +28,11 @@ namespace Gravitation.Maps
             XmlSerializer serialiser = new XmlSerializer(typeof(Map));
             currentmap = (Map)serialiser.Deserialize(mapXml);
 
-            Vector2 wallPos = new Vector2(
-                                            currentmap.Surfaces.MapWalls.First().Asset.Position.X,
-                                            currentmap.Surfaces.MapWalls.First().Asset.Position.Y
-                                        );
-
-            wall1 = new SpriteObjects.Wall(world, wallPos);
+            //loadWalls
+            createWall(ref wall1, currentmap.Surfaces.MapWalls[0]);
+            createWall(ref wall2, currentmap.Surfaces.MapWalls[1]);
+            createWall(ref wall3, currentmap.Surfaces.MapWalls[2]);
+            createWall(ref wall4, currentmap.Surfaces.MapWalls[3]);
         }
 #if DEBUG
         public void unloadBodies()
@@ -45,6 +48,24 @@ namespace Gravitation.Maps
         public void drawMap(SpriteBatch sb)
         {
             wall1.Draw(sb);
+        }
+
+        private void createWall(ref SpriteObjects.Wall wall, MapSurfacesWall wallSpec)
+        {
+            Vector2 wallPos = new Vector2(
+                                            Convert.ToInt32(wallSpec.Asset.Position.X),
+                                            Convert.ToInt32(wallSpec.Asset.Position.Y)
+                                        );
+
+            Vector2 scale = new Vector2(
+                                        wallSpec.Asset.Scale.X,
+                                        wallSpec.Asset.Scale.Y
+                );
+
+            wall = new SpriteObjects.Wall(mWorld, wallPos);
+            wall.WidthScale = scale.X;
+            wall.HeightScale = scale.Y;
+
         }
     }
 }
