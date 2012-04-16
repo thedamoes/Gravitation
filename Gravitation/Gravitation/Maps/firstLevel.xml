@@ -21,7 +21,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<Y>1</Y>
 					</Scale>
 					<Position>
-						<X>100</X>
+						<X>300</X>
 						<Y>150</Y>
 					</Position>
 				</Asset>
