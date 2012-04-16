@@ -22,7 +22,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					</Scale>
           <Rotation>0</Rotation>
 					<Position>
-            <X>-400</X>
+            <X>-900</X>
             <Y>0</Y>
 					</Position>
 				</Asset>
@@ -38,7 +38,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
-            <X>600</X>
+            <X>1100</X>
             <Y>0</Y>
 					</Position>
 				</Asset>
