@@ -63,7 +63,7 @@ namespace Gravitation
             mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
                                                 graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
 
-            mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml");
+            mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml",_world);
 
             
 
@@ -118,7 +118,8 @@ namespace Gravitation
             _groundBody.Restitution = 0.3f;
             _groundBody.Friction = 0.5f;
 
-
+            // load the map
+            mMapLoader.loadMap(Content);
 
 
             debugView = new DebugViewXNA(_world);
@@ -272,6 +273,7 @@ namespace Gravitation
             Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f));
 
 
+            mMapLoader.drawMap(spriteBatch);
 
             debugView.RenderDebugData(ref projection, ref view);
 

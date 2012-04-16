@@ -2,38 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using FarseerPhysics;
 using FarseerPhysics.Dynamics;
-using FarseerPhysics.Factories;
-using FarseerPhysics.Collision.Shapes;
-using FarseerPhysics.Dynamics.Contacts;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using FarseerPhysics.Common;
-using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
-using FarseerPhysics.DebugViews;
-
+using FarseerPhysics.Common.Decomposition;
+using FarseerPhysics.Factories;
 
 namespace Gravitation.SpriteObjects
 {
-    class Ship : Sprite
+    class Wall : Sprite
     {
+        private World mWorld;
+        private Vector2 mPosition;
 
-        private World world;
-        private Vector2 position;
-
-        public Ship(World world, Vector2 position)
+        public Wall(World world, Vector2 position)
         {
-            this.world = world;
-            this.position = position;
+            this.mPosition = position;
+            this.mWorld = world;
         }
-
 
         public override void LoadContent(ContentManager theContentManager, string theAssetName)
         {
@@ -41,7 +30,6 @@ namespace Gravitation.SpriteObjects
             base.AssetName = theAssetName;
             base.Source = new Rectangle(0, 0, base.mSpriteTexture.Width, base.mSpriteTexture.Height);
             base.Size = new Rectangle(0, 0, (int)(base.mSpriteTexture.Width * base.WidthScale), (int)(base.mSpriteTexture.Height * base.HeightScale));
-
 
 
             uint[] data = new uint[base.mSpriteTexture.Width * base.mSpriteTexture.Height];
@@ -69,7 +57,7 @@ namespace Gravitation.SpriteObjects
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
             //Scale the vertices so that they're not HUUUGE.
-            Vector2 vertScale = new Vector2(1 / MeterInPixels, 1 / MeterInPixels)* 1f;
+            Vector2 vertScale = new Vector2(1 / MeterInPixels, 1 / MeterInPixels) * 1f;
             foreach (Vertices verti in list)
             {
                 verti.Scale(ref vertScale);
@@ -77,16 +65,11 @@ namespace Gravitation.SpriteObjects
 
 
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, (position / MeterInPixels), BodyType.Dynamic);
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mWorld, list, 1f, (mPosition / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
-            base.mSpriteBody.IsStatic = false;
+            base.mSpriteBody.IsStatic = true;
         }
-        
-
-
-
-
 
         public override void Draw(SpriteBatch theSpriteBatch)
         {
@@ -99,9 +82,5 @@ namespace Gravitation.SpriteObjects
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 
         }
-
-
-
-
     }
 }
