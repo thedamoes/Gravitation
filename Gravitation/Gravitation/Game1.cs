@@ -47,6 +47,8 @@ namespace Gravitation
 
         private const float MeterInPixels = 64f;
 
+        private Maps.MapLoader mMapLoader;
+
         private ControllerAgents.LocalAgent mPlayer1;
 
         public Game1()
@@ -60,6 +62,8 @@ namespace Gravitation
             _world = new World(new Vector2(0, 20));
             mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
                                                 graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
+
+            mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml");
 
             
 

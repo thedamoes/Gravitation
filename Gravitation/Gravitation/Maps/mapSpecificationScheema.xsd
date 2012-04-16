@@ -1,103 +1,130 @@
-<?xml version="1.0"?>
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-<xs:element name="Map">
-  <xs:complexType>
-    <xs:all>
-      <xs:element name="Surfaces">
-	<xs:complexType>
-	<xs:all>
-		<xs:element name="BackgoundPicture">
-		<xs:complexType>
-		<xs:all>
-			<xs:element name="AssetName" type="xs:string"/>
-			<xs:element name="Scale">
-				  <xs:simpleType>
-					<xs:restriction base="xs:decimal">
-					    <xs:minInclusive value="0"/>
-					    <xs:maxInclusive value="1"/>
-					</xs:restriction>
-				  </xs:simpleType>
-			</xs:element>
-		</xs:all>
-		</xs:complexType>
-		</xs:element>
-		<xs:element name="MapWalls">
-			<xs:complexType>
-			<xs:all>
-				<xs:element name="Wall">
-					<xs:complexType>
-					<xs:all>
-						<xs:element ref="Asset" maxOccurs="1" minOccurs="1"/>
-					</xs:all>
-					<xs:attribute name="walltype">
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-								    <xs:enumeration value="top"/>
-								    <xs:enumeration value="left"/>
-								    <xs:enumeration value="bottom"/>
-								    <xs:enumeration value="right"/>
-								</xs:restriction>
-							  </xs:simpleType>
-						</xs:attribute>
-					</xs:complexType>
-				</xs:element>
-			</xs:all>
-			</xs:complexType>
-		</xs:element>
-		<xs:element name="Obsticals">
-			<xs:complexType>
-				<xs:all>
-					<xs:element ref="Asset"/>
-				</xs:all>
-			</xs:complexType>
-		</xs:element>
-	</xs:all>
-	</xs:complexType>
-	</xs:element>
-      <xs:element name="Powerups">
-		<xs:complexType>
-			<xs:all>
-				<xs:element name="Powerup">
-					<xs:complexType>
-						<xs:all>
-							<xs:element ref="Asset"/>
-						</xs:all>
-						<xs:attribute name="powerupType" type="xs:string"/>
-					</xs:complexType>
-				</xs:element>
-			</xs:all>
-		</xs:complexType>
-      </xs:element>
-    </xs:all>
-  </xs:complexType>
-</xs:element>
-
-<xs:element name="Asset">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="mapSpecificationScheema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Map">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="Height" type="xs:int" />
-        <xs:element name="Width" type="xs:int" />
-        <xs:element name="Scale">
+        <xs:element name="Surfaces">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="X" type="xs:int" />
-              <xs:element name="Y" type="xs:int" />
+              <xs:element name="BackgoundPicture">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="AssetName" type="xs:string" />
+                    <xs:element name="Scale" type="xs:unsignedByte" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MapWalls">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Wall">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Asset">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Height" type="xs:unsignedShort" />
+                                <xs:element name="Width" type="xs:unsignedShort" />
+                                <xs:element name="Scale">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="X" type="xs:unsignedByte" />
+                                      <xs:element name="Y" type="xs:unsignedByte" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="Position">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="X" type="xs:unsignedShort" />
+                                      <xs:element name="Y" type="xs:unsignedByte" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="walltype" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Obsticals">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Asset">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Height" type="xs:unsignedByte" />
+                          <xs:element name="Width" type="xs:unsignedByte" />
+                          <xs:element name="Scale">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:unsignedByte" />
+                                <xs:element name="Y" type="xs:unsignedByte" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Position">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:unsignedByte" />
+                                <xs:element name="Y" type="xs:unsignedByte" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Position">
+        <xs:element name="Powerups">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="X" type="xs:int" />
-              <xs:element name="Y" type="xs:int" />
+              <xs:element name="Powerup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Asset">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Height" type="xs:unsignedByte" />
+                          <xs:element name="Width" type="xs:unsignedByte" />
+                          <xs:element name="Scale">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:unsignedByte" />
+                                <xs:element name="Y" type="xs:unsignedByte" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Position">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:unsignedByte" />
+                                <xs:element name="Y" type="xs:unsignedByte" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="powerupType" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="name" type="xs:string" />
     </xs:complexType>
-</xs:element>
-
+  </xs:element>
 </xs:schema>

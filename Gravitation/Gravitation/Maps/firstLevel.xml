@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <Map
-xmlns="http://www.w3schools.com"
+xmlns="mapSpecificationScheema.xsd"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 
