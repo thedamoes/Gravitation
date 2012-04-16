@@ -42,12 +42,19 @@ namespace Gravitation.Maps
 #endif
         public void loadMap(ContentManager cm)
         {
-            wall1.LoadContent(cm, currentmap.Surfaces.MapWalls.First().Asset.name);
+            MapSurfacesWall[] wallSpecs = currentmap.Surfaces.MapWalls;
+            wall1.LoadContent(cm, wallSpecs[0].Asset.name);
+            wall2.LoadContent(cm, wallSpecs[1].Asset.name);
+            wall3.LoadContent(cm, wallSpecs[2].Asset.name);
+            wall4.LoadContent(cm, wallSpecs[3].Asset.name);
         }
 
         public void drawMap(SpriteBatch sb)
         {
             wall1.Draw(sb);
+            wall2.Draw(sb);
+            wall3.Draw(sb);
+            wall4.Draw(sb);
         }
 
         private void createWall(ref SpriteObjects.Wall wall, MapSurfacesWall wallSpec)
