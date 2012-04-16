@@ -42,6 +42,7 @@ namespace Gravitation
         private Matrix _view;
         private Vector2 _cameraPosition;
         private Vector2 _screenCenter;
+        private Vector3 _cameraZoom;
 
         private const float MeterInPixels = 64f;
 
@@ -62,7 +63,7 @@ namespace Gravitation
                                                 graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
 
             mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml",_world);
-
+            _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
             
 
         }
@@ -91,7 +92,9 @@ namespace Gravitation
 
 
             // Initialize camera controls
-            _view = Matrix.Identity;
+            _view = Matrix.Identity *
+                        Matrix.CreateScale(_cameraZoom);
+
             _cameraPosition = Vector2.Zero;
 
             _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
@@ -197,7 +200,8 @@ namespace Gravitation
                     _cameraPosition.Y -= 1.5f;
 
                 _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                        Matrix.CreateTranslation(new Vector3(_screenCenter, 0f));
+                        Matrix.CreateTranslation(new Vector3(_screenCenter, 0f)) *
+                        Matrix.CreateScale(_cameraZoom);
             }
             else
             {
@@ -268,7 +272,9 @@ namespace Gravitation
             Matrix projection = Matrix.CreateOrthographicOffCenter(0f, graphics.GraphicsDevice.Viewport.Width / MeterInPixels,
                                                              graphics.GraphicsDevice.Viewport.Height / MeterInPixels, 0f, 0f,
                                                              1f);
-            Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f));
+            Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) *
+                                                Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f)) *
+                                                 Matrix.CreateScale(_cameraZoom);
 
 
             debugView.RenderDebugData(ref projection, ref view);

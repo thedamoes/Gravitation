@@ -45,7 +45,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 			</Wall>
 
 			<Wall walltype="bottom">
-				<Asset name="floor">
+				<Asset name="platform">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
@@ -62,7 +62,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 
 		
 			<Wall walltype="top">
-				<Asset name="floor">
+				<Asset name="platform">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
