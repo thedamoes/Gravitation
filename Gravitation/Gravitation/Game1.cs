@@ -265,6 +265,8 @@ namespace Gravitation
 
             mPlayer1.Draw(spriteBatch);
 
+#if DEBUG
+
 
             // calculate the projection and view adjustments for the debug view
             Matrix projection = Matrix.CreateOrthographicOffCenter(0f, graphics.GraphicsDevice.Viewport.Width / MeterInPixels,
@@ -273,9 +275,11 @@ namespace Gravitation
             Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f));
 
 
-            mMapLoader.drawMap(spriteBatch);
-
             debugView.RenderDebugData(ref projection, ref view);
+
+#endif
+
+            mMapLoader.drawMap(spriteBatch);
 
             spriteBatch.End();
             
