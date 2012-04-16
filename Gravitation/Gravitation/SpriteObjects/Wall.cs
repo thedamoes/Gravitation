@@ -57,7 +57,7 @@ namespace Gravitation.SpriteObjects
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
             //Scale the vertices so that they're not HUUUGE.
-            Vector2 vertScale = new Vector2(1 / MeterInPixels, 1 / MeterInPixels) * 1f;
+            Vector2 vertScale = new Vector2((1 / MeterInPixels)*WidthScale, (1 / MeterInPixels)*HeightScale) * 1f;
             foreach (Vertices verti in list)
             {
                 verti.Scale(ref vertScale);
@@ -67,7 +67,7 @@ namespace Gravitation.SpriteObjects
 
             base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mWorld, list, 1f, (mPosition / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;
-            base.mSpriteBody.Friction = 1f;
+            base.mSpriteBody.Friction = 0.4f;
             base.mSpriteBody.IsStatic = true;
         }
 

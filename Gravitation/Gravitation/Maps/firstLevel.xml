@@ -17,13 +17,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					<Height>300</Height>
 					<Width>100</Width>
 					<Scale>
-						<X>1</X>
+						<X>10</X>
 						<Y>1</Y>
 					</Scale>
-          <Rotation>0.0</Rotation>
+          <Rotation>0</Rotation>
 					<Position>
 						<X>300</X>
-						<Y>150</Y>
+						<Y>500</Y>
 					</Position>
 				</Asset>
 			</Wall>

@@ -69,7 +69,7 @@ namespace Gravitation.SpriteObjects
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
             //Scale the vertices so that they're not HUUUGE.
-            Vector2 vertScale = new Vector2(1 / MeterInPixels, 1 / MeterInPixels)* 1f;
+            Vector2 vertScale = new Vector2((1 / MeterInPixels) * WidthScale, (1 / MeterInPixels) * HeightScale) * 1f;
             foreach (Vertices verti in list)
             {
                 verti.Scale(ref vertScale);
