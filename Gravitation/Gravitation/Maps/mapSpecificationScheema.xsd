@@ -33,6 +33,7 @@
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>
+                                <xs:element name="Rotation" type="xs:decimal" />
                                 <xs:element name="Position">
                                   <xs:complexType>
                                     <xs:sequence>

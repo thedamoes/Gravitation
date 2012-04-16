@@ -176,6 +176,8 @@ public partial class MapSurfacesWallAsset {
     
     private MapSurfacesWallAssetScale scaleField;
     
+    private decimal rotationField;
+    
     private MapSurfacesWallAssetPosition positionField;
     
     private string nameField;
@@ -207,6 +209,16 @@ public partial class MapSurfacesWallAsset {
         }
         set {
             this.scaleField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public decimal Rotation {
+        get {
+            return this.rotationField;
+        }
+        set {
+            this.rotationField = value;
         }
     }
     

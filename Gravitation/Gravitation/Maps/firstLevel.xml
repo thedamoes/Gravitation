@@ -24,6 +24,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>300</X>
 						<Y>150</Y>
 					</Position>
+          <Rotation>0.0</Rotation>
 				</Asset>
 			</Wall>
 			
@@ -35,6 +36,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>1</X>
 						<Y>1</Y>
 					</Scale>
+          <Rotation>0.0</Rotation>
 					<Position>
 						<X>400</X>
 						<Y>150</Y>
@@ -50,6 +52,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>1</X>
 						<Y>1</Y>
 					</Scale>
+          <Rotation>0.0</Rotation>
 					<Position>
 						<X>150</X>
 						<Y>0</Y>
@@ -66,6 +69,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>1</X>
 						<Y>1</Y>
 					</Scale>
+          <Rotation>0.0</Rotation>
 					<Position>
 						<X>150</X>
 						<Y>0</Y>
