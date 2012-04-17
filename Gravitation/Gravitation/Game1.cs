@@ -155,10 +155,23 @@ namespace Gravitation
             HandleKeyboard();
          
             //maintain camera position
-            _cameraPosition.X = ((-mPlayer1.myPosition.X * MeterInPixels) + graphics.PreferredBackBufferWidth / 2) + 361.5f; // these here variables
-            _cameraPosition.Y = ((-mPlayer1.myPosition.Y * MeterInPixels) + graphics.PreferredBackBufferHeight / 2) + 192f; // are what the "zoom"
-                                                                                                                            // offsets the camera by
-                                                                                                                            // from it's origin
+            float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
+            float playerPosInPixlesY = (-mPlayer1.myPosition.Y * MeterInPixels);  // are what the "zoom"
+            float camX = (playerPosInPixlesX + graphics.PreferredBackBufferWidth);  // offsets the camera by
+            float camY = (playerPosInPixlesY + graphics.PreferredBackBufferHeight); // from it's origin
+
+            // couldent think of any other better way to do it?? if u can feel free
+            // these lines stop the cammera from moveing past the bounds of the map
+                 if (-playerPosInPixlesX < (graphics.PreferredBackBufferWidth - mMapLoader.leftWallPosX))       _cameraPosition.X = (mMapLoader.leftWallPosX);
+            else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth))      _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth)*2);
+            else                                                                                                _cameraPosition.X = camX;
+
+                 if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY))       _cameraPosition.Y = (-mMapLoader.topWallPosY);
+            else if (-playerPosInPixlesY > (mMapLoader.bottonWallPosY - graphics.PreferredBackBufferHeight))    _cameraPosition.Y = (graphics.PreferredBackBufferHeight*2) - mMapLoader.bottonWallPosY;
+            else                                                                                                _cameraPosition.Y = camY; 
+           
+                                                                                                                
+                                                                                                                 
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
                 Matrix.CreateTranslation(new Vector3(_screenCenter, 0f))*

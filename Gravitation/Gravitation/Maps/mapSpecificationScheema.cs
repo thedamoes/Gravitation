@@ -24,9 +24,21 @@ using System.Xml.Serialization;
 [System.Xml.Serialization.XmlRootAttribute(Namespace="mapSpecificationScheema.xsd", IsNullable=false)]
 public partial class Map {
     
+    private MapMapDimentions mapDimentionsField;
+    
     private MapSurfaces surfacesField;
     
     private MapPowerups powerupsField;
+    
+    /// <remarks/>
+    public MapMapDimentions MapDimentions {
+        get {
+            return this.mapDimentionsField;
+        }
+        set {
+            this.mapDimentionsField = value;
+        }
+    }
     
     /// <remarks/>
     public MapSurfaces Surfaces {
@@ -45,6 +57,39 @@ public partial class Map {
         }
         set {
             this.powerupsField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapMapDimentions {
+    
+    private ushort widthField;
+    
+    private ushort heightField;
+    
+    /// <remarks/>
+    public ushort Width {
+        get {
+            return this.widthField;
+        }
+        set {
+            this.widthField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ushort Height {
+        get {
+            return this.heightField;
+        }
+        set {
+            this.heightField = value;
         }
     }
 }
@@ -254,7 +299,7 @@ public partial class MapSurfacesWallAssetScale {
     
     private decimal xField;
     
-    private decimal yField;
+    private byte yField;
     
     /// <remarks/>
     public decimal X {
@@ -267,7 +312,7 @@ public partial class MapSurfacesWallAssetScale {
     }
     
     /// <remarks/>
-    public decimal Y {
+    public byte Y {
         get {
             return this.yField;
         }
@@ -285,13 +330,12 @@ public partial class MapSurfacesWallAssetScale {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapSurfacesWallAssetPosition {
     
-    private string xField;
+    private short xField;
     
-    private string yField;
+    private short yField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
-    public string X {
+    public short X {
         get {
             return this.xField;
         }
@@ -301,8 +345,7 @@ public partial class MapSurfacesWallAssetPosition {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
-    public string Y {
+    public short Y {
         get {
             return this.yField;
         }

@@ -13,61 +13,97 @@ namespace Gravitation.Maps
 {
     class MapLoader
     {
-        Map currentmap;
-        SpriteObjects.Wall wall1;
-        SpriteObjects.Wall wall2;
-        SpriteObjects.Wall wall3;
-        SpriteObjects.Wall wall4;
+        private Map mCurrentmap;
+        private SpriteObjects.Wall mWall1;
+        private SpriteObjects.Wall mWall2;
+        private SpriteObjects.Wall mWall3;
+        private SpriteObjects.Wall mWall4;
+        private SpriteObjects.Sprite mBackground;
 
-        SpriteObjects.Sprite background;
 
+        private World mWorld;
 
-        World mWorld;
+        public Vector2 MapDimentions
+        {
+            get
+            {
+                return new Vector2 (mCurrentmap.MapDimentions.Height,
+                mCurrentmap.MapDimentions.Width);
+            }
+        }
+        public short leftWallPosX
+        {
+            get
+            {
+                return mCurrentmap.Surfaces.MapWalls[0].Asset.Position.X;
+            }
+        }
+        public short rightWallPosX
+        {
+            get
+            {
+                return mCurrentmap.Surfaces.MapWalls[1].Asset.Position.X;
+            }
+        }
+        public short bottonWallPosY
+        {
+            get
+            {
+                return mCurrentmap.Surfaces.MapWalls[2].Asset.Position.Y;
+            }
+        }
+        public short topWallPosY
+        {
+            get
+            {
+                return mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y;
+            }
+        }
 
         public MapLoader(String fileName, World world)
         {
             this.mWorld = world;
             Stream mapXml= new FileStream(fileName,FileMode.Open);
             XmlSerializer serialiser = new XmlSerializer(typeof(Map));
-            currentmap = (Map)serialiser.Deserialize(mapXml);
+            mCurrentmap = (Map)serialiser.Deserialize(mapXml);
 
             //loadBackground
-            createBackground(ref background, currentmap.Surfaces.BackgoundPicture);
+            createBackground(ref mBackground, mCurrentmap.Surfaces.BackgoundPicture);
 
             //loadWalls
-            createWall(ref wall1, currentmap.Surfaces.MapWalls[0]);
-            createWall(ref wall2, currentmap.Surfaces.MapWalls[1]);
-            createWall(ref wall3, currentmap.Surfaces.MapWalls[2]);
-            createWall(ref wall4, currentmap.Surfaces.MapWalls[3]);
+            createWall(ref mWall1, mCurrentmap.Surfaces.MapWalls[0]);
+            createWall(ref mWall2, mCurrentmap.Surfaces.MapWalls[1]);
+            createWall(ref mWall3, mCurrentmap.Surfaces.MapWalls[2]);
+            createWall(ref mWall4, mCurrentmap.Surfaces.MapWalls[3]);
         }
 #if DEBUG
         public void unloadBodies()
         {
-            mWorld.RemoveBody(wall1.mSpriteBody);
-            mWorld.RemoveBody(wall2.mSpriteBody);
-            mWorld.RemoveBody(wall3.mSpriteBody);
-            mWorld.RemoveBody(wall4.mSpriteBody);
+            mWorld.RemoveBody(mWall1.mSpriteBody);
+            mWorld.RemoveBody(mWall2.mSpriteBody);
+            mWorld.RemoveBody(mWall3.mSpriteBody);
+            mWorld.RemoveBody(mWall4.mSpriteBody);
         }
 #endif
         public void loadMap(ContentManager cm)
         {
-            MapSurfacesBackgoundPicture backgrnd = currentmap.Surfaces.BackgoundPicture;
-            background.LoadContent(cm, backgrnd.AssetName);
+            MapSurfacesBackgoundPicture backgrnd = mCurrentmap.Surfaces.BackgoundPicture;
+            mBackground.LoadContent(cm, backgrnd.AssetName);
 
-            MapSurfacesWall[] wallSpecs = currentmap.Surfaces.MapWalls;
-            wall1.LoadContent(cm, wallSpecs[0].Asset.name);
-            wall2.LoadContent(cm, wallSpecs[1].Asset.name);
-            wall3.LoadContent(cm, wallSpecs[2].Asset.name);
-            wall4.LoadContent(cm, wallSpecs[3].Asset.name);
+            MapSurfacesWall[] wallSpecs = mCurrentmap.Surfaces.MapWalls;
+            mWall1.LoadContent(cm, wallSpecs[0].Asset.name);
+            mWall2.LoadContent(cm, wallSpecs[1].Asset.name);
+            mWall3.LoadContent(cm, wallSpecs[2].Asset.name);
+            mWall4.LoadContent(cm, wallSpecs[3].Asset.name);
         }
 
         public void drawMap(SpriteBatch sb)
         {
-            background.Draw(sb);
-            wall1.Draw(sb);
-            wall2.Draw(sb);
-            wall3.Draw(sb);
-            wall4.Draw(sb);
+            mBackground.Draw(sb);
+            mWall1.Draw(sb);
+            mWall2.Draw(sb);
+            mWall3.Draw(sb);
+            mWall4.Draw(sb);
         }
 
         private void createWall(ref SpriteObjects.Wall wall, MapSurfacesWall wallSpec)
@@ -92,7 +128,7 @@ namespace Gravitation.Maps
 
         private void createBackground(ref SpriteObjects.Sprite back, MapSurfacesBackgoundPicture backSpec)
         {
-            Vector2 backPos = new Vector2(-900, -800);
+            Vector2 backPos = new Vector2(0, -800);
             float spriteRotation = 0;
 
           /*  Vector2 backPos = new Vector2(

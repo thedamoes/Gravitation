@@ -3,6 +3,14 @@
   <xs:element name="Map">
     <xs:complexType>
       <xs:sequence>
+        <xs:element name="MapDimentions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Width" type="xs:unsignedShort" />
+              <xs:element name="Height" type="xs:unsignedShort" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="Surfaces">
           <xs:complexType>
             <xs:sequence>
@@ -29,7 +37,7 @@
                                   <xs:complexType>
                                     <xs:sequence>
                                       <xs:element name="X" type="xs:decimal" />
-                                      <xs:element name="Y" type="xs:decimal" />
+                                      <xs:element name="Y" type="xs:unsignedByte" />
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>
@@ -37,8 +45,8 @@
                                 <xs:element name="Position">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="X" type="xs:integer" />
-                                      <xs:element name="Y" type="xs:integer" />
+                                      <xs:element name="X" type="xs:short" />
+                                      <xs:element name="Y" type="xs:short" />
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>
