@@ -25,6 +25,11 @@ namespace Gravitation.ControllerAgents
             get { return mShip.Position; }
         }
 
+
+        public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+
+
+
         #endregion
 
         public LocalAgent(SpriteObjects.Ship ship)
@@ -54,6 +59,10 @@ namespace Gravitation.ControllerAgents
         public void fire()
         {
             // implement later
+
+
+
+
         }
         public void stall()
         {
@@ -101,13 +110,35 @@ namespace Gravitation.ControllerAgents
 
             resetParams();
         }
+
+
+        public void updateShot()
+        {
+            foreach (SpriteObjects.Shot aShot in mShots)
+            {
+
+                aShot.Update();
+
+            }
+        }
+
+
         public void loadShip(ContentManager cm)
         {
             mShip.LoadContent(cm ,"Ship");
+
+            foreach (SpriteObjects.Shot aShot in mShots)
+            {
+
+                aShot.LoadContent(cm);
+
+            }
+
         }
         public void Draw(SpriteBatch sBatch)
         {
             mShip.Draw(sBatch);
+            mShots.Draw(sBatch, mShip.mSpriteBody.Rotation);
         }
 
         #endregion
