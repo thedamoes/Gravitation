@@ -106,7 +106,7 @@ public partial class MapSurfaces {
     
     private MapSurfacesWall[] mapWallsField;
     
-    private MapSurfacesObsticals obsticalsField;
+    private MapSurfacesAsset[] obsticalsField;
     
     /// <remarks/>
     public MapSurfacesBackgoundPicture BackgoundPicture {
@@ -130,7 +130,8 @@ public partial class MapSurfaces {
     }
     
     /// <remarks/>
-    public MapSurfacesObsticals Obsticals {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Asset", IsNullable=false)]
+    public MapSurfacesAsset[] Obsticals {
         get {
             return this.obsticalsField;
         }
@@ -215,9 +216,9 @@ public partial class MapSurfacesWall {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapSurfacesWallAsset {
     
-    private ushort heightField;
+    private string heightField;
     
-    private ushort widthField;
+    private string widthField;
     
     private MapSurfacesWallAssetScale scaleField;
     
@@ -228,7 +229,8 @@ public partial class MapSurfacesWallAsset {
     private string nameField;
     
     /// <remarks/>
-    public ushort Height {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Height {
         get {
             return this.heightField;
         }
@@ -238,7 +240,8 @@ public partial class MapSurfacesWallAsset {
     }
     
     /// <remarks/>
-    public ushort Width {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Width {
         get {
             return this.widthField;
         }
@@ -299,7 +302,7 @@ public partial class MapSurfacesWallAssetScale {
     
     private decimal xField;
     
-    private byte yField;
+    private decimal yField;
     
     /// <remarks/>
     public decimal X {
@@ -312,7 +315,7 @@ public partial class MapSurfacesWallAssetScale {
     }
     
     /// <remarks/>
-    public byte Y {
+    public decimal Y {
         get {
             return this.yField;
         }
@@ -330,12 +333,13 @@ public partial class MapSurfacesWallAssetScale {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapSurfacesWallAssetPosition {
     
-    private short xField;
+    private string xField;
     
-    private short yField;
+    private string yField;
     
     /// <remarks/>
-    public short X {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
         get {
             return this.xField;
         }
@@ -345,7 +349,8 @@ public partial class MapSurfacesWallAssetPosition {
     }
     
     /// <remarks/>
-    public short Y {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
         get {
             return this.yField;
         }
@@ -361,41 +366,25 @@ public partial class MapSurfacesWallAssetPosition {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapSurfacesObsticals {
+public partial class MapSurfacesAsset {
     
-    private MapSurfacesObsticalsAsset assetField;
+    private string heightField;
     
-    /// <remarks/>
-    public MapSurfacesObsticalsAsset Asset {
-        get {
-            return this.assetField;
-        }
-        set {
-            this.assetField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapSurfacesObsticalsAsset {
+    private string widthField;
     
-    private byte heightField;
+    private MapSurfacesAssetScale scaleField;
     
-    private byte widthField;
+    private decimal rotationField;
     
-    private MapSurfacesObsticalsAssetScale scaleField;
+    private bool rotationFieldSpecified;
     
-    private MapSurfacesObsticalsAssetPosition positionField;
+    private MapSurfacesAssetPosition positionField;
     
     private string nameField;
     
     /// <remarks/>
-    public byte Height {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Height {
         get {
             return this.heightField;
         }
@@ -405,7 +394,8 @@ public partial class MapSurfacesObsticalsAsset {
     }
     
     /// <remarks/>
-    public byte Width {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Width {
         get {
             return this.widthField;
         }
@@ -415,7 +405,7 @@ public partial class MapSurfacesObsticalsAsset {
     }
     
     /// <remarks/>
-    public MapSurfacesObsticalsAssetScale Scale {
+    public MapSurfacesAssetScale Scale {
         get {
             return this.scaleField;
         }
@@ -425,7 +415,28 @@ public partial class MapSurfacesObsticalsAsset {
     }
     
     /// <remarks/>
-    public MapSurfacesObsticalsAssetPosition Position {
+    public decimal Rotation {
+        get {
+            return this.rotationField;
+        }
+        set {
+            this.rotationField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool RotationSpecified {
+        get {
+            return this.rotationFieldSpecified;
+        }
+        set {
+            this.rotationFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public MapSurfacesAssetPosition Position {
         get {
             return this.positionField;
         }
@@ -452,14 +463,14 @@ public partial class MapSurfacesObsticalsAsset {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapSurfacesObsticalsAssetScale {
+public partial class MapSurfacesAssetScale {
     
-    private byte xField;
+    private decimal xField;
     
-    private byte yField;
+    private decimal yField;
     
     /// <remarks/>
-    public byte X {
+    public decimal X {
         get {
             return this.xField;
         }
@@ -469,7 +480,7 @@ public partial class MapSurfacesObsticalsAssetScale {
     }
     
     /// <remarks/>
-    public byte Y {
+    public decimal Y {
         get {
             return this.yField;
         }
@@ -485,14 +496,15 @@ public partial class MapSurfacesObsticalsAssetScale {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapSurfacesObsticalsAssetPosition {
+public partial class MapSurfacesAssetPosition {
     
-    private byte xField;
+    private string xField;
     
-    private byte yField;
+    private string yField;
     
     /// <remarks/>
-    public byte X {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
         get {
             return this.xField;
         }
@@ -502,7 +514,8 @@ public partial class MapSurfacesObsticalsAssetPosition {
     }
     
     /// <remarks/>
-    public byte Y {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
         get {
             return this.yField;
         }

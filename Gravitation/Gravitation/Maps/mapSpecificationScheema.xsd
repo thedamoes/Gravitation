@@ -31,13 +31,13 @@
                           <xs:element name="Asset">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="Height" type="xs:unsignedShort" />
-                                <xs:element name="Width" type="xs:unsignedShort" />
+                                <xs:element name="Height" type="xs:integer" />
+                                <xs:element name="Width" type="xs:integer" />
                                 <xs:element name="Scale">
                                   <xs:complexType>
                                     <xs:sequence>
                                       <xs:element name="X" type="xs:decimal" />
-                                      <xs:element name="Y" type="xs:unsignedByte" />
+                                      <xs:element name="Y" type="xs:decimal" />
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>
@@ -45,8 +45,8 @@
                                 <xs:element name="Position">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="X" type="xs:short" />
-                                      <xs:element name="Y" type="xs:short" />
+                                      <xs:element name="X" type="xs:integer" />
+                                      <xs:element name="Y" type="xs:integer" />
                                     </xs:sequence>
                                   </xs:complexType>
                                 </xs:element>
@@ -64,24 +64,25 @@
               <xs:element name="Obsticals">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Asset">
+                    <xs:element maxOccurs="unbounded" name="Asset">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="Height" type="xs:unsignedByte" />
-                          <xs:element name="Width" type="xs:unsignedByte" />
+                          <xs:element name="Height" type="xs:integer" />
+                          <xs:element name="Width" type="xs:integer" />
                           <xs:element name="Scale">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="X" type="xs:unsignedByte" />
-                                <xs:element name="Y" type="xs:unsignedByte" />
+                                <xs:element name="X" type="xs:decimal" />
+                                <xs:element name="Y" type="xs:decimal" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
+                          <xs:element minOccurs="0" name="Rotation" type="xs:decimal" />
                           <xs:element name="Position">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="X" type="xs:unsignedByte" />
-                                <xs:element name="Y" type="xs:unsignedByte" />
+                                <xs:element name="X" type="xs:integer" />
+                                <xs:element name="Y" type="xs:integer" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>

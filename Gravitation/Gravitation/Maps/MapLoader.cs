@@ -14,12 +14,14 @@ namespace Gravitation.Maps
     class MapLoader
     {
         private Map mCurrentmap;
-        private SpriteObjects.Wall mWall1;
-        private SpriteObjects.Wall mWall2;
-        private SpriteObjects.Wall mWall3;
-        private SpriteObjects.Wall mWall4;
+        
+        private SpriteObjects.Wall mLeftWall;
+        private SpriteObjects.Wall mRightWall;
+        private SpriteObjects.Wall mBottomWall;
+        private SpriteObjects.Wall mTopWall;
         private SpriteObjects.Sprite mBackground;
 
+        private SpriteObjects.Obstical[] mObsicals;
 
         private World mWorld;
 
@@ -35,28 +37,28 @@ namespace Gravitation.Maps
         {
             get
             {
-                return mCurrentmap.Surfaces.MapWalls[0].Asset.Position.X;
+                return Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[0].Asset.Position.X);
             }
         }
         public short rightWallPosX
         {
             get
             {
-                return mCurrentmap.Surfaces.MapWalls[1].Asset.Position.X;
+                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[1].Asset.Position.X);
             }
         }
         public short bottonWallPosY
         {
             get
             {
-                return mCurrentmap.Surfaces.MapWalls[2].Asset.Position.Y;
+                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[2].Asset.Position.Y);
             }
         }
         public short topWallPosY
         {
             get
             {
-                return mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y;
+                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y);
             }
         }
 
@@ -71,40 +73,55 @@ namespace Gravitation.Maps
             createBackground(ref mBackground, mCurrentmap.Surfaces.BackgoundPicture);
 
             //loadWalls
-            createWall(ref mWall1, mCurrentmap.Surfaces.MapWalls[0]);
-            createWall(ref mWall2, mCurrentmap.Surfaces.MapWalls[1]);
-            createWall(ref mWall3, mCurrentmap.Surfaces.MapWalls[2]);
-            createWall(ref mWall4, mCurrentmap.Surfaces.MapWalls[3]);
+            createWall(ref mLeftWall, mCurrentmap.Surfaces.MapWalls[0]);
+            createWall(ref mRightWall, mCurrentmap.Surfaces.MapWalls[1]);
+            createWall(ref mBottomWall, mCurrentmap.Surfaces.MapWalls[2]);
+            createWall(ref mTopWall, mCurrentmap.Surfaces.MapWalls[3]);
+
+            // create obsticals
+            createObsicals(ref mObsicals, mCurrentmap.Surfaces.Obsticals);
         }
 #if DEBUG
         public void unloadBodies()
         {
-            mWorld.RemoveBody(mWall1.mSpriteBody);
-            mWorld.RemoveBody(mWall2.mSpriteBody);
-            mWorld.RemoveBody(mWall3.mSpriteBody);
-            mWorld.RemoveBody(mWall4.mSpriteBody);
+            mWorld.RemoveBody(mLeftWall.mSpriteBody);
+            mWorld.RemoveBody(mRightWall.mSpriteBody);
+            mWorld.RemoveBody(mBottomWall.mSpriteBody);
+            mWorld.RemoveBody(mTopWall.mSpriteBody);
         }
 #endif
         public void loadMap(ContentManager cm)
         {
+            // load map
             MapSurfacesBackgoundPicture backgrnd = mCurrentmap.Surfaces.BackgoundPicture;
             mBackground.LoadContent(cm, backgrnd.AssetName);
 
+            // load walls
             MapSurfacesWall[] wallSpecs = mCurrentmap.Surfaces.MapWalls;
-            mWall1.LoadContent(cm, wallSpecs[0].Asset.name);
-            mWall2.LoadContent(cm, wallSpecs[1].Asset.name);
-            mWall3.LoadContent(cm, wallSpecs[2].Asset.name);
-            mWall4.LoadContent(cm, wallSpecs[3].Asset.name);
+            mLeftWall.LoadContent(cm, wallSpecs[0].Asset.name);
+            mRightWall.LoadContent(cm, wallSpecs[1].Asset.name);
+            mBottomWall.LoadContent(cm, wallSpecs[2].Asset.name);
+            mTopWall.LoadContent(cm, wallSpecs[3].Asset.name);
+
+            // load obsitcals
+            for (int i = 0; i < mObsicals.Length; i++)
+                mObsicals[i].LoadContent(cm, mCurrentmap.Surfaces.Obsticals[i].name);
+
         }
 
         public void drawMap(SpriteBatch sb)
         {
-            mBackground.Draw(sb);
-            mWall1.Draw(sb);
-            mWall2.Draw(sb);
-            mWall3.Draw(sb);
-            mWall4.Draw(sb);
+            mBackground.Draw(sb); // draw background
+            
+            mLeftWall.Draw(sb); // draw walls
+            mRightWall.Draw(sb);
+            mBottomWall.Draw(sb);
+            mTopWall.Draw(sb);
+
+            for (int i = 0; i < mObsicals.Length; i++)
+                mObsicals[i].Draw(sb);
         }
+
 
         private void createWall(ref SpriteObjects.Wall wall, MapSurfacesWall wallSpec)
         {
@@ -143,8 +160,28 @@ namespace Gravitation.Maps
             back = new SpriteObjects.Sprite(backPos, spriteRotation);
             back.WidthScale = backScale;
             back.HeightScale = backScale;
+        }
 
+        private void createObsicals(ref SpriteObjects.Obstical[] obsicals, MapSurfacesAsset[] obsicalsSpec)
+        {
+            obsicals = new SpriteObjects.Obstical[obsicalsSpec.Length];
 
+            for (int i = 0; i < obsicals.Length; i++)
+            {
+                Vector2 obsticalPos = new Vector2(
+                                               Convert.ToInt32(obsicalsSpec[i].Position.X),
+                                               Convert.ToInt32(obsicalsSpec[i].Position.Y)
+                                           );
+
+                Vector2 obsticalPosScale = new Vector2(
+                                            (float)Convert.ToDecimal(obsicalsSpec[i].Scale.X),
+                                            (float)Convert.ToDecimal(obsicalsSpec[i].Scale.Y)
+                    );
+
+                float rotation = (float)Convert.ToDecimal(obsicalsSpec[i].Rotation);
+
+                obsicals[i] = new SpriteObjects.Obstical(mWorld, obsticalPos, obsticalPosScale, rotation);
+            }
 
         }
 

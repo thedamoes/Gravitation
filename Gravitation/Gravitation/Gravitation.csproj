@@ -123,6 +123,7 @@
     <Compile Include="Maps\mapSpecificationScheema.cs">
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
     <Compile Include="SpriteObjects\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

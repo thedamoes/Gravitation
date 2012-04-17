@@ -84,18 +84,33 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 		</MapWalls>
 
 		<Obsticals>
-			<Asset name="map1floatingBlock">
+			<Asset name="rock2f">
 					<Height>100</Height>
 					<Width>100</Width>
 					<Scale>
 						<X>1</X>
 						<Y>1</Y>
 					</Scale>
+          <Rotation>0.0</Rotation>
 					<Position>
-						<X>50</X>
-						<Y>100</Y>
+						<X>500</X>
+						<Y>-500</Y>
 					</Position>
 			</Asset>
+
+      <Asset name="rock2f">
+        <Height>100</Height>
+        <Width>100</Width>
+        <Scale>
+          <X>1</X>
+          <Y>1</Y>
+        </Scale>
+        <Position>
+          <X>1000</X>
+          <Y>-300</Y>
+        </Position>
+      </Asset>
+      
 		</Obsticals>
 
 	</Surfaces>
