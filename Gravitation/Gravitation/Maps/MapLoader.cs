@@ -19,6 +19,9 @@ namespace Gravitation.Maps
         SpriteObjects.Wall wall3;
         SpriteObjects.Wall wall4;
 
+        SpriteObjects.Sprite background;
+
+
         World mWorld;
 
         public MapLoader(String fileName, World world)
@@ -27,6 +30,9 @@ namespace Gravitation.Maps
             Stream mapXml= new FileStream(fileName,FileMode.Open);
             XmlSerializer serialiser = new XmlSerializer(typeof(Map));
             currentmap = (Map)serialiser.Deserialize(mapXml);
+
+            //loadBackground
+            createBackground(ref background, currentmap.Surfaces.BackgoundPicture);
 
             //loadWalls
             createWall(ref wall1, currentmap.Surfaces.MapWalls[0]);
@@ -45,6 +51,9 @@ namespace Gravitation.Maps
 #endif
         public void loadMap(ContentManager cm)
         {
+            MapSurfacesBackgoundPicture backgrnd = currentmap.Surfaces.BackgoundPicture;
+            background.LoadContent(cm, backgrnd.AssetName);
+
             MapSurfacesWall[] wallSpecs = currentmap.Surfaces.MapWalls;
             wall1.LoadContent(cm, wallSpecs[0].Asset.name);
             wall2.LoadContent(cm, wallSpecs[1].Asset.name);
@@ -54,6 +63,7 @@ namespace Gravitation.Maps
 
         public void drawMap(SpriteBatch sb)
         {
+            background.Draw(sb);
             wall1.Draw(sb);
             wall2.Draw(sb);
             wall3.Draw(sb);
@@ -72,10 +82,36 @@ namespace Gravitation.Maps
                                         (float)Convert.ToDecimal(wallSpec.Asset.Scale.Y)
                 );
 
-            wall = new SpriteObjects.Wall(mWorld, wallPos);
+            float spriteRotation = (float)Convert.ToDecimal(wallSpec.Asset.Rotation);
+
+            wall = new SpriteObjects.Wall(mWorld, wallPos, spriteRotation);
             wall.WidthScale = scale.X;
             wall.HeightScale = scale.Y;
 
         }
+
+        private void createBackground(ref SpriteObjects.Sprite back, MapSurfacesBackgoundPicture backSpec)
+        {
+            Vector2 backPos = new Vector2(-900, -800);
+            float spriteRotation = 0;
+
+          /*  Vector2 backPos = new Vector2(
+                                            Convert.ToInt32(backSpec.Asset.Position.X),
+                                            Convert.ToInt32(backSpec.Asset.Position.Y)
+                                        );*/
+
+            float backScale = (float)Convert.ToDecimal(backSpec.Scale);
+
+          //  float spriteRotation = (float)Convert.ToDecimal(backSpec.Asset.Rotation);
+
+            back = new SpriteObjects.Sprite(backPos, spriteRotation);
+            back.WidthScale = backScale;
+            back.HeightScale = backScale;
+
+
+
+        }
+
+
     }
 }

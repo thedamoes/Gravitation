@@ -17,11 +17,13 @@ namespace Gravitation.SpriteObjects
     {
         private World mWorld;
         private Vector2 mPosition;
+        private float mrotation;
 
-        public Wall(World world, Vector2 position)
+        public Wall(World world, Vector2 position, float rotation)
         {
             this.mPosition = position;
             this.mWorld = world;
+            this.mrotation = rotation;
         }
 
         public override void LoadContent(ContentManager theContentManager, string theAssetName)
@@ -69,6 +71,7 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 0.4f;
             base.mSpriteBody.IsStatic = true;
+            base.mSpriteBody.Rotation = mrotation;
         }
 
         public override void Draw(SpriteBatch theSpriteBatch)

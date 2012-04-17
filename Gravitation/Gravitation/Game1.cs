@@ -264,7 +264,7 @@ namespace Gravitation
      
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _view);
 
-          
+            mMapLoader.drawMap(spriteBatch);
 
             mPlayer1.Draw(spriteBatch);
 
@@ -284,7 +284,6 @@ namespace Gravitation
 
 #endif
 
-            mMapLoader.drawMap(spriteBatch);
 
             spriteBatch.End();
             

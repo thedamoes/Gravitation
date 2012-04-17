@@ -98,6 +98,7 @@ namespace Gravitation.SpriteObjects
                 Size = new Rectangle(0, 0, (int)(Source.Width * WidthScale), (int)(Source.Height * HeightScale));
             }
         }
+
         public Body mSpriteBody;
         public Vector2 spriteOrigin;
         public List<Vertices> list;
@@ -106,11 +107,27 @@ namespace Gravitation.SpriteObjects
         protected Texture2D mSpriteTexture;
         protected const float MeterInPixels = 64f;
 
+        private float mspriteRotation;
+        private Vector2 mspritePos;
+
         private float mWidthScale = 1f;
         private float mHeightScale = 1f;
         private Rectangle mSource;
      
         #endregion
+
+
+
+        public Sprite(Vector2 position, float rotation)
+        {
+            this.mspritePos = position;
+            this.mspriteRotation = rotation;
+        }
+
+        public Sprite()
+        {
+
+        }
 
         public virtual void LoadContent(ContentManager theContentManager, string theAssetName)
         {
@@ -124,11 +141,15 @@ namespace Gravitation.SpriteObjects
 
         public virtual void Draw(SpriteBatch theSpriteBatch)
         {
-            Vector2 spritePos = mSpriteBody.Position * MeterInPixels;
+            if (mSpriteBody != null)
+            {
+                mspritePos = mSpriteBody.Position * MeterInPixels;
+                mspriteRotation = mSpriteBody.Rotation;
+            }
 
 
-            theSpriteBatch.Draw(mSpriteTexture, spritePos, Source,
-                Color.White, mSpriteBody.Rotation, spriteOrigin,
+            theSpriteBatch.Draw(mSpriteTexture, mspritePos, Source,
+                Color.White, mspriteRotation , spriteOrigin,
                 new Vector2(WidthScale, HeightScale), SpriteEffects.None, 0f);
 
         }

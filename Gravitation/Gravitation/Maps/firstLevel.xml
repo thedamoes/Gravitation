@@ -7,8 +7,8 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 
 	<Surfaces>
 		<BackgoundPicture>	
-			<AssetName>map1Background</AssetName>
-			<Scale>1</Scale>
+			<AssetName>smudgystars</AssetName>
+			<Scale>2</Scale>
 		</BackgoundPicture>
 		
 		<MapWalls>
@@ -20,7 +20,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>0.5</X>
 						<Y>10</Y>
 					</Scale>
-          <Rotation>0</Rotation>
+          <Rotation>0.0</Rotation>
 					<Position>
             <X>-900</X>
             <Y>0</Y>
