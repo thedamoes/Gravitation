@@ -9,11 +9,19 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
     <Height>1100</Height>
   </MapDimentions>
 	<Surfaces>
-		<BackgoundPicture>	
-			<AssetName>smudgystars</AssetName>
-			<Scale>2</Scale>
+    <BackgoundPicture>
+      <Asset name="smudgystars">
+        <Scale>
+          <X>2</X>
+          <Y>2</Y>
+        </Scale>
+        <Rotation>0.0</Rotation>
+        <Position>
+          <X>0</X>
+          <Y>-800</Y>
+        </Position>
+      </Asset>
 		</BackgoundPicture>
-		
 		<MapWalls>
 			<Wall walltype="left">
 				<Asset name="floor">
@@ -91,7 +99,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 						<X>1</X>
 						<Y>1</Y>
 					</Scale>
-          <Rotation>0.0</Rotation>
+          <Rotation>2.0</Rotation>
 					<Position>
 						<X>500</X>
 						<Y>-500</Y>
@@ -132,5 +140,20 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 		</Powerup>
 		
   	</Powerups>
+
+  <SpawnPoint>
+    <Player1>
+      <X>1000</X>
+      <Y>0</Y>
+    </Player1>
+    <Player2>
+      <X>0</X>
+      <Y>0</Y>
+    </Player2>
+    <default>
+      <X>600</X>
+      <Y>0</Y>
+    </default>
+  </SpawnPoint>
 	
 </Map>

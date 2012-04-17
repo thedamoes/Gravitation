@@ -17,8 +17,30 @@
               <xs:element name="BackgoundPicture">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="AssetName" type="xs:string" />
-                    <xs:element name="Scale" type="xs:unsignedByte" />
+                    <xs:element name="Asset">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Scale">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:integer" />
+                                <xs:element name="Y" type="xs:integer" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Rotation" type="xs:decimal" />
+                          <xs:element name="Position">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="X" type="xs:integer" />
+                                <xs:element name="Y" type="xs:integer" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -129,6 +151,36 @@
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute name="powerupType" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SpawnPoint">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Player1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="X" type="xs:integer" />
+                    <xs:element name="Y" type="xs:integer" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Player2">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="X" type="xs:integer" />
+                    <xs:element name="Y" type="xs:integer" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="default">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="X" type="xs:integer" />
+                    <xs:element name="Y" type="xs:integer" />
+                  </xs:sequence>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

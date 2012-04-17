@@ -119,10 +119,13 @@
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
     <Compile Include="ControllerAgents\NetworkedAgent.cs" />
+    <Compile Include="Screens\GameScreen.cs" />
+    <Compile Include="Screens\IDrawableScreen.cs" />
     <Compile Include="Maps\MapLoader.cs" />
     <Compile Include="Maps\mapSpecificationScheema.cs">
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
     <Compile Include="SpriteObjects\SolidSprite.cs" />

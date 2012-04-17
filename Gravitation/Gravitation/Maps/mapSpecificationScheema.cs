@@ -30,6 +30,8 @@ public partial class Map {
     
     private MapPowerups powerupsField;
     
+    private MapSpawnPoint spawnPointField;
+    
     /// <remarks/>
     public MapMapDimentions MapDimentions {
         get {
@@ -57,6 +59,16 @@ public partial class Map {
         }
         set {
             this.powerupsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public MapSpawnPoint SpawnPoint {
+        get {
+            return this.spawnPointField;
+        }
+        set {
+            this.spawnPointField = value;
         }
     }
 }
@@ -149,27 +161,143 @@ public partial class MapSurfaces {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapSurfacesBackgoundPicture {
     
-    private string assetNameField;
-    
-    private byte scaleField;
+    private MapSurfacesBackgoundPictureAsset assetField;
     
     /// <remarks/>
-    public string AssetName {
+    public MapSurfacesBackgoundPictureAsset Asset {
         get {
-            return this.assetNameField;
+            return this.assetField;
         }
         set {
-            this.assetNameField = value;
+            this.assetField = value;
         }
     }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSurfacesBackgoundPictureAsset {
+    
+    private MapSurfacesBackgoundPictureAssetScale scaleField;
+    
+    private decimal rotationField;
+    
+    private MapSurfacesBackgoundPictureAssetPosition positionField;
+    
+    private string nameField;
     
     /// <remarks/>
-    public byte Scale {
+    public MapSurfacesBackgoundPictureAssetScale Scale {
         get {
             return this.scaleField;
         }
         set {
             this.scaleField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public decimal Rotation {
+        get {
+            return this.rotationField;
+        }
+        set {
+            this.rotationField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public MapSurfacesBackgoundPictureAssetPosition Position {
+        get {
+            return this.positionField;
+        }
+        set {
+            this.positionField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSurfacesBackgoundPictureAssetScale {
+    
+    private string xField;
+    
+    private string yField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
+        get {
+            return this.xField;
+        }
+        set {
+            this.xField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
+        get {
+            return this.yField;
+        }
+        set {
+            this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSurfacesBackgoundPictureAssetPosition {
+    
+    private string xField;
+    
+    private string yField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
+        get {
+            return this.xField;
+        }
+        set {
+            this.xField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
+        get {
+            return this.yField;
+        }
+        set {
+            this.yField = value;
         }
     }
 }
@@ -707,6 +835,156 @@ public partial class MapPowerupsPowerupAssetPosition {
     
     /// <remarks/>
     public byte Y {
+        get {
+            return this.yField;
+        }
+        set {
+            this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSpawnPoint {
+    
+    private MapSpawnPointPlayer1 player1Field;
+    
+    private MapSpawnPointPlayer2 player2Field;
+    
+    private MapSpawnPointDefault defaultField;
+    
+    /// <remarks/>
+    public MapSpawnPointPlayer1 Player1 {
+        get {
+            return this.player1Field;
+        }
+        set {
+            this.player1Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public MapSpawnPointPlayer2 Player2 {
+        get {
+            return this.player2Field;
+        }
+        set {
+            this.player2Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    public MapSpawnPointDefault @default {
+        get {
+            return this.defaultField;
+        }
+        set {
+            this.defaultField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSpawnPointPlayer1 {
+    
+    private string xField;
+    
+    private string yField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
+        get {
+            return this.xField;
+        }
+        set {
+            this.xField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
+        get {
+            return this.yField;
+        }
+        set {
+            this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSpawnPointPlayer2 {
+    
+    private string xField;
+    
+    private string yField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
+        get {
+            return this.xField;
+        }
+        set {
+            this.xField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
+        get {
+            return this.yField;
+        }
+        set {
+            this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
+public partial class MapSpawnPointDefault {
+    
+    private string xField;
+    
+    private string yField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
+        get {
+            return this.xField;
+        }
+        set {
+            this.xField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
         get {
             return this.yField;
         }

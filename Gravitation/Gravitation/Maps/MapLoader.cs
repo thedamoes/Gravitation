@@ -61,6 +61,14 @@ namespace Gravitation.Maps
                 return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y);
             }
         }
+        public Vector2 shipStartPosP1
+        {
+            get
+            {
+                return new Vector2(Convert.ToInt32(mCurrentmap.SpawnPoint.Player1.X),
+                                   Convert.ToInt32(mCurrentmap.SpawnPoint.Player1.Y));
+            }
+        }
 
         public MapLoader(String fileName, World world)
         {
@@ -94,7 +102,7 @@ namespace Gravitation.Maps
         {
             // load map
             MapSurfacesBackgoundPicture backgrnd = mCurrentmap.Surfaces.BackgoundPicture;
-            mBackground.LoadContent(cm, backgrnd.AssetName);
+            mBackground.LoadContent(cm, backgrnd.Asset.name);
 
             // load walls
             MapSurfacesWall[] wallSpecs = mCurrentmap.Surfaces.MapWalls;
@@ -145,21 +153,19 @@ namespace Gravitation.Maps
 
         private void createBackground(ref SpriteObjects.Sprite back, MapSurfacesBackgoundPicture backSpec)
         {
-            Vector2 backPos = new Vector2(0, -800);
-            float spriteRotation = 0;
-
-          /*  Vector2 backPos = new Vector2(
+            Vector2 backPos = new Vector2(
                                             Convert.ToInt32(backSpec.Asset.Position.X),
                                             Convert.ToInt32(backSpec.Asset.Position.Y)
-                                        );*/
+                                        );
 
-            float backScale = (float)Convert.ToDecimal(backSpec.Scale);
+            float backScaleX = (float)Convert.ToDecimal(backSpec.Asset.Scale.X);
+            float backScaleY = (float)Convert.ToDecimal(backSpec.Asset.Scale.Y);
 
-          //  float spriteRotation = (float)Convert.ToDecimal(backSpec.Asset.Rotation);
+            float spriteRotation = (float)Convert.ToDecimal(backSpec.Asset.Rotation);
 
             back = new SpriteObjects.Sprite(backPos, spriteRotation);
-            back.WidthScale = backScale;
-            back.HeightScale = backScale;
+            back.WidthScale = backScaleX;
+            back.HeightScale = backScaleY;
         }
 
         private void createObsicals(ref SpriteObjects.Obstical[] obsicals, MapSurfacesAsset[] obsicalsSpec)
