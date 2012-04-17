@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
+    <Compile Include="SpriteObjects\SolidSprite.cs" />
     <Compile Include="SpriteObjects\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
