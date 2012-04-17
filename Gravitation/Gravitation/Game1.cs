@@ -25,30 +25,15 @@ namespace Gravitation
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        protected DebugViewXNA debugView;
+       
 
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
-        private SpriteFont _font;
 
-        private World _world;
-
-        private Texture2D _groundSprite;
-
-        // Simple camera controls
-        private Matrix _view;
-        private Vector2 _cameraPosition;
-        private Vector2 _screenCenter;
-        private Vector3 _cameraZoom;
-
-        private const float MeterInPixels = 64f;
-
-        private Maps.MapLoader mMapLoader;
-
-        private ControllerAgents.LocalAgent mPlayer1;
+        private Screens.IDrawableScreen currentScreen;
 
         public Game1()
         {
@@ -58,13 +43,7 @@ namespace Gravitation
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
 
-            _world = new World(new Vector2(0, 2));
-            mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(_world, (new Vector2(graphics.PreferredBackBufferWidth / 2f,
-                                                graphics.PreferredBackBufferHeight / 2f) / MeterInPixels) + new Vector2((6f * MeterInPixels), -1.25f)));
-
-            mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml",_world);
-            _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
-            
+            currentScreen = new Screens.GameScreen();
 
         }
 
@@ -90,213 +69,43 @@ namespace Gravitation
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
-            // Initialize camera controls
-            _view = Matrix.Identity *
-                        Matrix.CreateScale(_cameraZoom);
-
-            _cameraPosition = Vector2.Zero;
-
-            _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
-                                                graphics.GraphicsDevice.Viewport.Height / 2f);
-
-            _font = Content.Load<SpriteFont>("font");
-
-            // Load sprites
-            _groundSprite = Content.Load<Texture2D>("platform"); // 512px x 64px =>   8m x 1m
-
-            mPlayer1.loadShip(Content);
-
-
-            /* Ground */
-            Vector2 groundPosition = (_screenCenter / MeterInPixels)+ new Vector2(0, 1.25f);
-          
-
-            // load the map
-            mMapLoader.loadMap(Content);
-
-
-            debugView = new DebugViewXNA(_world);
-            debugView.AppendFlags(DebugViewFlags.DebugPanel);
-            debugView.DefaultShapeColor = Color.White;
-            debugView.SleepingShapeColor = Color.LightGray;
-            debugView.RemoveFlags(DebugViewFlags.Controllers);
-            debugView.RemoveFlags(DebugViewFlags.Joint);
-  
-
-
-            debugView.LoadContent(GraphicsDevice, Content);
-
-
-
-            // TODO: use this.Content to load your game content here
+            currentScreen.LoadContent(spriteBatch, graphics, Content);
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            
             HandleKeyboard();
-         
-            //maintain camera position
-            float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
-            float playerPosInPixlesY = (-mPlayer1.myPosition.Y * MeterInPixels);  // are what the "zoom"
-            float camX = (playerPosInPixlesX + graphics.PreferredBackBufferWidth);  // offsets the camera by
-            float camY = (playerPosInPixlesY + graphics.PreferredBackBufferHeight); // from it's origin
-
-            // couldent think of any other better way to do it?? if u can feel free
-            // these lines stop the cammera from moveing past the bounds of the map
-                 if (-playerPosInPixlesX < (graphics.PreferredBackBufferWidth - mMapLoader.leftWallPosX))       _cameraPosition.X = (mMapLoader.leftWallPosX);
-            else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth))      _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth)*2);
-            else                                                                                                _cameraPosition.X = camX;
-
-                 if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY))       _cameraPosition.Y = (-mMapLoader.topWallPosY);
-            else if (-playerPosInPixlesY > (mMapLoader.bottonWallPosY - graphics.PreferredBackBufferHeight))    _cameraPosition.Y = (graphics.PreferredBackBufferHeight*2) - mMapLoader.bottonWallPosY;
-            else                                                                                                _cameraPosition.Y = camY; 
-           
-                                                                                                                
-                                                                                                                 
-
-            _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                Matrix.CreateTranslation(new Vector3(_screenCenter, 0f))*
-                 Matrix.CreateScale(_cameraZoom);
-
-            //update Controlling agients
-            mPlayer1.applyMovement();
-
-            _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
+            currentScreen.Update(gameTime);
 
             base.Update(gameTime);
         }
-
-
-
-        private bool _rectangleBody_OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            return true;
-        }
-
-
-
 
         private void HandleKeyboard()
         {
             KeyboardState state = Keyboard.GetState();
 
-            // Switch between circle body and camera control
-            if (state.IsKeyDown(Keys.LeftShift) || state.IsKeyDown(Keys.RightShift))
-            {
-                // Move camera
-                if (state.IsKeyDown(Keys.A))
-                    _cameraPosition.X += 1.5f;
+            currentScreen.HandleKeyboard(state, _oldKeyState);
 
-                if (state.IsKeyDown(Keys.D))
-                    _cameraPosition.X -= 1.5f;
-
-                if (state.IsKeyDown(Keys.W))
-                    _cameraPosition.Y += 1.5f;
-
-                if (state.IsKeyDown(Keys.S))
-                    _cameraPosition.Y -= 1.5f;
-
-                _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                        Matrix.CreateTranslation(new Vector3(_screenCenter, 0f)) *
-                        Matrix.CreateScale(_cameraZoom);
-            }
-            else
-            {
-                // We make it possible to rotate the circle body
-                if (state.IsKeyDown(Keys.A))
-                    mPlayer1.moveLeft();
-
-                if (state.IsKeyDown(Keys.D))
-                    mPlayer1.moveRight();
-
-                if (state.IsKeyDown(Keys.W))
-                    mPlayer1.moveForward();
-
-                if (state.IsKeyUp(Keys.D) && _oldKeyState.IsKeyDown(Keys.D))
-                    mPlayer1.stall();
-
-                if (state.IsKeyUp(Keys.A) && _oldKeyState.IsKeyDown(Keys.A))
-                    mPlayer1.stall();
-
-                if (state.IsKeyDown(Keys.Space) && _oldKeyState.IsKeyUp(Keys.Space))
-                    mPlayer1.reset();
-#if DEBUG
-                if (state.IsKeyUp(Keys.R) && _oldKeyState.IsKeyDown(Keys.R))
-                {
-                       // reinitalise and reload the map from xml DEBUG
-                    mMapLoader.unloadBodies();
-                    mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml", _world);
-                    mMapLoader.loadMap(Content);
-                }
-#endif
-               
-
-            }
-
-
-            
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
 
             _oldKeyState = state;
         }
 
-
-
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, currentScreen.getView());
 
-
-     
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _view);
-
-            mMapLoader.drawMap(spriteBatch);
-
-            mPlayer1.Draw(spriteBatch);
-
-#if DEBUG
-
-
-            // calculate the projection and view adjustments for the debug view
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, graphics.GraphicsDevice.Viewport.Width / MeterInPixels,
-                                                             graphics.GraphicsDevice.Viewport.Height / MeterInPixels, 0f, 0f,
-                                                             1f);
-            Matrix view = Matrix.CreateTranslation(new Vector3((_cameraPosition / MeterInPixels) - (_screenCenter / MeterInPixels), 0f)) *
-                                                Matrix.CreateTranslation(new Vector3((_screenCenter / MeterInPixels), 0f)) *
-                                                 Matrix.CreateScale(_cameraZoom);
-
-
-            debugView.RenderDebugData(ref projection, ref view);
-
-#endif
-
+            currentScreen.Draw(spriteBatch);
 
             spriteBatch.End();
             
