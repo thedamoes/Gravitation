@@ -110,6 +110,7 @@ namespace Gravitation.Screens
             if (mPlayer1.mShip.mShot != null && mPlayer1.mShip.mShot.Visible == false)
                 {
                     mWorld.RemoveBody(mPlayer1.mShip.mShot.mSpriteBody);
+                    mPlayer1.mShip.shortRomoved();
                 }
                     
 

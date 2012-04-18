@@ -58,7 +58,6 @@ namespace Gravitation.ControllerAgents
         }
         public void fire()
         {
-            // implement later
 
             mShip.fire();
 

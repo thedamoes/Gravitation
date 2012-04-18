@@ -144,6 +144,11 @@ namespace Gravitation.SpriteObjects
                 mShot.Update();
         }
 
+        public void shortRomoved()
+        {
+            mShot = null;
+        }
+
 
 
 
