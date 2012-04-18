@@ -22,7 +22,7 @@ namespace Gravitation.ControllerAgents
 
         public Vector2 myPosition
         {
-            get { return mShip.Position; }
+            get { return mShip.ShipPosition; }
         }
 
         #endregion

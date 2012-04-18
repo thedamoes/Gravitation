@@ -33,11 +33,14 @@ namespace Gravitation.Screens
         private Maps.MapLoader mMapLoader;
         private ControllerAgents.LocalAgent mPlayer1;
 
-        public GameScreen()
+        public GameScreen(DataClasses.GameConfiguration gameConfig)
         {
             mWorld = new World(new Vector2(0, 2));
-            mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml", mWorld);
-            mPlayer1 = new ControllerAgents.LocalAgent(new SpriteObjects.Ship(mWorld, mMapLoader.shipStartPosP1));
+            mMapLoader = new Maps.MapLoader(gameConfig.MapName, mWorld);
+            SpriteObjects.Ship ship = gameConfig.Ship;
+            ship.ShipPosition = mMapLoader.shipStartPosP1;
+            ship.World = mWorld;
+            mPlayer1 = new ControllerAgents.LocalAgent(ship);
 
             _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
         }
@@ -76,7 +79,7 @@ namespace Gravitation.Screens
 #endif
         }
 
-        public void Update(GameTime gameTime)
+        public DataClasses.GameConfiguration Update(GameTime gameTime)
         {
             //maintain camera position
             float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
@@ -102,6 +105,8 @@ namespace Gravitation.Screens
             mPlayer1.applyMovement();
 
             mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
+
+            return null;
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
