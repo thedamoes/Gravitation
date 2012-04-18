@@ -101,8 +101,18 @@ namespace Gravitation.Screens
             //update Controlling agients
             mPlayer1.applyMovement();
 
+            //if (mPlayer1.mShip.mShot.Visible == true)
+               // mPlayer1.updateShot();
+
+            if (mPlayer1.mShip.mShot != null && mPlayer1.mShip.mShot.Visible == false)
+                {
+                    mWorld.RemoveBody(mPlayer1.mShip.mShot.mSpriteBody);
+                }
+                    
+
             mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
         }
+
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
         {
@@ -144,6 +154,9 @@ namespace Gravitation.Screens
 
             if (state.IsKeyUp(Keys.A) && prevState.IsKeyDown(Keys.A))
                 mPlayer1.stall();
+
+            if (state.IsKeyUp(Keys.F) && prevState.IsKeyDown(Keys.F))
+                mPlayer1.fire();
 
             if (state.IsKeyDown(Keys.Space) && prevState.IsKeyUp(Keys.Space))
                 mPlayer1.reset();

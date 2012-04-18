@@ -13,7 +13,7 @@ namespace Gravitation.ControllerAgents
     {
 
         #region members
-        private SpriteObjects.Ship mShip;
+        public SpriteObjects.Ship mShip;
         private Vector2 mDirection; // X = unless you want weard stuff to happen this should be 0 (could have a powerup that sets this value to non 0)
                                     // Y = how mutch forward
         private float mRotatation = 0;
@@ -26,9 +26,9 @@ namespace Gravitation.ControllerAgents
         }
 
 
-        public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
 
 
+        private ContentManager cm;
 
         #endregion
 
@@ -60,8 +60,7 @@ namespace Gravitation.ControllerAgents
         {
             // implement later
 
-
-
+            mShip.fire();
 
         }
         public void stall()
@@ -114,31 +113,22 @@ namespace Gravitation.ControllerAgents
 
         public void updateShot()
         {
-            foreach (SpriteObjects.Shot aShot in mShots)
-            {
+            mShip.updateShot();
 
-                aShot.Update();
-
-            }
         }
 
 
         public void loadShip(ContentManager cm)
         {
+            this.cm = cm;
+
             mShip.LoadContent(cm ,"Ship");
-
-            foreach (SpriteObjects.Shot aShot in mShots)
-            {
-
-                aShot.LoadContent(cm);
-
-            }
 
         }
         public void Draw(SpriteBatch sBatch)
         {
             mShip.Draw(sBatch);
-            mShots.Draw(sBatch, mShip.mSpriteBody.Rotation);
+
         }
 
         #endregion
