@@ -119,6 +119,8 @@
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
     <Compile Include="ControllerAgents\NetworkedAgent.cs" />
+    <Compile Include="DataClasses\GameConfiguration.cs" />
+    <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\IDrawableScreen.cs" />
     <Compile Include="Maps\MapLoader.cs" />
@@ -181,6 +183,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

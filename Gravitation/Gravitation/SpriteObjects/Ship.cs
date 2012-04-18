@@ -26,16 +26,41 @@ namespace Gravitation.SpriteObjects
     {
 
         public World world;
-        public Vector2 position;
 
        // public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
         public SpriteObjects.Shot mShot;
         ContentManager theContentManager;
 
+        private Vector2 mPosition;
+
+        public Vector2 ShipPosition
+        {
+            set { mPosition = value; }
+            get { return base.Position; }
+        }
+
+        public World World
+        {
+            set { world = value; }
+        }
+
+
         public Ship(World world, Vector2 position)
         {
             this.world = world;
-            this.position = position;
+            this.mPosition = position;
+        }
+
+        public Ship(World world)
+        {
+            this.world = world;
+            this.mPosition = new Vector2(100f,100f);
+        }
+
+        public Ship()
+        {
+            this.world = null;
+            this.mPosition = new Vector2(100f, 100f);
         }
 
 
@@ -82,7 +107,7 @@ namespace Gravitation.SpriteObjects
 
 
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, (position / MeterInPixels), BodyType.Dynamic);
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, (mPosition / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;

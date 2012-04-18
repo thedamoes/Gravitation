@@ -28,8 +28,6 @@ namespace Gravitation
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-       
-
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
 
@@ -43,27 +41,15 @@ namespace Gravitation
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
 
-            currentScreen = new Screens.GameScreen();
+            currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            //currentScreen = new Screens.GameScreen(new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship()));
 
         }
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -82,7 +68,14 @@ namespace Gravitation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             HandleKeyboard();
-            currentScreen.Update(gameTime);
+
+            DataClasses.GameConfiguration config = currentScreen.Update(gameTime);
+
+            if (config != null)
+            {
+                currentScreen = new Screens.GameScreen(config);
+                currentScreen.LoadContent(spriteBatch, graphics, Content);
+            }
 
             base.Update(gameTime);
         }
