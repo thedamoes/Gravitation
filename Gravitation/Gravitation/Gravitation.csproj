@@ -131,6 +131,7 @@
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
+    <Compile Include="SpriteObjects\Shot.cs" />
     <Compile Include="SpriteObjects\SolidSprite.cs" />
     <Compile Include="SpriteObjects\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

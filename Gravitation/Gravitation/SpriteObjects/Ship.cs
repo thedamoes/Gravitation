@@ -25,7 +25,12 @@ namespace Gravitation.SpriteObjects
     class Ship : Sprite
     {
 
-        private World world;
+        public World world;
+
+       // public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+        public SpriteObjects.Shot mShot;
+        ContentManager theContentManager;
+
         private Vector2 mPosition;
 
         public Vector2 ShipPosition
@@ -38,6 +43,7 @@ namespace Gravitation.SpriteObjects
         {
             set { world = value; }
         }
+
 
         public Ship(World world, Vector2 position)
         {
@@ -60,6 +66,7 @@ namespace Gravitation.SpriteObjects
 
         public override void LoadContent(ContentManager theContentManager, string theAssetName)
         {
+            this.theContentManager = theContentManager;
             base.mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
             base.AssetName = theAssetName;
             base.Source = new Rectangle(0, 0, base.mSpriteTexture.Width, base.mSpriteTexture.Height);
@@ -104,8 +111,39 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;
+
+
+           // mShot.LoadContent(theContentManager);
+
+            
         }
-        
+
+
+
+
+        public void fire()
+        {
+            bool aCreateNew = true;
+
+            if (aCreateNew == true)
+            {
+
+                mShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation);
+
+                mShot.LoadContent(theContentManager);
+
+                mShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
+            }
+
+
+        }
+
+        public void updateShot()
+        {
+
+                mShot.Update();
+        }
+
 
 
 
@@ -120,6 +158,9 @@ namespace Gravitation.SpriteObjects
             theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
                 Color.White, base.mSpriteBody.Rotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
+
+            if (mShot != null)
+                mShot.Draw(theSpriteBatch);
 
         }
 
