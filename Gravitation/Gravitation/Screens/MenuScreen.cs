@@ -92,7 +92,6 @@ namespace Gravitation.Screens
         public Microsoft.Xna.Framework.Matrix getView()
         {
             return base._view;
-            //throw new NotImplementedException();
         }
 
         public int GetNumberOfOptions()

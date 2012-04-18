@@ -27,6 +27,7 @@ namespace Gravitation
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private SoundHandler Sound;
 
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
@@ -41,6 +42,7 @@ namespace Gravitation
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
 
+            Sound = new SoundHandler(Content);
             currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             //currentScreen = new Screens.GameScreen(new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship()));
 
@@ -52,9 +54,7 @@ namespace Gravitation
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             currentScreen.LoadContent(spriteBatch, graphics, Content);
         }
 
@@ -88,6 +88,9 @@ namespace Gravitation
 
             if (state.IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (state.IsKeyDown(Keys.Space) && !_oldKeyState.IsKeyDown(Keys.Space))
+                Sound.playSound(SoundHandler.Sounds.SHIP_FIRE1);
 
             _oldKeyState = state;
         }

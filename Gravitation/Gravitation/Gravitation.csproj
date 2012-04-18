@@ -128,6 +128,7 @@
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
     <Compile Include="Screens\MenuScreen.cs" />
+    <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
     <Compile Include="SpriteObjects\SolidSprite.cs" />
