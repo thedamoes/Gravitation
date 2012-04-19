@@ -36,8 +36,8 @@ namespace Gravitation.SpriteObjects
             this.mworld = world;
             this.mrotation = rotation;
 
-            this.mposition.Y = (position.Y * MeterInPixels) - (float)Math.Round(88f * Math.Sin(rotation + 1.57079633));
-            this.mposition.X = (position.X * MeterInPixels) - (float)Math.Round(88f * Math.Cos(rotation + 1.57079633));
+            this.mposition.Y = (position.Y * MeterInPixels) - (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
+            this.mposition.X = (position.X * MeterInPixels) - (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
         }
 
 
