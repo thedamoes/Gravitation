@@ -66,6 +66,9 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Friction = 0.4f;
             base.mSpriteBody.IsStatic = true;
             base.mSpriteBody.Rotation = mrotation;
+
+            base.mSpriteBody.CollisionCategories = Category.Cat1;
+            base.mSpriteBody.CollidesWith = Category.All;
         }
 
         public override void Draw(SpriteBatch theSpriteBatch)

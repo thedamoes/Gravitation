@@ -29,7 +29,7 @@ namespace Gravitation.SpriteObjects
         public float mrotation;
         public Vector2 mDirection;
         public bool Visible = false;
-        private bool remove;
+        public bool removed = false;
 
         public Shot(World world, Vector2 position, float rotation)
         {
@@ -92,6 +92,9 @@ namespace Gravitation.SpriteObjects
 
             base.mSpriteBody.OnCollision += Body_OnCollision;
 
+            base.mSpriteBody.CollisionCategories = Category.Cat10;
+            base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
+
         }
         
 
@@ -136,7 +139,6 @@ namespace Gravitation.SpriteObjects
             }
             else
                 return;
-            //base.mSpriteBody.ApplyForce(rotateVector(mDirection, mrotation));
         }
 
 
@@ -169,7 +171,6 @@ namespace Gravitation.SpriteObjects
         {
 
             Visible = false;
-            remove = true;
 
 
             return true;
