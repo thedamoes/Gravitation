@@ -27,8 +27,8 @@ namespace Gravitation.SpriteObjects
 
         public World world;
 
-       // public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
-        public SpriteObjects.Shot mShot;
+       public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+       public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
         ContentManager theContentManager;
 
         private Vector2 mPosition;
@@ -113,7 +113,10 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.IsStatic = false;
 
 
-           // mShot.LoadContent(theContentManager);
+            base.mSpriteBody.OnCollision += Body_OnCollision;
+
+            base.mSpriteBody.CollisionCategories = Category.Cat11;
+            base.mSpriteBody.CollidesWith = Category.All;
 
             
         }
@@ -123,34 +126,46 @@ namespace Gravitation.SpriteObjects
 
         public void fire()
         {
-            bool aCreateNew = true;
 
-            if (aCreateNew == true)
-            {
+                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation);
 
-                mShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation);
+                aShot.LoadContent(theContentManager);
 
-                mShot.LoadContent(theContentManager);
+                aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
 
-                mShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
-            }
-
-
+                mShots.Add(aShot);
+                remove_Shots.Add(aShot);
         }
 
         public void updateShot()
         {
-
-                mShot.Update();
+            foreach (SpriteObjects.Shot aShot in mShots)
+            {
+                if(aShot.Visible == true)
+                aShot.Update();
+            }
         }
 
         public void shortRomoved()
         {
-            mShot = null;
+            foreach (SpriteObjects.Shot aShot in remove_Shots)
+            {
+                if(aShot.Visible == false && aShot.removed == false)
+                {
+                    world.RemoveBody(aShot.mSpriteBody);
+                    mShots.Remove(aShot);
+                    aShot.removed = true;
+                }
+            }
+
         }
 
 
+        private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
+        {
 
+            return true;
+        }
 
 
 
@@ -164,8 +179,12 @@ namespace Gravitation.SpriteObjects
                 Color.White, base.mSpriteBody.Rotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 
-            if (mShot != null)
-                mShot.Draw(theSpriteBatch);
+
+            foreach (SpriteObjects.Shot aShot in mShots)
+            {
+                if (aShot.Visible == true)
+                    aShot.Draw(theSpriteBatch);
+            }
 
         }
 

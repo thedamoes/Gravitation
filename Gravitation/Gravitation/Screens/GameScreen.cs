@@ -104,15 +104,24 @@ namespace Gravitation.Screens
             //update Controlling agients
             mPlayer1.applyMovement();
 
-            //if (mPlayer1.mShip.mShot.Visible == true)
-               // mPlayer1.updateShot();
+            mPlayer1.updateShot();
 
-            if (mPlayer1.mShip.mShot != null && mPlayer1.mShip.mShot.Visible == false)
+            foreach (SpriteObjects.Shot aShot in mPlayer1.mShip.remove_Shots)
+            {
+                if (aShot != null && aShot.Visible == false && aShot.removed == false)
                 {
-                    mWorld.RemoveBody(mPlayer1.mShip.mShot.mSpriteBody);
                     mPlayer1.mShip.shortRomoved();
                 }
-                    
+            }
+
+            for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
+            {
+                if (mPlayer1.mShip.remove_Shots.ElementAt(i).removed == true)
+                {
+                    mPlayer1.mShip.remove_Shots.RemoveAt(i);
+                }
+            }
+
 
             mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
 
