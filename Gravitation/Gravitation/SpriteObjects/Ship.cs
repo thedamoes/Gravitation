@@ -33,6 +33,8 @@ namespace Gravitation.SpriteObjects
 
         private Vector2 mPosition;
 
+        private SoundHandler mPlayer;
+
         public Vector2 ShipPosition
         {
             set { mPosition = value; }
@@ -57,10 +59,12 @@ namespace Gravitation.SpriteObjects
             this.mPosition = new Vector2(100f,100f);
         }
 
-        public Ship()
+        public Ship(SoundHandler player)
         {
             this.world = null;
             this.mPosition = new Vector2(100f, 100f);
+
+            this.mPlayer = player;
         }
 
 
@@ -135,6 +139,8 @@ namespace Gravitation.SpriteObjects
 
                 mShots.Add(aShot);
                 remove_Shots.Add(aShot);
+
+                mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
         }
 
         public void updateShot()
