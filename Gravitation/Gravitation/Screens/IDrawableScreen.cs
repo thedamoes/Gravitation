@@ -11,7 +11,7 @@ namespace Gravitation.Screens
 {
     interface IDrawableScreen
     {
-        void LoadContent(SpriteBatch sb, GraphicsDeviceManager dMan,ContentManager cm);
+        void LoadContent(GraphicsDeviceManager dMan,ContentManager cm);
         DataClasses.GameConfiguration Update(GameTime gameTime);
         void Draw(SpriteBatch sb);
         void HandleKeyboard(KeyboardState curState, KeyboardState prevState);

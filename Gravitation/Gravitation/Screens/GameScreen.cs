@@ -45,7 +45,7 @@ namespace Gravitation.Screens
             _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
-        public void LoadContent(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GraphicsDeviceManager graphics, ContentManager Content)
+        public void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
             this.graphics = graphics;
             this.Content = Content;

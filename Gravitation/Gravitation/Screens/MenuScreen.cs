@@ -11,6 +11,7 @@ namespace Gravitation.Screens
     class MenuScreen : BaseScreen, IDrawableScreen
     {
         private List<string> MenuItems;
+        private enum listItems { RACE = 0, SWARM = 1, VERSES = 2, NETWORKED = 3, EXIT = 4};
         private int iterator;
         public string InfoText { get; set; }
         public string Title { get; set; }
@@ -51,8 +52,7 @@ namespace Gravitation.Screens
             MenuItems.Add("Race");
             MenuItems.Add("Swarm");
             MenuItems.Add("Verses");
-            MenuItems.Add("Verses Networked");
-            MenuItems.Add("Ship");
+            MenuItems.Add("Networked");
             MenuItems.Add("Exit Game");
             Iterator = 0;
             InfoText = string.Empty;
@@ -61,7 +61,7 @@ namespace Gravitation.Screens
             createBackground(ref mSelectedBackground, 0.4f, 0.3f);
         }
 
-        public void LoadContent(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, Microsoft.Xna.Framework.GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
+        public void LoadContent(Microsoft.Xna.Framework.GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
         {
             mFont = cm.Load<SpriteFont>("font");
             mHeaderFont = cm.Load<SpriteFont>("Header");
@@ -72,7 +72,7 @@ namespace Gravitation.Screens
 
         public DataClasses.GameConfiguration Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            return gameConfig;
+            return gameConfig; // yea... ill sort it out later
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
@@ -103,6 +103,30 @@ namespace Gravitation.Screens
 
             if (curState.IsKeyDown(Keys.Enter) && !prevState.IsKeyDown(Keys.Enter))
             {
+                switch(Iterator)
+                {
+                    case (int)listItems.RACE:
+                        {
+                            
+                        }
+                    case (int)listItems.SWARM:
+                        {
+                            
+                        }
+                    case (int)listItems.VERSES:
+                        {
+                            
+                        }
+                    case (int)listItems.NETWORKED:
+                        {
+                           
+                        }
+                    case (int)listItems.EXIT:
+                        {
+                            //Exit(); need to find some way of doing this 
+                        }
+                    default: { }
+                }
                 gameConfig = new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship());
             }
         }

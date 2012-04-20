@@ -55,7 +55,7 @@ namespace Gravitation
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            currentScreen.LoadContent(spriteBatch, graphics, Content);
+            currentScreen.LoadContent(graphics, Content);
         }
 
         protected override void UnloadContent()
@@ -74,7 +74,7 @@ namespace Gravitation
             if (config != null)
             {
                 currentScreen = new Screens.GameScreen(config);
-                currentScreen.LoadContent(spriteBatch, graphics, Content);
+                currentScreen.LoadContent( graphics, Content);
             }
 
             base.Update(gameTime);
