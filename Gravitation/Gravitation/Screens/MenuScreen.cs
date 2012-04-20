@@ -8,156 +8,65 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gravitation.Screens
 {
-    class MenuScreen : BaseScreen, IDrawableScreen
+    class MenuScreen : IDrawableScreen
     {
-        private List<string> MenuItems;
-        private enum listItems { RACE = 0, SWARM = 1, VERSES = 2, NETWORKED = 3, EXIT = 4};
-        private int iterator;
-        public string InfoText { get; set; }
-        public string Title { get; set; }
+        private GraphicsDeviceManager dMan;
+        private Microsoft.Xna.Framework.Content.ContentManager cm;
 
-        private SpriteFont mFont;
-        private SpriteFont mHeaderFont;
+        private IDrawableScreen currentMenuScreen;
 
-        private SpriteObjects.Sprite mBackground;
-        private SpriteObjects.Sprite mSelectedBackground;
 
-        private int mScreenWidth;
-
-        private DataClasses.GameConfiguration gameConfig = null;
-        private SoundHandler mPlayer;
-
-        public int Iterator
+        public MenuScreen(int ScreenWidth, int ScreenHeight, SoundHandler player,
+                           GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
         {
-            get
+            currentMenuScreen = new MainMenu(ScreenWidth, ScreenHeight, player);
+
+            this.dMan = dMan;
+            this.cm = cm;
+        }
+
+        public void LoadContent(GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
+        {
+            currentMenuScreen.LoadContent(dMan, cm); // cm and dman atent needed to be passed in here anymore refactor later
+        }
+
+        public DataClasses.IScreenExitData Update(GameTime gameTime)
+        {
+            DataClasses.IScreenExitData screen = currentMenuScreen.Update(gameTime);
+
+            if (screen == null)
+                return null;
+
+            if (screen.GetType().Equals(typeof(DataClasses.DisplayNewScreen)))
             {
-                return iterator;
+                currentMenuScreen = ((DataClasses.DisplayNewScreen)screen).NewScreen;
+                LoadContent(dMan, cm);
+
+                return null;
             }
-            set
+            else if (screen.GetType().Equals(typeof(DataClasses.GameConfiguration)))
             {
-                iterator = value;
-                if (iterator > MenuItems.Count - 1) iterator = MenuItems.Count - 1;
-                if (iterator < 0) iterator = 0;
-                mPlayer.playSound(SoundHandler.Sounds.MOVE_MENU);
-
+                return screen;
             }
+
+            else
+                return null;
+                
         }
 
-        public MenuScreen(int ScreenWidth, int ScreenHeight, SoundHandler player) :base(ScreenWidth, ScreenHeight)
+        public void Draw(SpriteBatch sb)
         {
-            this.mPlayer = player;
-            this.mScreenWidth = ScreenWidth;
-            Title = "Gravitation";
-            MenuItems = new List<string>();
-            MenuItems.Add("Race");
-            MenuItems.Add("Swarm");
-            MenuItems.Add("Verses");
-            MenuItems.Add("Networked");
-            MenuItems.Add("Exit Game");
-            Iterator = 0;
-            InfoText = string.Empty;
-
-            createBackground(ref mBackground, 0.5f, 0.5f);
-            createBackground(ref mSelectedBackground, 0.4f, 0.3f);
+            currentMenuScreen.Draw(sb);
         }
 
-        public void LoadContent(Microsoft.Xna.Framework.GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
+        public void HandleKeyboard(KeyboardState curState, KeyboardState prevState)
         {
-            mFont = cm.Load<SpriteFont>("font");
-            mHeaderFont = cm.Load<SpriteFont>("Header");
-
-            mBackground.LoadContent(cm,"Menu/menuBG");
-            mSelectedBackground.LoadContent(cm, "Menu/SelectedBackground");
+            currentMenuScreen.HandleKeyboard(curState, prevState);
         }
 
-        public DataClasses.GameConfiguration Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public Matrix getView()
         {
-            return gameConfig; // yea... ill sort it out later
-        }
-
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
-        {
-            mBackground.Draw(sb);
-            sb.DrawString(mHeaderFont, Title, new Vector2((float)(mScreenWidth * 0.10 - mFont.MeasureString(Title).X / 2), 20), Color.White);
-            int yPos = 100;
-            for (int i = 0; i < GetNumberOfOptions(); i++)
-            {
-                Color colour = Color.White;
-                if (i == Iterator)
-                {
-                    mSelectedBackground.Draw(sb);
-                    mSelectedBackground.spriteOrigin = new Vector2(-(float)(mScreenWidth + 200f), -(float)(yPos * 3.3));
-                }
-                sb.DrawString(mFont, GetItem(i), new Vector2((float)(mScreenWidth / 1.5 - mFont.MeasureString(GetItem(i)).X / 2), yPos), colour);
-                yPos += 50;
-            }
-        }
-
-        public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
-        {
-            if (curState.IsKeyDown(Keys.Down) && !prevState.IsKeyDown(Keys.Down))
-                Iterator++;
-
-            if (curState.IsKeyDown(Keys.Up) && !prevState.IsKeyDown(Keys.Up))
-                Iterator--;
-
-            if (curState.IsKeyDown(Keys.Enter) && !prevState.IsKeyDown(Keys.Enter))
-            {
-                switch(Iterator)
-                {
-                    case (int)listItems.RACE:
-                        {
-                            
-                        }
-                    case (int)listItems.SWARM:
-                        {
-                            
-                        }
-                    case (int)listItems.VERSES:
-                        {
-                            
-                        }
-                    case (int)listItems.NETWORKED:
-                        {
-                           
-                        }
-                    case (int)listItems.EXIT:
-                        {
-                            //Exit(); need to find some way of doing this 
-                        }
-                    default: { }
-                }
-                gameConfig = new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship());
-            }
-        }
-
-        public Microsoft.Xna.Framework.Matrix getView()
-        {
-            return base._view;
-        }
-
-        public int GetNumberOfOptions()
-        {
-            return MenuItems.Count;
-        }
-
-        public string GetItem(int index)
-        {
-            return MenuItems[index];
-        }
-
-        private void createBackground(ref SpriteObjects.Sprite back, float scaleX, float scaleY)
-        {
-            Vector2 backPos = new Vector2( 0, 0);
-
-            float backScaleX = scaleX;
-            float backScaleY = scaleY;
-
-            float spriteRotation = 0f;
-
-            back = new SpriteObjects.Sprite(backPos, spriteRotation);
-            back.WidthScale = backScaleX;
-            back.HeightScale = backScaleY;
+            return currentMenuScreen.getView();
         }
     }
 }

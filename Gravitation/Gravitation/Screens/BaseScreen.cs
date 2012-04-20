@@ -9,9 +9,14 @@ namespace Gravitation.Screens
     class BaseScreen
     {
         protected Matrix _view;
+        protected int screenHeight;
+        protected int screenWidth;
+
         private Vector2 _cameraPosition;
         private Vector2 _screenCenter;
         private Vector3 _cameraZoom;
+
+
 
         public BaseScreen(int screenHeight, int screenWidth)
         {
@@ -22,6 +27,9 @@ namespace Gravitation.Screens
             _cameraPosition = Vector2.Zero;
             _screenCenter = new Vector2(screenWidth / 2f,
                                                 screenHeight / 2f);
+
+            this.screenHeight = screenHeight;
+            this.screenWidth = screenWidth;
         }
     }
 }

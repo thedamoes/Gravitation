@@ -119,7 +119,7 @@
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
     <Compile Include="ControllerAgents\NetworkedAgent.cs" />
-    <Compile Include="DataClasses\GameConfiguration.cs" />
+    <Compile Include="DataClasses\ScreenDataComnmunicators.cs" />
     <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\IDrawableScreen.cs" />
@@ -127,7 +127,9 @@
     <Compile Include="Maps\mapSpecificationScheema.cs">
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
+    <Compile Include="Screens\SelectShipScreen.cs" />
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />

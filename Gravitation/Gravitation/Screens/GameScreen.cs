@@ -79,7 +79,7 @@ namespace Gravitation.Screens
 #endif
         }
 
-        public DataClasses.GameConfiguration Update(GameTime gameTime)
+        public DataClasses.IScreenExitData Update(GameTime gameTime)
         {
             //maintain camera position
             float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
@@ -191,5 +191,6 @@ namespace Gravitation.Screens
         {
             return _view;
         }
+
     }
 }

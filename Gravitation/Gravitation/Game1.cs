@@ -43,7 +43,7 @@ namespace Gravitation
             graphics.PreferredBackBufferHeight = 480;
 
             Sound = new SoundHandler(Content);
-            currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound);
+            currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
             //currentScreen = new Screens.GameScreen(new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship()));
 
         }
@@ -69,12 +69,15 @@ namespace Gravitation
                 this.Exit();
             HandleKeyboard();
 
-            DataClasses.GameConfiguration config = currentScreen.Update(gameTime);
-
+            DataClasses.IScreenExitData config = currentScreen.Update(gameTime);
             if (config != null)
             {
-                currentScreen = new Screens.GameScreen(config);
-                currentScreen.LoadContent( graphics, Content);
+
+                if (config.GetType().Equals(typeof(DataClasses.GameConfiguration)))
+                {
+                    currentScreen = new Screens.GameScreen((DataClasses.GameConfiguration)config);
+                    currentScreen.LoadContent(graphics, Content);
+                }
             }
 
             base.Update(gameTime);
