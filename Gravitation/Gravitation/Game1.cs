@@ -93,7 +93,7 @@ namespace Gravitation
                 Exit();
 
             if (state.IsKeyDown(Keys.Space) && !_oldKeyState.IsKeyDown(Keys.Space))
-                Sound.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+                Sound.playSound(SoundHandler.Sounds.SHIP_CRASH1);
 
             _oldKeyState = state;
         }
