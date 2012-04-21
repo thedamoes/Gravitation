@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework.Input;
 using FarseerPhysics.DebugViews;
 using FarseerPhysics;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
+
+
 namespace Gravitation.Screens
 {
     class GameScreen : IDrawableScreen
@@ -59,7 +64,7 @@ namespace Gravitation.Screens
             _font = Content.Load<SpriteFont>("font");
 
             // load players
-            mPlayer1.loadShip(Content);
+            mPlayer1.loadShip(Content, graphics);
 
             // load the map
             mMapLoader.loadMap(Content);

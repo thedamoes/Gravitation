@@ -19,6 +19,9 @@ using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
 
 namespace Gravitation.SpriteObjects
 {
@@ -29,7 +32,10 @@ namespace Gravitation.SpriteObjects
 
        public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
        public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
+
         ContentManager theContentManager;
+        GraphicsDeviceManager graphics;
+
 
         private Vector2 mPosition;
 
@@ -68,8 +74,9 @@ namespace Gravitation.SpriteObjects
         }
 
 
-        public override void LoadContent(ContentManager theContentManager, string theAssetName)
+        public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
         {
+            this.graphics = graphics;
             this.theContentManager = theContentManager;
             base.mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
             base.AssetName = theAssetName;
@@ -133,7 +140,7 @@ namespace Gravitation.SpriteObjects
 
                 SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation);
 
-                aShot.LoadContent(theContentManager);
+                aShot.LoadContent(theContentManager, graphics);
 
                 aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
 

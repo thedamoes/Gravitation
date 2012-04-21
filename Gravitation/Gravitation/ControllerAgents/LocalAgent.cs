@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
 namespace Gravitation.ControllerAgents
 {
     class LocalAgent : IControllerInterface
@@ -117,11 +120,11 @@ namespace Gravitation.ControllerAgents
         }
 
 
-        public void loadShip(ContentManager cm)
+        public void loadShip(ContentManager cm, GraphicsDeviceManager graphics)
         {
             this.cm = cm;
 
-            mShip.LoadContent(cm ,"Ship");
+            mShip.LoadContent(cm ,"Ship", graphics);
 
         }
         public void Draw(SpriteBatch sBatch)
