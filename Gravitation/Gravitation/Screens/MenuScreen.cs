@@ -13,6 +13,10 @@ namespace Gravitation.Screens
         private GraphicsDeviceManager dMan;
         private Microsoft.Xna.Framework.Content.ContentManager cm;
 
+        private int mScreenHeight;
+        private int mScreenWidth;
+        private SoundHandler mPlayer;
+
         private IDrawableScreen currentMenuScreen;
 
 
@@ -23,6 +27,10 @@ namespace Gravitation.Screens
 
             this.dMan = dMan;
             this.cm = cm;
+
+            this.mPlayer = player;
+            this.mScreenHeight = ScreenHeight;
+            this.mScreenWidth = ScreenWidth;
         }
 
         public void LoadContent(GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
@@ -42,6 +50,12 @@ namespace Gravitation.Screens
                 currentMenuScreen = ((DataClasses.DisplayNewScreen)screen).NewScreen;
                 LoadContent(dMan, cm);
 
+                return null;
+            }
+            else if (screen.GetType().Equals(typeof(DataClasses.ShipConfiguration)))
+            {
+                currentMenuScreen = new MainMenu(mScreenWidth, mScreenHeight, mPlayer, ((DataClasses.ShipConfiguration)screen).Ship);
+                LoadContent(dMan, cm);
                 return null;
             }
             else if (screen.GetType().Equals(typeof(DataClasses.GameConfiguration)))

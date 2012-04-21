@@ -148,7 +148,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SpriteObjects\Wall.cs" />
-    <Compile Include="ToolWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

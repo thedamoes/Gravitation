@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using XnaGUILib;
 using Microsoft.Xna.Framework;
-using TestXnaGUILib;
 
 namespace Gravitation.Screens
 {
@@ -22,12 +21,15 @@ namespace Gravitation.Screens
         {
         }
 
-        public DataClasses.GameConfiguration Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public DataClasses.IScreenExitData Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             XnaGUIManager.Update(gameTime);
 
             settingsWindow.Update(gameTime);
+
+            DataClasses.ShipConfiguration ship = settingsWindow.getShip();
+            if (ship != null)
+                return ship;
 
             return null;
         }
@@ -49,12 +51,5 @@ namespace Gravitation.Screens
             return base._view;
         }
 
-
-        DataClasses.IScreenExitData IDrawableScreen.Update(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            XnaGUIManager.Update(gameTime);
-
-            return null;
-        }
     }
 }

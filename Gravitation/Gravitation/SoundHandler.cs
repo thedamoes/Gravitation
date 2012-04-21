@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Gravitation
 {
-    class SoundHandler
+    public class SoundHandler
     {
         public enum Sounds {SHIP_CRASH1 , SHIP_FIRE1, MOVE_MENU};
 

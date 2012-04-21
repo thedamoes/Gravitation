@@ -13,7 +13,7 @@ namespace Gravitation.Screens
     {
 
         private List<string> MenuItems;
-        private enum listItems { RACE = 0, SWARM = 1, VERSES = 2, NETWORKED = 3, EXIT = 4 };
+        private enum listItems { RACE = 0, SWARM = 1, VERSES = 2, NETWORKED = 3, SHIP = 4,  EXIT = 5 };
         private int iterator;
         public string InfoText { get; set; }
         public string Title { get; set; }
@@ -27,7 +27,9 @@ namespace Gravitation.Screens
         private int mScreenWidth;
 
         private DataClasses.GameConfiguration mGameConfig = null;
-        private DataClasses.DisplayNewScreen mNextScreen = null; 
+        private DataClasses.DisplayNewScreen mNextScreen = null;
+
+        private SpriteObjects.Ship mShip = null;
 
         private SoundHandler mPlayer;
 
@@ -59,6 +61,7 @@ namespace Gravitation.Screens
             MenuItems.Add("Swarm");
             MenuItems.Add("Verses");
             MenuItems.Add("Networked");
+            MenuItems.Add("Ship");
             MenuItems.Add("Exit Game");
             Iterator = 0;
             InfoText = string.Empty;
@@ -67,6 +70,29 @@ namespace Gravitation.Screens
             createBackground(ref mSelectedBackground, 0.4f, 0.3f);
 
             
+        }
+
+        public MainMenu(int ScreenWidth, int ScreenHeight, SoundHandler player, SpriteObjects.Ship selectedShip)
+            : base(ScreenWidth, ScreenHeight)
+        {
+            this.mPlayer = player;
+            this.mScreenWidth = ScreenWidth;
+            Title = "Gravitation";
+            MenuItems = new List<string>();
+            MenuItems.Add("Race");
+            MenuItems.Add("Swarm");
+            MenuItems.Add("Verses");
+            MenuItems.Add("Networked");
+            MenuItems.Add("Ship");
+            MenuItems.Add("Exit Game");
+            Iterator = 0;
+            InfoText = string.Empty;
+
+            createBackground(ref mBackground, 0.5f, 0.5f);
+            createBackground(ref mSelectedBackground, 0.4f, 0.3f);
+
+            this.mShip = selectedShip;
+
         }
 
         public void LoadContent(Microsoft.Xna.Framework.GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
@@ -123,7 +149,7 @@ namespace Gravitation.Screens
                 {
                     case (int)listItems.RACE:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.SelectShipScreen(base.screenHeight, base.screenWidth));
+                            
                         }
                         break;
                     case (int)listItems.SWARM:
@@ -140,6 +166,11 @@ namespace Gravitation.Screens
                     case (int)listItems.NETWORKED:
                         {
                            
+                        }
+                        break;
+                    case (int)listItems.SHIP:
+                        {
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.SelectShipScreen(screenHeight, mScreenWidth));
                         }
                         break;
                     case (int)listItems.EXIT:

@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 using XnaGUILib;
 using Gravitation;
 
-namespace TestXnaGUILib
+namespace Gravitation
 {
     /// <summary>
     /// ToolWindow is an example 
@@ -25,8 +25,9 @@ namespace TestXnaGUILib
         public XGTabControl TabControl { get; protected set; }
         public XGTabPage PageOne { get; protected set; }
 
+
         public ShipSettings(int screenWidth, int screenHeight)
-            : base(new Rectangle(screenWidth-200, 2, 500, 300), true)
+            : base(new Rectangle(screenWidth-500, 2, 500, 300), true)
         {
            // Game = game;
 
@@ -46,8 +47,13 @@ namespace TestXnaGUILib
 
             // Create the first tab page (ToolPage class)
 
-            XGTabPage PageOne = new ToolPage(pageRect);
+            PageOne = new ToolPage(pageRect);
             TabControl.Children.Add(PageOne);
+        }
+
+        public DataClasses.ShipConfiguration getShip()
+        {
+            return ((ToolPage)PageOne).ShipConfiguration;
         }
     }
 
@@ -69,11 +75,16 @@ namespace TestXnaGUILib
 
         public XGLabel selectSprite { get; protected set; }
 
+        public DataClasses.ShipConfiguration ShipConfiguration;
+
+
         private const int Y_INCRMENT = 30;
 
         public ToolPage(Rectangle rect)
             : base(rect, "Ship Settings")
         {
+            ShipConfiguration = null;
+            
             // stupid c# isent letting me pass these by refence so i have to do it lik ethis
             int currenty = 66;
 
@@ -106,15 +117,9 @@ namespace TestXnaGUILib
 
         }
 
-        public override void Update(GameTime gameTime)
-        {
-
-            base.Update(gameTime);
-        }
-
         void Ok_Clicked(XGControl sender)
         {
-            
+            ShipConfiguration = new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship());
         }
 
        

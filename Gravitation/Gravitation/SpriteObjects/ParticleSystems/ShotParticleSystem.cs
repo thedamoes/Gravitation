@@ -31,7 +31,7 @@ namespace DPSF.ParticleSystems
 #if (WINDOWS)
 	[Serializable]
 #endif
-	class ShotParticleSystem : DefaultSpriteParticleSystem
+	public class ShotParticleSystem : DefaultSpriteParticleSystem
 	{
 
         private Vector2 intialPos;

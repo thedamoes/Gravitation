@@ -25,7 +25,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    class Ship : Sprite
+    public class Ship : Sprite
     {
 
         public World world;
@@ -73,6 +73,12 @@ namespace Gravitation.SpriteObjects
             this.mPlayer = player;
         }
 
+        public Ship()
+        {
+            this.world = null;
+            this.mPosition = new Vector2(100f, 100f);
+            this.mPlayer = null;
+        }
 
         public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
         {
@@ -133,7 +139,10 @@ namespace Gravitation.SpriteObjects
         }
 
 
-
+        public void setPlayer(SoundHandler player)
+        {
+            this.mPlayer = player;
+        }
 
         public void fire()
         {

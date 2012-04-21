@@ -20,7 +20,7 @@ using FarseerPhysics.DebugViews;
 
 namespace Gravitation.SpriteObjects
 {
-    class Sprite
+    public class Sprite
     {
 
         #region member_variables

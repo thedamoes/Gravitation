@@ -25,7 +25,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    class Shot : Sprite
+    public class Shot : Sprite
     {
         public ShotParticleSystem mShotParticles = null;
         public World mworld;

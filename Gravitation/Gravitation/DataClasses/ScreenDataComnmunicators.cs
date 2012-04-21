@@ -39,11 +39,11 @@ namespace Gravitation.DataClasses
         }
     }
 
-    class ShipConfiguration: IScreenExitData
+    public class ShipConfiguration: IScreenExitData
     {
         private SpriteObjects.Ship mShip;
 
-        private SpriteObjects.Ship Ship
+        public SpriteObjects.Ship Ship
         {
             get { return mShip; }
         }
