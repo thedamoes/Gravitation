@@ -150,12 +150,12 @@ namespace Gravitation.SpriteObjects
                 mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
         }
 
-        public void updateShot()
+        public void updateShot(GameTime gameTime, Matrix _view)
         {
             foreach (SpriteObjects.Shot aShot in mShots)
             {
                 if(aShot.Visible == true)
-                aShot.Update();
+                    aShot.Update(gameTime, _view);
             }
         }
 
