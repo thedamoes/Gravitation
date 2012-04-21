@@ -19,6 +19,10 @@ using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
 using XnaGUILib;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
+
 namespace Gravitation
 {
     /// <summary>

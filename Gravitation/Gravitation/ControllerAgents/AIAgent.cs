@@ -13,7 +13,7 @@ namespace Gravitation.ControllerAgents
             throw new NotImplementedException();
         }
 
-        void IControllerInterface.loadShip(Microsoft.Xna.Framework.Content.ContentManager cm)
+        public void loadShip(Microsoft.Xna.Framework.Content.ContentManager cm, Microsoft.Xna.Framework.GraphicsDeviceManager graphics)
         {
             throw new NotImplementedException();
         }

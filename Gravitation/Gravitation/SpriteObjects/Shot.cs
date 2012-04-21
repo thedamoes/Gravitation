@@ -19,11 +19,15 @@ using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
+
 namespace Gravitation.SpriteObjects
 {
     class Shot : Sprite
     {
-
+        public ShotParticleSystem mShotParticles = null;
         public World mworld;
         public Vector2 mposition;
         public float mrotation;
@@ -41,7 +45,7 @@ namespace Gravitation.SpriteObjects
         }
 
 
-        public void LoadContent(ContentManager theContentManager)
+        public void LoadContent(ContentManager theContentManager, GraphicsDeviceManager graphics)
         {
             base.mSpriteTexture = theContentManager.Load<Texture2D>("shot");
             base.AssetName = "shot";
@@ -94,6 +98,9 @@ namespace Gravitation.SpriteObjects
 
             base.mSpriteBody.CollisionCategories = Category.Cat10;
             base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
+
+
+            mShotParticles = new ShotParticleSystem(null);
 
         }
         

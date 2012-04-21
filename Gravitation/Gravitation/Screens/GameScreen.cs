@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework.Input;
 using FarseerPhysics.DebugViews;
 using FarseerPhysics;
 
+using DPSF;
+using DPSF.ParticleSystems;
+
+
+
 namespace Gravitation.Screens
 {
     class GameScreen : IDrawableScreen
@@ -59,7 +64,7 @@ namespace Gravitation.Screens
             _font = Content.Load<SpriteFont>("font");
 
             // load players
-            mPlayer1.loadShip(Content);
+            mPlayer1.loadShip(Content, graphics);
 
             // load the map
             mMapLoader.loadMap(Content);
@@ -170,7 +175,7 @@ namespace Gravitation.Screens
             if (state.IsKeyUp(Keys.A) && prevState.IsKeyDown(Keys.A))
                 mPlayer1.stall();
 
-            if (state.IsKeyUp(Keys.F) && prevState.IsKeyDown(Keys.F))
+            if (/*state.IsKeyUp(Keys.F) && prevS*/state.IsKeyDown(Keys.F))
                 mPlayer1.fire();
 
             if (state.IsKeyDown(Keys.Space) && prevState.IsKeyUp(Keys.Space))

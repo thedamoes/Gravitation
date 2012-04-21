@@ -63,6 +63,9 @@
     <Reference Include="DebugViewXNA">
       <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\DebugView XNA\bin\x86\Debug\DebugViewXNA.dll</HintPath>
     </Reference>
+    <Reference Include="DPSF">
+      <HintPath>..\..\..\ParticleSystem\DPSF.dll</HintPath>
+    </Reference>
     <Reference Include="FarseerPhysicsXNA">
       <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\Farseer Physics Engine 3.3 XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
     </Reference>
@@ -137,6 +140,7 @@
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
     <Compile Include="SpriteObjects\Shot.cs" />
+    <Compile Include="SpriteObjects\ParticleSystems\ShotParticleSystem.cs" />
     <Compile Include="SpriteObjects\SolidSprite.cs" />
     <Compile Include="SpriteObjects\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
