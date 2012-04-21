@@ -54,7 +54,10 @@ namespace Gravitation.Screens
             }
             else if (screen.GetType().Equals(typeof(DataClasses.ShipConfiguration)))
             {
-                currentMenuScreen = new MainMenu(mScreenWidth, mScreenHeight, mPlayer, ((DataClasses.ShipConfiguration)screen).Ship);
+                SpriteObjects.Ship newShip = ((DataClasses.ShipConfiguration)screen).Ship;
+                newShip.setPlayer(mPlayer);
+
+                currentMenuScreen = new MainMenu(mScreenWidth, mScreenHeight, mPlayer, newShip);
                 LoadContent(dMan, cm);
                 return null;
             }

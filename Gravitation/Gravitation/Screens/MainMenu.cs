@@ -69,6 +69,7 @@ namespace Gravitation.Screens
             createBackground(ref mBackground, 0.5f, 0.5f);
             createBackground(ref mSelectedBackground, 0.4f, 0.3f);
 
+            this.mShip = new SpriteObjects.Ship(mPlayer);
             
         }
 
@@ -149,23 +150,26 @@ namespace Gravitation.Screens
                 {
                     case (int)listItems.RACE:
                         {
-                            
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
                     case (int)listItems.SWARM:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship(mPlayer))));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
                     case (int)listItems.VERSES:
                         {
-                            
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
                     case (int)listItems.NETWORKED:
                         {
-                           
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                                                                                         new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
                     case (int)listItems.SHIP:
