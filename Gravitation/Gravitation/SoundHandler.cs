@@ -26,7 +26,7 @@ namespace Gravitation
             mSoundEffects.Add(Sounds.MOVE_MENU, null); // based on what ships have been chosen the map and so on. because this way will likley give lag.. but we will see
 
             mAssetNames.Add(Sounds.SHIP_CRASH1, "Sounds/explosion_2");
-            mAssetNames.Add(Sounds.SHIP_FIRE1, "Sounds/whip");
+            mAssetNames.Add(Sounds.SHIP_FIRE1, "Sounds/strela");
             mAssetNames.Add(Sounds.MOVE_MENU, "Sounds/click");
         }
 
