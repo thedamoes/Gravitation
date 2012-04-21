@@ -168,7 +168,7 @@ namespace DPSF.ParticleSystems
 
            /* Emitter.PositionData.Position.X = intialPos.X;
             Emitter.PositionData.Position.Y = intialPos.Y;*/
-            Emitter.PositionData.Position.Z = 0;
+            Emitter.PositionData.Position.Z = 1;
 			//Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
 		}
 
@@ -186,7 +186,7 @@ namespace DPSF.ParticleSystems
 			//-----------------------------------------------------------
 
 			// Set the Particle's Lifetime (how long it should exist for)
-			cParticle.Lifetime = 2.0f;
+            cParticle.Lifetime = 0.1f;//2.0f;
 
 			// Set the Particle's initial Position to be wherever the Emitter is
 
@@ -256,7 +256,7 @@ namespace DPSF.ParticleSystems
 
             Emitter.PositionData.Position.X = shotPos.X; //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             Emitter.PositionData.Position.Y = shotPos.Y; //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
-            Emitter.PositionData.Position.Z = 0;
+            Emitter.PositionData.Position.Z = 1;
 		}
 
 		//===========================================================

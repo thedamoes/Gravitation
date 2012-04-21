@@ -35,6 +35,12 @@ namespace Gravitation.SpriteObjects
         public bool Visible = false;
         public bool removed = false;
 
+
+
+
+
+
+
         public Shot(World world, Vector2 position, float rotation)
         {
             this.mworld = world;
@@ -122,11 +128,12 @@ namespace Gravitation.SpriteObjects
                  
                //mShotParticles.SpriteBatchSettings.TransformationMatrix = Matrix.Identity * Matrix.CreateScale(_cameraZoom);    
 
-                mShotParticles.Draw();
 
             theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
                 Color.White, mrotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
+
+            mShotParticles.Draw();
 
             }
 

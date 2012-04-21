@@ -55,6 +55,7 @@ namespace Gravitation.Screens
             this.graphics = graphics;
             this.Content = Content;
 
+
             // Initialize camera controls
             _view = Matrix.Identity *
                         Matrix.CreateScale(_cameraZoom);
@@ -136,6 +137,7 @@ namespace Gravitation.Screens
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
         {
+
             mMapLoader.drawMap(sb);
 
             mPlayer1.Draw(sb);
