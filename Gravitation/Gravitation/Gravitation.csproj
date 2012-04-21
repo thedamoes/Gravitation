@@ -113,6 +113,9 @@
     <Reference Include="System.Net">
       <Private>False</Private>
     </Reference>
+    <Reference Include="XnaGUILib">
+      <HintPath>..\..\..\XnaGUILib_003\XnaGUILib\XnaGUILib\bin\x86\Debug\XnaGUILib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerAgents\AIAgent.cs" />
