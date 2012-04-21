@@ -113,9 +113,9 @@ namespace Gravitation.ControllerAgents
         }
 
 
-        public void updateShot()
+        public void updateShot(GameTime gameTime, Matrix _view)
         {
-            mShip.updateShot();
+            mShip.updateShot(gameTime, _view);
 
         }
 

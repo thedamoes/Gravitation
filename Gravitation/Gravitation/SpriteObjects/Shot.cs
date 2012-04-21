@@ -100,7 +100,8 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
 
 
-            mShotParticles = new ShotParticleSystem(null);
+            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position*(MeterInPixels), mrotation);
+            mShotParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, null);
 
         }
         
@@ -117,10 +118,16 @@ namespace Gravitation.SpriteObjects
 
             if(Visible == true)
             {
+                Vector3 _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
+                 
+               //mShotParticles.SpriteBatchSettings.TransformationMatrix = Matrix.Identity * Matrix.CreateScale(_cameraZoom);    
+
+                mShotParticles.Draw();
 
             theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
                 Color.White, mrotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
+
             }
 
 
@@ -130,12 +137,15 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public void Update()
+        public void Update(GameTime gameTime, Matrix _view)
         {
             // Set Visible to false here On collision
 
             if (Visible == true)
             {
+                mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
+                mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
 
                 if (base.mSpriteBody.LinearVelocity.Y < -20)
                 {

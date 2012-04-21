@@ -33,12 +33,15 @@ namespace DPSF.ParticleSystems
 #endif
 	class ShotParticleSystem : DefaultSpriteParticleSystem
 	{
+
+        private Vector2 intialPos;
+        private float rotation;
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="cGame">Handle to the Game object being used. Pass in null for this 
 		/// parameter if not using a Game object.</param>
-		public ShotParticleSystem(Game cGame) : base(cGame) { }
+        public ShotParticleSystem(Game cGame, Vector2 initialPos, float rotation) : base(cGame) { this.intialPos = initialPos; this.rotation = rotation; }
 
 		//===========================================================
 		// Structures and Variables
@@ -78,7 +81,7 @@ namespace DPSF.ParticleSystems
 			// TODO: Change any Initialization parameters desired and the Name
 			//-----------------------------------------------------------
 			// Initialize the Particle System before doing anything else
-			InitializeSpriteParticleSystem(cGraphicsDevice, cContentManager, 1000, 50000, "Textures/Star9");
+			InitializeSpriteParticleSystem(cGraphicsDevice, cContentManager, 1000, 50000, cContentManager.Load<Texture2D>("shot"));
 			
 			// Set the Name of the Particle System
 			Name = "Default Sprite Particle System Template";
@@ -106,8 +109,9 @@ namespace DPSF.ParticleSystems
 			// according to the settings in the InitialProperties object (see further below).
 			// You can also create your own Particle Initialization Functions as well, as shown with
 			// the InitializeParticleProperties function below.
-			ParticleInitializationFunction = InitializeParticleUsingInitialProperties;
-			//ParticleInitializationFunction = InitializeParticleProperties;
+
+			//ParticleInitializationFunction = InitializeParticleUsingInitialProperties;
+			ParticleInitializationFunction = InitializeParticleProperties;
 
 			// Setup the Initial Properties of the Particles.
 			// These are only applied if using InitializeParticleUsingInitialProperties 
@@ -116,8 +120,8 @@ namespace DPSF.ParticleSystems
 			InitialProperties.LifetimeMax = 2.0f;
 			InitialProperties.PositionMin = Vector3.Zero;
 			InitialProperties.PositionMax = Vector3.Zero;
-			InitialProperties.VelocityMin = new Vector3(-200, -200, 0);
-			InitialProperties.VelocityMax = new Vector3(200, -400, 0);
+			InitialProperties.VelocityMin = new Vector3(200, 200, 0);
+			InitialProperties.VelocityMax = new Vector3(200, 200, 0);
 			InitialProperties.RotationMin = 0.0f;
 			InitialProperties.RotationMax = MathHelper.Pi;
 			InitialProperties.RotationalVelocityMin = -MathHelper.Pi;
@@ -150,14 +154,22 @@ namespace DPSF.ParticleSystems
 			ParticleEvents.AddEveryTimeEvent(UpdateParticleTransparencyToFadeOutUsingLerp, 100);
 
 			// Set the Particle System's Emitter to toggle on and off every 0.5 seconds
-			ParticleSystemEvents.LifetimeData.EndOfLifeOption = CParticleSystemEvents.EParticleSystemEndOfLifeOptions.Repeat;
+			/*ParticleSystemEvents.LifetimeData.EndOfLifeOption = CParticleSystemEvents.EParticleSystemEndOfLifeOptions.Repeat;
 			ParticleSystemEvents.LifetimeData.Lifetime = 1.0f;
 			ParticleSystemEvents.AddTimedEvent(0.0f, UpdateParticleSystemEmitParticlesAutomaticallyOn);
-			ParticleSystemEvents.AddTimedEvent(0.5f, UpdateParticleSystemEmitParticlesAutomaticallyOff);
+			ParticleSystemEvents.AddTimedEvent(0.5f, UpdateParticleTransparencyToFadeOutUsingLerp());*/
 
 			// Setup the Emitter
-			Emitter.ParticlesPerSecond = 25;
-			Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
+			Emitter.ParticlesPerSecond = 100;
+
+
+            Emitter.PositionData.Position.X = intialPos.X;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
+            Emitter.PositionData.Position.Y = intialPos.Y; //+ 280f; //- (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
+
+           /* Emitter.PositionData.Position.X = intialPos.X;
+            Emitter.PositionData.Position.Y = intialPos.Y;*/
+            Emitter.PositionData.Position.Z = 0;
+			//Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
 		}
 
 		/// <summary>
@@ -177,24 +189,27 @@ namespace DPSF.ParticleSystems
 			cParticle.Lifetime = 2.0f;
 
 			// Set the Particle's initial Position to be wherever the Emitter is
+
 			cParticle.Position = Emitter.PositionData.Position;
 
 			// Set the Particle's Velocity
-			Vector3 sVelocityMin = new Vector3(-200, -200, 0);
-			Vector3 sVelocityMax = new Vector3(200, -400, 0);
+			Vector3 sVelocityMin = new Vector3(0, 0, 0);
+			Vector3 sVelocityMax = new Vector3(0, 0, 0);
 			cParticle.Velocity = DPSFHelper.RandomVectorBetweenTwoVectors(sVelocityMin, sVelocityMax);
 
 			// Adjust the Particle's Velocity direction according to the Emitter's Orientation
 			cParticle.Velocity = Vector3.Transform(cParticle.Velocity, Emitter.OrientationData.Orientation);
 
+            UpdateParticleTransparencyToFadeOutUsingLerp(cParticle, 0.1f);
+
 			// Give the Particle a random Size
 			// Since we have Size Lerp enabled we must also set the Start and End Size
-			cParticle.Width = cParticle.StartWidth = cParticle.EndWidth =
-				cParticle.Height = cParticle.StartHeight = cParticle.EndHeight = RandomNumber.Next((int)mfSizeMin, (int)mfSizeMax);
+			//cParticle.Width = cParticle.StartWidth = cParticle.EndWidth =
+			//	cParticle.Height = cParticle.StartHeight = cParticle.EndHeight = RandomNumber.Next((int)mfSizeMin, (int)mfSizeMax);
 
 			// Give the Particle a random Color
 			// Since we have Color Lerp enabled we must also set the Start and End Color
-			cParticle.Color = cParticle.StartColor = cParticle.EndColor = DPSFHelper.RandomColor();
+			//cParticle.Color = cParticle.StartColor = cParticle.EndColor = DPSFHelper.RandomColor();
 		}
 
 		//===========================================================
@@ -230,11 +245,18 @@ namespace DPSF.ParticleSystems
 		/// Example of how to create a Particle System Event Function
 		/// </summary>
 		/// <param name="fElapsedTimeInSeconds">How long it has been since the last update</param>
-		protected void UpdateParticleSystemFunctionExample(float fElapsedTimeInSeconds)
+		public void UpdateParticleEmmiter(Vector2 shotPos, float rotation)
 		{
 			// Place code to update the Particle System here
 			// Example: Emitter.EmitParticles = true;
 			// Example: SetTexture("TextureAssetName");
+
+
+
+
+            Emitter.PositionData.Position.X = shotPos.X; //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
+            Emitter.PositionData.Position.Y = shotPos.Y; //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
+            Emitter.PositionData.Position.Z = 0;
 		}
 
 		//===========================================================
