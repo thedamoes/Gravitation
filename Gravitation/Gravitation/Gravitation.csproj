@@ -114,7 +114,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="XnaGUILib">
-      <HintPath>..\..\..\XnaGUILib_003\XnaGUILib\XnaGUILib\bin\x86\Debug\XnaGUILib.dll</HintPath>
+      <HintPath>..\..\..\XnaGUILib\XnaGUILib\bin\x86\Debug\XnaGUILib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

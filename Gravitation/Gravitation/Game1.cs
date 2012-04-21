@@ -17,6 +17,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
+using XnaGUILib;
 
 namespace Gravitation
 {
@@ -50,6 +51,7 @@ namespace Gravitation
         protected override void Initialize()
         {
             base.Initialize();
+            XnaGUIManager.Initialize(this);
         }
 
         protected override void LoadContent()
