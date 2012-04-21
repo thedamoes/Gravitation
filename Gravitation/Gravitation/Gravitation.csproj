@@ -64,7 +64,7 @@
       <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\DebugView XNA\bin\x86\Debug\DebugViewXNA.dll</HintPath>
     </Reference>
     <Reference Include="DPSF">
-      <HintPath>..\..\..\ParticleSystem\DPSF.dll</HintPath>
+      <HintPath>C:\DPSF\DPSF.dll</HintPath>
     </Reference>
     <Reference Include="FarseerPhysicsXNA">
       <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\Farseer Physics Engine 3.3 XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
@@ -136,6 +136,7 @@
     <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\SelectShipScreen.cs" />
+    <Compile Include="Screens\ShipSelector.cs" />
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SpriteObjects\Wall.cs" />
+    <Compile Include="ToolWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

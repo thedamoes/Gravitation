@@ -13,7 +13,7 @@ namespace Gravitation.Screens
     {
         void LoadContent(GraphicsDeviceManager dMan,ContentManager cm);
         DataClasses.IScreenExitData Update(GameTime gameTime);
-        void Draw(SpriteBatch sb);
+        void Draw(SpriteBatch sb, GameTime gameTime);
         void HandleKeyboard(KeyboardState curState, KeyboardState prevState);
         Matrix getView();
     }

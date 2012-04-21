@@ -54,9 +54,9 @@ namespace Gravitation.Screens
                 
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, GameTime gameTime)
         {
-            currentMenuScreen.Draw(sb);
+            currentMenuScreen.Draw(sb, gameTime);
         }
 
         public void HandleKeyboard(KeyboardState curState, KeyboardState prevState)

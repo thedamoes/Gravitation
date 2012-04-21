@@ -134,7 +134,7 @@ namespace Gravitation.Screens
         }
 
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
             mMapLoader.drawMap(sb);
 

@@ -37,6 +37,8 @@ namespace Gravitation
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
 
+        
+
         private Screens.IDrawableScreen currentScreen;
 
         public Game1()
@@ -54,8 +56,16 @@ namespace Gravitation
         }
         protected override void Initialize()
         {
-            base.Initialize();
+
             XnaGUIManager.Initialize(this);
+
+            // create the tool window
+
+            
+
+            this.IsMouseVisible = true; // display the GUI
+
+            base.Initialize();
         }
 
         protected override void LoadContent()
@@ -106,11 +116,11 @@ namespace Gravitation
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, currentScreen.getView());
 
-            currentScreen.Draw(spriteBatch);
+            currentScreen.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
             

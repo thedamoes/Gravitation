@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using XnaGUILib;
 
 namespace Gravitation.Screens
 {
@@ -30,7 +31,6 @@ namespace Gravitation.Screens
 
         private SoundHandler mPlayer;
 
-        
 
         public int Iterator
         {
@@ -65,6 +65,8 @@ namespace Gravitation.Screens
 
             createBackground(ref mBackground, 0.5f, 0.5f);
             createBackground(ref mSelectedBackground, 0.4f, 0.3f);
+
+            
         }
 
         public void LoadContent(Microsoft.Xna.Framework.GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
@@ -86,7 +88,7 @@ namespace Gravitation.Screens
             else return null;
         }
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
             mBackground.Draw(sb);
             sb.DrawString(mHeaderFont, Title, new Vector2((float)(mScreenWidth * 0.10 - mFont.MeasureString(Title).X / 2), 20), Color.White);
@@ -102,10 +104,13 @@ namespace Gravitation.Screens
                 sb.DrawString(mFont, GetItem(i), new Vector2((float)(mScreenWidth / 1.5 - mFont.MeasureString(GetItem(i)).X / 2), yPos), colour);
                 yPos += 50;
             }
+
+            float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
         {
+
             if (curState.IsKeyDown(Keys.Down) && !prevState.IsKeyDown(Keys.Down))
                 Iterator++;
 
