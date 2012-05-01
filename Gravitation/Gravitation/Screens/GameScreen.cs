@@ -95,13 +95,20 @@ namespace Gravitation.Screens
 
             // couldent think of any other better way to do it?? if u can feel free
             // these lines stop the cammera from moveing past the bounds of the map
-            if (-playerPosInPixlesX < (graphics.PreferredBackBufferWidth - mMapLoader.leftWallPosX)) _cameraPosition.X = (mMapLoader.leftWallPosX);
-            else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth)) _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth) * 2);
-            else _cameraPosition.X = camX;
+            
+            
+            //if (-playerPosInPixlesX < (graphics.PreferredBackBufferWidth - mMapLoader.leftWallPosX)) _cameraPosition.X = (mMapLoader.leftWallPosX);
+            //else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth)) _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth) * 2);
+            //else _cameraPosition.X = camX;
+             
 
-            if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY)) _cameraPosition.Y = (-mMapLoader.topWallPosY);
-            else if (-playerPosInPixlesY > (mMapLoader.bottonWallPosY - graphics.PreferredBackBufferHeight)) _cameraPosition.Y = (graphics.PreferredBackBufferHeight * 2) - mMapLoader.bottonWallPosY;
-            else _cameraPosition.Y = camY;
+            _cameraPosition.X = camX;
+
+            //if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY)) _cameraPosition.Y = (-mMapLoader.topWallPosY);
+            //else if (-playerPosInPixlesY > (mMapLoader.bottonWallPosY - graphics.PreferredBackBufferHeight)) _cameraPosition.Y = (graphics.PreferredBackBufferHeight * 2) - mMapLoader.bottonWallPosY;
+            //else _cameraPosition.Y = camY;
+            
+            _cameraPosition.Y = camY;
 
             _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
                 Matrix.CreateTranslation(new Vector3(_screenCenter, 0f)) *
@@ -187,7 +194,7 @@ namespace Gravitation.Screens
             {
                 // reinitalise and reload the map from xml DEBUG
                 mMapLoader.unloadBodies();
-                mMapLoader = new Maps.MapLoader("../../../Maps/firstLevel.xml", mWorld);
+                mMapLoader = new Maps.MapLoader("../../../Maps/level1.xml", mWorld);
                 mMapLoader.loadMap(Content);
             }
 #endif

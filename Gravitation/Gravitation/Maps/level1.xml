@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+<Map
+xmlns="mapSpecificationScheema.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
+  <MapDimentions>
+    <Width>2100</Width>
+    <Height>1100</Height>
+  </MapDimentions>
+	<Surfaces>
+    <BackgoundPicture>
+      <Asset name="smudgystars">
+        <Scale>
+          <X>2</X>
+          <Y>2</Y>
+        </Scale>
+        <Rotation>0.0</Rotation>
+        <Position>
+          <X>0</X>
+          <Y>-800</Y>
+        </Position>
+      </Asset>
+		</BackgoundPicture>
+		<MapWalls>
+			<Wall walltype="left">
+				<Asset name="Maps/Map1/leftWall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>4</X>
+						<Y>4</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+            <X>-1277</X>
+            <Y>-1650</Y>
+					</Position>
+				</Asset>
+			</Wall>
+			
+			<Wall walltype="right">
+				<Asset name="Maps/Map1/rightWall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>4</X>
+						<Y>4</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+            <X>3510</X>
+            <Y>-457</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+			<Wall walltype="bottom">
+				<Asset name="Maps/Map1/bottomWall">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>4</X>
+						<Y>4</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+						<X>1050</X>
+            <Y>1000</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+		
+			<Wall walltype="top">
+				<Asset name="Maps/Map1/topWall">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>4</X>
+						<Y>4</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+						<X>1950</X>
+						<Y>-2525</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+
+		</MapWalls>
+
+		<Obsticals>
+			<Asset name="rock2f">
+					<Height>100</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+          <Rotation>2.0</Rotation>
+					<Position>
+						<X>500</X>
+						<Y>-500</Y>
+					</Position>
+			</Asset>
+
+      <Asset name="rock2f">
+        <Height>100</Height>
+        <Width>100</Width>
+        <Scale>
+          <X>1</X>
+          <Y>1</Y>
+        </Scale>
+        <Position>
+          <X>1000</X>
+          <Y>-300</Y>
+        </Position>
+      </Asset>
+      
+		</Obsticals>
+
+	</Surfaces>
+
+	<Powerups>
+		<Powerup powerupType="ZeroGravity">
+			<Asset name="zeroGravityPowerup">
+					<Height>100</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>1</Y>
+					</Scale>
+					<Position>
+						<X>50</X>
+						<Y>100</Y>
+					</Position>
+				</Asset>
+		</Powerup>
+		
+  	</Powerups>
+
+  <SpawnPoint>
+    <Player1>
+      <X>1000</X>
+      <Y>0</Y>
+    </Player1>
+    <Player2>
+      <X>0</X>
+      <Y>0</Y>
+    </Player2>
+    <default>
+      <X>600</X>
+      <Y>0</Y>
+    </default>
+  </SpawnPoint>
+	
+</Map>
