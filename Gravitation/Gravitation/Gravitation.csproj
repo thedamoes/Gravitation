@@ -155,6 +155,7 @@
     <Content Include="Maps\firstLevel.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Maps\level1.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GravitationContent\GravitationContent.contentproj">
