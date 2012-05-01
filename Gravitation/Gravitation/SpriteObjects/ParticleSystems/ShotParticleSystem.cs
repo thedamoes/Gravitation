@@ -86,6 +86,8 @@ namespace DPSF.ParticleSystems
 			// Set the Name of the Particle System
 			Name = "Default Sprite Particle System Template";
 
+            
+
 			// Finish loading the Particle System in a separate function call, so if
 			// we want to reset the Particle System later we don't need to completely 
 			// re-initialize it, we can just call this function to reset it.
@@ -170,6 +172,8 @@ namespace DPSF.ParticleSystems
             Emitter.PositionData.Position.Y = intialPos.Y;*/
             Emitter.PositionData.Position.Z = 1;
 			//Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
+
+            
 		}
 
 		/// <summary>
