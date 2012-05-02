@@ -1,0 +1,24 @@
+﻿<Window x:Class="MapEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mapEditor="clr-namespace:MapEditor"
+        Title="MainWindow" Height="570" Width="1003">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <mapEditor:EditorWindow Grid.Column="0" ></mapEditor:EditorWindow>
+        <GridSplitter Grid.Column="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Stretch"
+              Background="Black" 
+              ShowsPreview="True"
+              Width="5"
+              />
+        
+        <mapEditor:OptionsPannel Grid.Column="2"></mapEditor:OptionsPannel>
+    </Grid>
+</Window>

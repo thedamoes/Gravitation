@@ -3,7 +3,13 @@ Gravitation/GravitationContent/obj/*
 Gravitation/Gravitation/bin/*
 Gravitation/Gravitation/obj/*
 Gravitation/Gravitation/Properties/*
+
+MapEditor/MapEditor/bin/*
+MapEditor/MapEditor/obj/*
+MapEditor/MapEditor/Properties/*
+
 *.cachefile
 *.log
 *.exe
 Gravitation.suo
+MapEditor.suo
