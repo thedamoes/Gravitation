@@ -22,20 +22,29 @@ namespace MapEditor
     {
         List<Image> objectList = new List<Image>();
         Image activeObject = null;
+        OptionsPannel pannel;
+
+        public double canvasZoom
+        {
+            get { return (double)GetValue(EditorWindow.canvasZoomProperty); }
+            set { SetValue(EditorWindow.canvasZoomProperty, value); }
+        }
+        public static readonly DependencyProperty canvasZoomProperty = DependencyProperty.Register("canvasZoom", typeof(double), typeof(EditorWindow), new PropertyMetadata(0.0));
 
         Point lastMouseClick;
 
         public EditorWindow()
         {
             InitializeComponent();
-
-            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\ship.png", new Point(-1,0));
-
-            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", new Point(100, 0));
-
+            this.canvasZoom = 0.5;    
         }
 
-        private void addObject(string uri, Point position)
+        public void setOptionsPannel(OptionsPannel op)
+        {
+            this.pannel = op;
+        }
+
+        public void addObject(string uri, Point position)
         {
            
             Image pic = new Image();
@@ -83,5 +92,15 @@ namespace MapEditor
             Canvas.SetLeft(activeObject, test.X - (activeObject.ActualWidth/2));
             Canvas.SetTop(activeObject, test.Y - (activeObject.ActualHeight / 2));
         }
+
+        private void bla_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                this.canvasZoom += 0.01;
+            else
+                this.canvasZoom -= 0.01;
+        }
+
+        
     }
 }

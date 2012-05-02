@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="291" d:DesignWidth="492" >
-    <Grid Name="bla" MouseDown="OnMouseLeftButtonDown" MouseMove="bla_MouseMove" >
+             d:DesignHeight="291" d:DesignWidth="492" x:Name="EditorControl" >
+    <Grid Name="bla" MouseDown="OnMouseLeftButtonDown" MouseMove="bla_MouseMove" MouseWheel="bla_MouseWheel" >
         <Canvas Name="mainCanvas">
+            <Canvas.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding ElementName=EditorControl, Path=canvasZoom}"
+                            ScaleY="{Binding  ElementName=EditorControl, Path=canvasZoom}"/>
+            </Canvas.LayoutTransform>
         </Canvas>
     </Grid>
 </UserControl>

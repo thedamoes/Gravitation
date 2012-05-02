@@ -21,7 +21,7 @@ namespace MapEditor
     {
 
         List<string> wallTypes = new List<string>();
-
+        EditorWindow editor;
         
 
 
@@ -29,6 +29,11 @@ namespace MapEditor
         {
             InitializeComponent();
             initaliseGUI();
+        }
+
+        public void setEditorWindow(EditorWindow ew)
+        {
+            this.editor = ew;
         }
 
         private void initaliseGUI()
@@ -52,6 +57,11 @@ namespace MapEditor
                 string filename = dlg.FileName;
                 this.Walls_selected_texture.Text = filename;
             }
+        }
+
+        private void Wall_add_btn_Click(object sender, RoutedEventArgs e)
+        {
+            editor.addObject(this.Walls_selected_texture.Text, new Point(0, 0));
         }
     }
 }

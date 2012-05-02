@@ -15,7 +15,7 @@
         <ComboBox Height="24" HorizontalAlignment="Left" Margin="14,49,0,0" Name="Walls_type_select" VerticalAlignment="Top" Width="100" />
         <Label Content="Walls" Height="26" HorizontalAlignment="Left" Margin="17,10,0,0" Name="label1" VerticalAlignment="Top" Width="97" />
         <Button Content="texture" Height="26" HorizontalAlignment="Right" Name="wall_texture_bttn" VerticalAlignment="Bottom" Width="121" Margin="0,0,0,25" Click="wall_texture_bttn_Click" />
-        <Button Content="add" Height="26" HorizontalAlignment="Right" Name="add_btn" VerticalAlignment="Bottom" Width="121" />
+        <Button Content="add" Height="26" HorizontalAlignment="Right" Name="Wall_add_btn" VerticalAlignment="Bottom" Width="121" Click="Wall_add_btn_Click" />
         <TextBox HorizontalAlignment="Left" Margin="0,0,0,1" Name="Walls_selected_texture" Width="166" Height="25" VerticalAlignment="Bottom" />
         
         
