@@ -20,73 +20,68 @@ namespace MapEditor
     /// </summary>
     public partial class EditorWindow : UserControl
     {
+        List<Image> objectList = new List<Image>();
+        Image activeObject = null;
+
+        Point lastMouseClick;
 
         public EditorWindow()
         {
             InitializeComponent();
 
-            Viewport2DVisual3D newImg = new Viewport2DVisual3D();
-            MeshGeometry3D mesh = new MeshGeometry3D();
-             
-            
-            Point3DCollection positionCollection = new Point3DCollection();
-            positionCollection.Add(new Point3D(-1,1,0));
-            positionCollection.Add(new Point3D(-1,-1,0));
-            positionCollection.Add(new Point3D(1,-1,0));
-            positionCollection.Add(new Point3D(1,1,0));
+            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\ship.png", new Point(-1,0));
 
-            PointCollection textureCollection = new PointCollection();
-            textureCollection.Add(new Point(0,0));
-            textureCollection.Add(new Point(0,1));
-            textureCollection.Add(new Point(1,1));
-            textureCollection.Add(new Point(1,0));
+            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", new Point(100, 0));
 
-            Int32Collection triangleIdecesCollection = new Int32Collection();
-            triangleIdecesCollection.Add(0);
-            triangleIdecesCollection.Add(1);
-            triangleIdecesCollection.Add(2);
-            triangleIdecesCollection.Add(0);
-            triangleIdecesCollection.Add(2);
-            triangleIdecesCollection.Add(3);
+        }
 
-
-            mesh.Positions = positionCollection;
-            mesh.TextureCoordinates = textureCollection;
-            mesh.TriangleIndices = triangleIdecesCollection;
-
-            newImg.Geometry = mesh;
-
-            DiffuseMaterial material = new DiffuseMaterial(Brushes.White);
-            Viewport2DVisual3D.SetIsVisualHostMaterial(material, true);
-
-            newImg.Material = material;
-
+        private void addObject(string uri, Point position)
+        {
+           
             Image pic = new Image();
 
             BitmapImage bi3 = new BitmapImage();
             bi3.BeginInit();
-            bi3.UriSource = new Uri(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", UriKind.Absolute);
+            bi3.UriSource = new Uri(uri, UriKind.Absolute);
             bi3.EndInit();
 
             pic.Source = bi3;
-            newImg.Visual = pic;
 
-            this.viewPort.Children.Add(newImg);
+
+            objectList.Add(pic);
+            this.mainCanvas.Children.Add(pic);
+            Canvas.SetLeft(pic, position.X);
+            Canvas.SetBottom(pic, position.Y);
+
 
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Retrieve the coordinate of the mouse position.
-            Point pt = e.GetPosition((UIElement)sender);
+            lastMouseClick = e.GetPosition((UIElement)sender);
 
             // Perform the hit test against a given portion of the visual object tree.
-            HitTestResult result = VisualTreeHelper.HitTest(this.bla, pt);
+            HitTestResult result = VisualTreeHelper.HitTest(this.bla, lastMouseClick);
 
             if (result != null)
             {
-                MessageBox.Show("HIT");
+                if (activeObject == result.VisualHit)
+                    activeObject = null;
+                else
+                    activeObject = (Image)result.VisualHit;
             }
+        }
+
+        private void bla_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (activeObject == null)
+                return;
+
+            Point test = e.GetPosition(this.mainCanvas);
+
+            Canvas.SetLeft(activeObject, test.X - (activeObject.ActualWidth/2));
+            Canvas.SetTop(activeObject, test.Y - (activeObject.ActualHeight / 2));
         }
     }
 }
