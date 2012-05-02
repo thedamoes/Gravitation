@@ -4,19 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="291" d:DesignWidth="492">
-    <Grid Name="bla" MouseDown="OnMouseLeftButtonDown" MouseMove="bla_MouseMove">
-        <Viewport3D Name="viewPort">
-            <Viewport3D.Camera>
-                <PerspectiveCamera Position="0, 0, 50"/>
-            </Viewport3D.Camera>
-
-            <!-- Lights -->
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <DirectionalLight Color="#FFFFFFFF" Direction="0,0,-1"/>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
-        </Viewport3D>
+             d:DesignHeight="291" d:DesignWidth="492" >
+    <Grid Name="bla" MouseDown="OnMouseLeftButtonDown" MouseMove="bla_MouseMove" >
+        <Canvas Name="mainCanvas">
+        </Canvas>
     </Grid>
 </UserControl>
