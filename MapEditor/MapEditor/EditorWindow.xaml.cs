@@ -20,26 +20,36 @@ namespace MapEditor
     /// </summary>
     public partial class EditorWindow : UserControl
     {
+        List<Viewport2DVisual3D> objectList = new List<Viewport2DVisual3D>();
+        Viewport2DVisual3D activeObject = null;
 
         public EditorWindow()
         {
             InitializeComponent();
 
+            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\ship.png", new Point(-1,0));
+
+            addObject(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", new Point(1, 0));
+
+        }
+
+        private void addObject(string uri, Point position)
+        {
             Viewport2DVisual3D newImg = new Viewport2DVisual3D();
             MeshGeometry3D mesh = new MeshGeometry3D();
-             
-            
+
+
             Point3DCollection positionCollection = new Point3DCollection();
-            positionCollection.Add(new Point3D(-1,1,0));
-            positionCollection.Add(new Point3D(-1,-1,0));
-            positionCollection.Add(new Point3D(1,-1,0));
-            positionCollection.Add(new Point3D(1,1,0));
+            positionCollection.Add(new Point3D(-1, 1, 0));
+            positionCollection.Add(new Point3D(-1, -1, 0));
+            positionCollection.Add(new Point3D(1, -1, 0));
+            positionCollection.Add(new Point3D(1, 1, 0));
 
             PointCollection textureCollection = new PointCollection();
-            textureCollection.Add(new Point(0,0));
-            textureCollection.Add(new Point(0,1));
-            textureCollection.Add(new Point(1,1));
-            textureCollection.Add(new Point(1,0));
+            textureCollection.Add(new Point(0, 0));
+            textureCollection.Add(new Point(0, 1));
+            textureCollection.Add(new Point(1, 1));
+            textureCollection.Add(new Point(1, 0));
 
             Int32Collection triangleIdecesCollection = new Int32Collection();
             triangleIdecesCollection.Add(0);
@@ -58,19 +68,26 @@ namespace MapEditor
 
             DiffuseMaterial material = new DiffuseMaterial(Brushes.White);
             Viewport2DVisual3D.SetIsVisualHostMaterial(material, true);
-
             newImg.Material = material;
+
+
+            TranslateTransform3D transform = new TranslateTransform3D(position.X, position.Y, 0);
+
+
+            newImg.Transform = transform;
 
             Image pic = new Image();
 
             BitmapImage bi3 = new BitmapImage();
             bi3.BeginInit();
-            bi3.UriSource = new Uri(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", UriKind.Absolute);
+            bi3.UriSource = new Uri(uri, UriKind.Absolute);
             bi3.EndInit();
 
             pic.Source = bi3;
             newImg.Visual = pic;
 
+
+            objectList.Add(newImg);
             this.viewPort.Children.Add(newImg);
 
         }
@@ -85,8 +102,25 @@ namespace MapEditor
 
             if (result != null)
             {
-                MessageBox.Show("HIT");
+                foreach (Viewport2DVisual3D worldItem in objectList)
+                {
+                    if (worldItem.Visual == result.VisualHit)
+                    {
+                        activeObject = worldItem;
+                        break;
+                    }
+                }
             }
+        }
+
+        private void bla_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (activeObject == null)
+                return;
+
+            Point test = e.GetPosition(this.viewPort);
+
+            activeObject.Transform = new TranslateTransform3D(0.02, 0.04,0);
         }
     }
 }
