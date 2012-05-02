@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Media3D;
 
 namespace MapEditor
 {
@@ -19,36 +20,73 @@ namespace MapEditor
     /// </summary>
     public partial class EditorWindow : UserControl
     {
+
         public EditorWindow()
         {
             InitializeComponent();
 
+            Viewport2DVisual3D newImg = new Viewport2DVisual3D();
+            MeshGeometry3D mesh = new MeshGeometry3D();
+             
+            
+            Point3DCollection positionCollection = new Point3DCollection();
+            positionCollection.Add(new Point3D(-1,1,0));
+            positionCollection.Add(new Point3D(-1,-1,0));
+            positionCollection.Add(new Point3D(1,-1,0));
+            positionCollection.Add(new Point3D(1,1,0));
+
+            PointCollection textureCollection = new PointCollection();
+            textureCollection.Add(new Point(0,0));
+            textureCollection.Add(new Point(0,1));
+            textureCollection.Add(new Point(1,1));
+            textureCollection.Add(new Point(1,0));
+
+            Int32Collection triangleIdecesCollection = new Int32Collection();
+            triangleIdecesCollection.Add(0);
+            triangleIdecesCollection.Add(1);
+            triangleIdecesCollection.Add(2);
+            triangleIdecesCollection.Add(0);
+            triangleIdecesCollection.Add(2);
+            triangleIdecesCollection.Add(3);
 
 
-            // Create Image Element
-            Image myImage = new Image();
-            myImage.Width = 200;
+            mesh.Positions = positionCollection;
+            mesh.TextureCoordinates = textureCollection;
+            mesh.TriangleIndices = triangleIdecesCollection;
 
-            // Create source
-            BitmapImage myBitmapImage = new BitmapImage();
+            newImg.Geometry = mesh;
 
-            // BitmapImage.UriSource must be in a BeginInit/EndInit block
-            myBitmapImage.BeginInit();
-            myBitmapImage.UriSource = new Uri(@"C:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Water Lilies.jpg");
+            DiffuseMaterial material = new DiffuseMaterial(Brushes.White);
+            Viewport2DVisual3D.SetIsVisualHostMaterial(material, true);
 
-            // To save significant application memory, set the DecodePixelWidth or  
-            // DecodePixelHeight of the BitmapImage value of the image source to the desired 
-            // height or width of the rendered image. If you don't do this, the application will 
-            // cache the image as though it were rendered as its normal size rather then just 
-            // the size that is displayed.
-            // Note: In order to preserve aspect ratio, set DecodePixelWidth
-            // or DecodePixelHeight but not both.
-            myBitmapImage.DecodePixelWidth = 200;
-            myBitmapImage.EndInit();
-            //set image source
-            myImage.Source = myBitmapImage;
+            newImg.Material = material;
 
-            this.bla.Children.Add(myImage);
+            Image pic = new Image();
+
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(@"D:\programming\Gravitation\Gravitation\GravitationContent\floor.png", UriKind.Absolute);
+            bi3.EndInit();
+
+            pic.Source = bi3;
+            newImg.Visual = pic;
+
+            this.viewPort.Children.Add(newImg);
+
+        }
+
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Retrieve the coordinate of the mouse position.
+            Point pt = e.GetPosition((UIElement)sender);
+
+            // Perform the hit test against a given portion of the visual object tree.
+            HitTestResult result = VisualTreeHelper.HitTest(this.bla, pt);
+
+            if (result != null)
+            {
+                MessageBox.Show("HIT");
+            }
         }
     }
 }
