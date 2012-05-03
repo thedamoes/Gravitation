@@ -80,6 +80,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mapSpecificationScheema.cs">
+      <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
+    </Compile>
     <Compile Include="OptionsPannel.xaml.cs">
       <DependentUpon>OptionsPannel.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="mapSpecificationScheema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

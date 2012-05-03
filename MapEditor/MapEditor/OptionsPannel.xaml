@@ -10,6 +10,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         
         <ComboBox Height="24" HorizontalAlignment="Left" Margin="14,49,0,0" Name="Walls_type_select" VerticalAlignment="Top" Width="100" />
@@ -24,6 +25,8 @@
         <Button Content="add" Height="26" HorizontalAlignment="Right" Name="obstical_add_btn" VerticalAlignment="Bottom" Width="121" Grid.Row="1" />
         
         <Label Content="Spawns" Height="26" HorizontalAlignment="Left" Margin="0,12,0,0" Name="label2" VerticalAlignment="Top" Width="97" Grid.Row="2" />
-        
+
+        <Button Content="Save" Height="26" HorizontalAlignment="Right" Name="saveBttn" VerticalAlignment="Bottom" Width="121" Grid.Row="3" Click="saveBttn_Click" />
+        <Button Content="Load" Height="26" HorizontalAlignment="Right" Name="loadBttn" VerticalAlignment="Bottom" Width="121" Grid.Row="3" Margin="0,0,179,0" />
     </Grid>
 </UserControl>

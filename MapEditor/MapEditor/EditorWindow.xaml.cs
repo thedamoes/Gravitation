@@ -24,6 +24,78 @@ namespace MapEditor
         Image activeObject = null;
         OptionsPannel pannel;
 
+        //walls
+        public Asset leftWall = new Asset(null, null, 0); // yes.. public = bad w/e ... cba
+        public Asset rightWall = new Asset(null, null, 0);
+        public Asset topWall = new Asset(null, null, 0);
+        public Asset bottomWall = new Asset(null, null, 0);
+
+        public Point leftWallPosition
+        {
+            get
+            {
+                Point pos = new Point();
+
+                pos.Y =  Canvas.GetBottom(leftWall.image);
+                pos.X = Canvas.GetLeft(leftWall.image);
+
+                return pos;
+            }
+        }
+        public Point rightWallPosition
+        {
+            get
+            {
+                Point pos = new Point();
+
+                pos.Y = Canvas.GetBottom(rightWall.image);
+                pos.X = Canvas.GetLeft(rightWall.image);
+
+                return pos;
+            }
+        }
+        public Point bottomWallPosition
+        {
+            get
+            {
+                Point pos = new Point();
+
+                pos.Y = Canvas.GetBottom(bottomWall.image);
+                pos.X = Canvas.GetLeft(bottomWall.image);
+
+                return pos;
+            }
+        }
+        public Point topWallPosition
+        {
+            get
+            {
+                Point pos = new Point();
+
+                pos.Y = Canvas.GetBottom(topWall.image);
+                pos.X = Canvas.GetLeft(topWall.image);
+
+                return pos;
+            }
+        }
+
+
+        public class Asset
+        {
+            public Image image = null;
+            public String fileName;
+            public int mapNo;
+
+            public Asset(Image image,
+                         String fileName,
+                         int mapNo)
+            {
+                this.image = image;
+                this.fileName = fileName;
+                this.mapNo = mapNo;
+            }
+        }
+
         public double canvasZoom
         {
             get { return (double)GetValue(EditorWindow.canvasZoomProperty); }
@@ -44,9 +116,8 @@ namespace MapEditor
             this.pannel = op;
         }
 
-        public void addObject(string uri, Point position)
+        public Image addObject(string uri, Point position)
         {
-           
             Image pic = new Image();
 
             BitmapImage bi3 = new BitmapImage();
@@ -62,7 +133,62 @@ namespace MapEditor
             Canvas.SetLeft(pic, position.X);
             Canvas.SetBottom(pic, position.Y);
 
+            return pic;
 
+        }
+
+        public void addRightwall(string url, Point position)
+        {
+            if (this.rightWall.image != null)
+                this.mainCanvas.Children.Remove(this.rightWall.image);
+
+            this.rightWall.image = addObject(url, position);
+            this.rightWall.fileName = System.IO.Path.GetFileNameWithoutExtension(url);
+            this.rightWall.mapNo = extractMapNo(url);
+        }
+
+        public void addLeftwall(string url, Point position)
+        {
+            if (this.leftWall.image != null)
+                this.mainCanvas.Children.Remove(this.leftWall.image);
+
+            this.leftWall.image = addObject(url, position);
+            this.leftWall.fileName = System.IO.Path.GetFileNameWithoutExtension(url);
+            this.leftWall.mapNo = extractMapNo(url);
+        }
+
+        public void addTopwall(string url, Point position)
+        {
+            if (this.topWall.image != null)
+                this.mainCanvas.Children.Remove(this.topWall.image);
+
+            this.topWall.image = addObject(url, position);
+            this.topWall.fileName = System.IO.Path.GetFileNameWithoutExtension(url);
+            this.topWall.mapNo = extractMapNo(url);
+        }
+
+        public void addBottomwall(string url, Point position)
+        {
+            if (this.bottomWall.image != null)
+                this.mainCanvas.Children.Remove(this.bottomWall.image);
+
+            this.bottomWall.image = addObject(url, position);
+            this.bottomWall.fileName = System.IO.Path.GetFileNameWithoutExtension(url);
+            this.bottomWall.mapNo = extractMapNo(url);
+        }
+
+        private int extractMapNo(String url)
+        {
+            String mapNum = "";
+            for (int i = url.LastIndexOf('\\')-1; i > 0; i--)
+            {
+                if (Char.IsNumber(url[i]))
+                    mapNum += url[i];
+                else
+                    break;
+            }
+
+            return Int32.Parse(mapNum);
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
