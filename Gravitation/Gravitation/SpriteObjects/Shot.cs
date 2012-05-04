@@ -110,7 +110,7 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
 
 
-            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position*(MeterInPixels), mrotation);
+            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
             mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
 
         }
@@ -158,6 +158,12 @@ namespace Gravitation.SpriteObjects
                 mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                 mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
                 mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
+
+                foreach (DefaultSpriteParticle particle in mShotParticles.Particles)
+                {
+                    mShotParticles.UpdateParticle(particle, -rotateVector(mDirection, mrotation));
+                }
+                
 
                 if (base.mSpriteBody.LinearVelocity.Y < -20)
                 {
