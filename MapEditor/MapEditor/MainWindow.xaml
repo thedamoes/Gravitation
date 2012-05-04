@@ -10,7 +10,7 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <mapEditor:EditorWindow Grid.Column="0" ></mapEditor:EditorWindow>
+        <mapEditor:EditorWindow Grid.Column="0" x:Name="Editor" ></mapEditor:EditorWindow>
         <GridSplitter Grid.Column="1"
               HorizontalAlignment="Center"
               VerticalAlignment="Stretch"
@@ -19,6 +19,6 @@
               Width="5"
               />
         
-        <mapEditor:OptionsPannel Grid.Column="2"></mapEditor:OptionsPannel>
+        <mapEditor:OptionsPannel Grid.Column="2" x:Name="pannel"></mapEditor:OptionsPannel>
     </Grid>
 </Window>

@@ -10,12 +10,13 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         
         <ComboBox Height="24" HorizontalAlignment="Left" Margin="14,49,0,0" Name="Walls_type_select" VerticalAlignment="Top" Width="100" />
         <Label Content="Walls" Height="26" HorizontalAlignment="Left" Margin="17,10,0,0" Name="label1" VerticalAlignment="Top" Width="97" />
         <Button Content="texture" Height="26" HorizontalAlignment="Right" Name="wall_texture_bttn" VerticalAlignment="Bottom" Width="121" Margin="0,0,0,25" Click="wall_texture_bttn_Click" />
-        <Button Content="add" Height="26" HorizontalAlignment="Right" Name="add_btn" VerticalAlignment="Bottom" Width="121" />
+        <Button Content="add" Height="26" HorizontalAlignment="Right" Name="Wall_add_btn" VerticalAlignment="Bottom" Width="121" Click="Wall_add_btn_Click" />
         <TextBox HorizontalAlignment="Left" Margin="0,0,0,1" Name="Walls_selected_texture" Width="166" Height="25" VerticalAlignment="Bottom" />
         
         
@@ -24,6 +25,8 @@
         <Button Content="add" Height="26" HorizontalAlignment="Right" Name="obstical_add_btn" VerticalAlignment="Bottom" Width="121" Grid.Row="1" />
         
         <Label Content="Spawns" Height="26" HorizontalAlignment="Left" Margin="0,12,0,0" Name="label2" VerticalAlignment="Top" Width="97" Grid.Row="2" />
-        
+
+        <Button Content="Save" Height="26" HorizontalAlignment="Right" Name="saveBttn" VerticalAlignment="Bottom" Width="121" Grid.Row="3" Click="saveBttn_Click" />
+        <Button Content="Load" Height="26" HorizontalAlignment="Right" Name="loadBttn" VerticalAlignment="Bottom" Width="121" Grid.Row="3" Margin="0,0,179,0" />
     </Grid>
 </UserControl>

@@ -22,6 +22,9 @@ namespace MapEditor
         public MainWindow()
         {
             InitializeComponent();
+
+            this.Editor.setOptionsPannel(this.pannel);
+            this.pannel.setEditorWindow(this.Editor);
         }
     }
 }
