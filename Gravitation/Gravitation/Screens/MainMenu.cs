@@ -157,7 +157,7 @@ namespace Gravitation.Screens
                     case (int)listItems.SWARM:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/test.xml", mShip)));
                         }
                         break;
                     case (int)listItems.VERSES:

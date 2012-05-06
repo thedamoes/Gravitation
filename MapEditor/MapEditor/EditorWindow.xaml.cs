@@ -36,8 +36,8 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y =  Canvas.GetBottom(leftWall.image);
-                pos.X = Canvas.GetLeft(leftWall.image);
+                pos.Y = Canvas.GetTop(leftWall.image) + (leftWall.image.Source.Height / 2);
+                pos.X = Canvas.GetLeft(leftWall.image) + (leftWall.image.Source.Width /2);
 
                 return pos;
             }
@@ -48,8 +48,8 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(rightWall.image);
-                pos.X = Canvas.GetLeft(rightWall.image);
+                pos.Y = Canvas.GetTop(rightWall.image)+(rightWall.image.Source.Height/2);
+                pos.X = Canvas.GetLeft(rightWall.image); //+ (rightWall.image.Source.Width);
 
                 return pos;
             }
@@ -60,8 +60,8 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(bottomWall.image);
-                pos.X = Canvas.GetLeft(bottomWall.image);
+                pos.Y = Canvas.GetTop(bottomWall.image) + (bottomWall.image.Source.Height / 2);
+                pos.X = Canvas.GetLeft(bottomWall.image)+(bottomWall.image.Source.Width/2);
 
                 return pos;
             }
@@ -72,8 +72,8 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(topWall.image);
-                pos.X = Canvas.GetLeft(topWall.image);
+                pos.Y = Canvas.GetTop(topWall.image) + (topWall.image.Source.Height / 2);
+                pos.X = Canvas.GetLeft(topWall.image) + (topWall.image.Source.Width / 2);
 
                 return pos;
             }

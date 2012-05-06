@@ -98,23 +98,65 @@ namespace MapEditor
             {
                 string filename = dlg.FileName;
                 Map newMap = new Map();
+
+                // create map dimentions
+                MapMapDimentions dimentions = new MapMapDimentions();
+                dimentions.Height = 1;
+                dimentions.Width = 1;
+                newMap.MapDimentions = dimentions;
+
+
+                // create surfaces
                 MapSurfaces surfaces = new MapSurfaces();
 
-                MapSurfacesWall[] walls = new MapSurfacesWall[4];
+                // create background
+                MapSurfacesBackgoundPicture backgroundPic = new MapSurfacesBackgoundPicture();
+                MapSurfacesBackgoundPictureAsset backgroundAsset = new MapSurfacesBackgoundPictureAsset();
+                MapSurfacesBackgoundPictureAssetScale backScale = new MapSurfacesBackgoundPictureAssetScale();
+                MapSurfacesBackgoundPictureAssetPosition backgroundPos = new MapSurfacesBackgoundPictureAssetPosition();
 
+                backgroundAsset.name = "smudgystars";
+                
+                backScale.X = "1";
+                backScale.Y = "1";
+             
+                backgroundPos.X = "0";
+                backgroundPos.Y = "0";
+
+                backgroundPic.Asset = backgroundAsset;
+                surfaces.BackgoundPicture = backgroundPic;
+                backgroundAsset.Scale = backScale;
+                backgroundAsset.Position = backgroundPos;
+
+                // create some walls
+                MapSurfacesWall[] walls = new MapSurfacesWall[4];
                 createWall(ref walls, 0, "left", editor.leftWallPosition, editor.leftWall);
                 createWall(ref walls, 1, "right", editor.rightWallPosition, editor.rightWall);
                 createWall(ref walls, 2, "bottom", editor.bottomWallPosition, editor.bottomWall);
                 createWall(ref walls, 3, "top", editor.topWallPosition, editor.topWall);
 
+                MapSurfacesAsset[] obsticals = new MapSurfacesAsset[0];
+
+                surfaces.Obsticals = obsticals;
+
                 surfaces.MapWalls = walls;
                 newMap.Surfaces = surfaces;
 
-                XmlSerializer serialiser = new XmlSerializer(typeof(Map));
-                serialiser.Serialize(new StreamWriter("test.xml"), newMap);
-            }
+                // create spawns
 
-           
+                MapSpawnPoint spawns = new MapSpawnPoint();
+                MapSpawnPointPlayer1 p1Spawn = new MapSpawnPointPlayer1();
+
+                p1Spawn.X = "0";
+                p1Spawn.Y = "100";
+
+                spawns.Player1 = p1Spawn;
+                newMap.SpawnPoint = spawns;
+
+
+                XmlSerializer serialiser = new XmlSerializer(typeof(Map));
+                serialiser.Serialize(new StreamWriter(filename), newMap);
+            }
 
         }
 
@@ -135,9 +177,12 @@ namespace MapEditor
             wallAsset.Scale = scale;
             wallAsset.name = "Maps/Map" + editorWall.mapNo + "/" + editorWall.fileName;
 
+            wallAsset.Height = "1";
+            wallAsset.Width = "1";
+
             MapSurfacesWallAssetPosition position = new MapSurfacesWallAssetPosition();
-            position.X = Wallposition.X.ToString();
-            position.Y = Wallposition.Y.ToString();
+            position.X = ((int)Wallposition.X).ToString();
+            position.Y = ((int)Wallposition.Y).ToString();
 
             wallAsset.Position = position;
             wall.Asset = wallAsset;
