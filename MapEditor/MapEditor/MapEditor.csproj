@@ -36,8 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +59,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="XNAWindow\GraphicsDeviceControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XNAWindow\GraphicsDeviceService.cs" />
+    <Compile Include="XNAWindow\ServiceContainer.cs" />
+    <Compile Include="XNAWindow\SpinningTriangle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XNAWindow\XNAHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XNAWindow\XNAHost.Designer.cs">
+      <DependentUpon>XNAHost.cs</DependentUpon>
+    </Compile>
     <Page Include="EditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +120,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XNAWindow\XNAHost.resx">
+      <DependentUpon>XNAHost.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="mapSpecificationScheema.xsd">
       <SubType>Designer</SubType>
