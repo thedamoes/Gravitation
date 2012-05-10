@@ -36,12 +36,13 @@ namespace DPSF.ParticleSystems
 
         private Vector2 intialPos;
         private float rotation;
+        private Vector2 velocity;
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="cGame">Handle to the Game object being used. Pass in null for this 
 		/// parameter if not using a Game object.</param>
-        public ShotParticleSystem(Game cGame, Vector2 initialPos, float rotation) : base(cGame) { this.intialPos = initialPos; this.rotation = rotation; }
+        public ShotParticleSystem(Game cGame, Vector2 initialPos, float rotation, Vector2 velocity) : base(cGame) { this.intialPos = initialPos; this.rotation = rotation;  this.velocity = velocity;}
 
 		//===========================================================
 		// Structures and Variables
@@ -85,6 +86,8 @@ namespace DPSF.ParticleSystems
 			
 			// Set the Name of the Particle System
 			Name = "Default Sprite Particle System Template";
+
+            
 
 			// Finish loading the Particle System in a separate function call, so if
 			// we want to reset the Particle System later we don't need to completely 
@@ -160,7 +163,7 @@ namespace DPSF.ParticleSystems
 			ParticleSystemEvents.AddTimedEvent(0.5f, UpdateParticleTransparencyToFadeOutUsingLerp());*/
 
 			// Setup the Emitter
-			Emitter.ParticlesPerSecond = 100;
+			Emitter.ParticlesPerSecond = 50f;
 
 
             Emitter.PositionData.Position.X = intialPos.X;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
@@ -170,6 +173,8 @@ namespace DPSF.ParticleSystems
             Emitter.PositionData.Position.Y = intialPos.Y;*/
             Emitter.PositionData.Position.Z = 1;
 			//Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
+
+            
 		}
 
 		/// <summary>
@@ -186,16 +191,16 @@ namespace DPSF.ParticleSystems
 			//-----------------------------------------------------------
 
 			// Set the Particle's Lifetime (how long it should exist for)
-            cParticle.Lifetime = 0.1f;//2.0f;
+            cParticle.Lifetime = 0.03f;//2.0f;
 
 			// Set the Particle's initial Position to be wherever the Emitter is
 
 			cParticle.Position = Emitter.PositionData.Position;
 
 			// Set the Particle's Velocity
-			Vector3 sVelocityMin = new Vector3(0, 0, 0);
-			Vector3 sVelocityMax = new Vector3(0, 0, 0);
-			cParticle.Velocity = DPSFHelper.RandomVectorBetweenTwoVectors(sVelocityMin, sVelocityMax);
+            Vector3 sVelocityMin = new Vector3(-20, -20, 0);
+            Vector3 sVelocityMax = new Vector3(20, 20, 0);
+            cParticle.Velocity = DPSFHelper.RandomVectorBetweenTwoVectors(sVelocityMin, sVelocityMax);
 
 			// Adjust the Particle's Velocity direction according to the Emitter's Orientation
 			cParticle.Velocity = Vector3.Transform(cParticle.Velocity, Emitter.OrientationData.Orientation);
@@ -226,10 +231,11 @@ namespace DPSF.ParticleSystems
 		/// </summary>
 		/// <param name="cParticle">The Particle to update</param>
 		/// <param name="fElapsedTimeInSeconds">How long it has been since the last update</param>
-		protected void UpdateParticleFunctionExample(DefaultSpriteParticle cParticle, float fElapsedTimeInSeconds)
+		public void UpdateParticle(DefaultSpriteParticle cParticle, Vector2 velocity)
 		{
 			// Place code to update the Particle here
-			// Example: cParticle.Position += cParticle.Velocity * fElapsedTimeInSeconds;
+             cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0);
+             cParticle.Position += cParticle.Velocity;
 		}
 
 		//===========================================================

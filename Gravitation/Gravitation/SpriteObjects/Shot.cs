@@ -35,8 +35,9 @@ namespace Gravitation.SpriteObjects
         public bool Visible = false;
         public bool removed = false;
 
-
-
+        ContentManager mtheContentManager;
+        GraphicsDeviceManager mgraphics;
+        SpriteBatch mtheSpriteBatch;
 
 
 
@@ -53,6 +54,9 @@ namespace Gravitation.SpriteObjects
 
         public void LoadContent(ContentManager theContentManager, GraphicsDeviceManager graphics)
         {
+            this.mtheContentManager = theContentManager;
+            this.mgraphics = graphics;
+
             base.mSpriteTexture = theContentManager.Load<Texture2D>("shot");
             base.AssetName = "shot";
             base.Source = new Rectangle(0, 0, base.mSpriteTexture.Width, base.mSpriteTexture.Height);
@@ -106,8 +110,8 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
 
 
-            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position*(MeterInPixels), mrotation);
-            mShotParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, null);
+            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
+            mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
 
         }
         
@@ -119,6 +123,7 @@ namespace Gravitation.SpriteObjects
         public override void Draw(SpriteBatch theSpriteBatch)
         {
             //Create a single body with multiple fixtures
+            this.mtheSpriteBatch = theSpriteBatch;
 
             Vector2 spritePos = base.mSpriteBody.Position * MeterInPixels;
 
@@ -153,6 +158,12 @@ namespace Gravitation.SpriteObjects
                 mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                 mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
                 mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
+
+                foreach (DefaultSpriteParticle particle in mShotParticles.Particles)
+                {
+                    mShotParticles.UpdateParticle(particle, -rotateVector(mDirection, mrotation));
+                }
+                
 
                 if (base.mSpriteBody.LinearVelocity.Y < -20)
                 {

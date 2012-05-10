@@ -143,8 +143,8 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 
   <SpawnPoint>
     <Player1>
-      <X>1000</X>
-      <Y>0</Y>
+      <X>500</X>
+      <Y>350</Y>
     </Player1>
     <Player2>
       <X>0</X>
