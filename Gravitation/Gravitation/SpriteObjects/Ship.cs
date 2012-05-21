@@ -185,7 +185,6 @@ namespace Gravitation.SpriteObjects
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
-
             return true;
         }
 

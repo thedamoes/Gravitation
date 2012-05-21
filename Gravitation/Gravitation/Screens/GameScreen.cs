@@ -17,81 +17,51 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.Screens
 {
-    class GameScreen : IDrawableScreen
+    class GameScreen : BaseGame
     {
-        private World mWorld;
-        private GraphicsDeviceManager graphics;
-        private ContentManager Content;
-
         // Simple camera controls
         private Matrix _view;
         private Vector2 _cameraPosition;
         private Vector2 _screenCenter;
         private Vector3 _cameraZoom;
-        private SpriteFont _font;
-
-        protected DebugViewXNA debugView;
-
-        private const float MeterInPixels = 64f;
-
+        
         // game content
-        private Maps.MapLoader mMapLoader;
+        
         private ControllerAgents.LocalAgent mPlayer1;
 
-        public GameScreen(DataClasses.GameConfiguration gameConfig)
+        public GameScreen(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
-            mWorld = new World(new Vector2(0, 2));
-            mMapLoader = new Maps.MapLoader(gameConfig.MapName, mWorld);
             SpriteObjects.Ship ship = gameConfig.Ship;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
-            ship.World = mWorld;
-            mPlayer1 = new ControllerAgents.LocalAgent(ship);
+            ship.World = base.mWorld;
 
+            mPlayer1 = new ControllerAgents.LocalAgent(ship);
             _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
-        public void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
+        public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
-            this.graphics = graphics;
-            this.Content = Content;
-
-
             // Initialize camera controls
             _view = Matrix.Identity *
                         Matrix.CreateScale(_cameraZoom);
             _cameraPosition = Vector2.Zero;
             _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
                                                 graphics.GraphicsDevice.Viewport.Height / 2f);
-            _font = Content.Load<SpriteFont>("font");
+            
 
             // load players
             mPlayer1.loadShip(Content, graphics);
 
-            // load the map
-            mMapLoader.loadMap(Content);
-
-
-#if DEBUG
-            debugView = new DebugViewXNA(mWorld);
-            debugView.AppendFlags(DebugViewFlags.DebugPanel);
-            debugView.DefaultShapeColor = Color.White;
-            debugView.SleepingShapeColor = Color.LightGray;
-            debugView.RemoveFlags(DebugViewFlags.Controllers);
-            debugView.RemoveFlags(DebugViewFlags.Joint);
-
-
-
-            debugView.LoadContent(graphics.GraphicsDevice, Content);
-#endif
+            base.LoadContent(graphics, Content);
         }
 
-        public DataClasses.IScreenExitData Update(GameTime gameTime)
+        public override DataClasses.IScreenExitData Update(GameTime gameTime)
         {
             //maintain camera position
-            float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
-            float playerPosInPixlesY = (-mPlayer1.myPosition.Y * MeterInPixels);  // are what the "zoom"
-            float camX = (playerPosInPixlesX + graphics.PreferredBackBufferWidth);  // offsets the camera by
-            float camY = (playerPosInPixlesY + graphics.PreferredBackBufferHeight); // from it's origin
+            float playerPosInPixlesX = (-mPlayer1.myPosition.X * BaseGame.MeterInPixels);  // these here variables
+            float playerPosInPixlesY = (-mPlayer1.myPosition.Y * BaseGame.MeterInPixels);  // are what the "zoom"
+            float camX = (playerPosInPixlesX + base.graphics.PreferredBackBufferWidth);  // offsets the camera by
+            float camY = (playerPosInPixlesY + base.graphics.PreferredBackBufferHeight); // from it's origin
 
             // couldent think of any other better way to do it?? if u can feel free
             // these lines stop the cammera from moveing past the bounds of the map
@@ -101,7 +71,7 @@ namespace Gravitation.Screens
             //else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth)) _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth) * 2);
             //else _cameraPosition.X = camX;
              
-
+            
             _cameraPosition.X = camX;
 
             //if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY)) _cameraPosition.Y = (-mMapLoader.topWallPosY);
@@ -134,21 +104,13 @@ namespace Gravitation.Screens
                     mPlayer1.mShip.remove_Shots.RemoveAt(i);
                 }
             }
-
-
-            mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
-
-            return null;
+            return base.Update(gameTime);
         }
 
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
+        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
-
-            mMapLoader.drawMap(sb);
-
             mPlayer1.Draw(sb);
-
 #if DEBUG
 
 
@@ -164,9 +126,10 @@ namespace Gravitation.Screens
             debugView.RenderDebugData(ref projection, ref view);
 
 #endif
+            base.Draw(sb, gameTime);
         }
 
-        public void HandleKeyboard(KeyboardState state, KeyboardState prevState)
+        public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
         {
             // We make it possible to rotate the circle body
             if (state.IsKeyDown(Keys.A))
@@ -189,19 +152,12 @@ namespace Gravitation.Screens
 
             if (state.IsKeyDown(Keys.Space) && prevState.IsKeyUp(Keys.Space))
                 mPlayer1.reset();
-#if DEBUG
-            if (state.IsKeyUp(Keys.R) && prevState.IsKeyDown(Keys.R))
-            {
-                // reinitalise and reload the map from xml DEBUG
-                mMapLoader.unloadBodies();
-                mMapLoader = new Maps.MapLoader("../../../Maps/test.xml", mWorld);
-                mMapLoader.loadMap(Content);
-            }
-#endif
+
+            base.HandleKeyboard(state,prevState);
+
         }
 
-
-        public Matrix getView()
+        public override Matrix getView()
         {
             return _view;
         }
