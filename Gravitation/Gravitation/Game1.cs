@@ -91,7 +91,7 @@ namespace Gravitation
 
                 if (config.GetType().Equals(typeof(DataClasses.GameConfiguration)))
                 {
-                    currentScreen = new Screens.GameScreen((DataClasses.GameConfiguration)config);
+                    currentScreen = new Screens.GameTypes.SinglePlayer((DataClasses.GameConfiguration)config);
                     currentScreen.LoadContent(graphics, Content);
                 }
             }

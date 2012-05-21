@@ -150,25 +150,25 @@ namespace Gravitation.Screens
                 {
                     case (int)listItems.RACE:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip)));
                         }
                         break;
                     case (int)listItems.SWARM:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/test.xml", mShip)));
                         }
                         break;
                     case (int)listItems.VERSES:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
                     case (int)listItems.NETWORKED:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameScreen(
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
                                                                                          new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
                         }
                         break;
