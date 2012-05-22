@@ -151,25 +151,25 @@ namespace Gravitation.Screens
                     case (int)listItems.RACE:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip)));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip,null)));
                         }
                         break;
                     case (int)listItems.SWARM:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/test.xml", mShip)));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/test.xml", mShip,null)));
                         }
                         break;
                     case (int)listItems.VERSES:
                         {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
+                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.DogFight(
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip,new SpriteObjects.Ship(mPlayer))));
                         }
                         break;
                     case (int)listItems.NETWORKED:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                         new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip)));
+                                                                                         new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip,null)));
                         }
                         break;
                     case (int)listItems.SHIP:
