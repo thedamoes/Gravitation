@@ -126,6 +126,7 @@
     <Compile Include="ControllerAgents\LocalAgent.cs" />
     <Compile Include="ControllerAgents\NetworkedAgent.cs" />
     <Compile Include="DataClasses\ScreenDataComnmunicators.cs" />
+    <Compile Include="Input\ControlConfig.cs" />
     <Compile Include="Screens\GameTypes\BaseGame.cs" />
     <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\GameTypes\DogFight.cs" />
