@@ -37,8 +37,8 @@ namespace Gravitation.CameraControls
                 _cameraZoom += new Vector3(0.001f, 0.001f, 0.001f);
 
             Vector2 centerOfPlayers = findCenter(player1PosInPixles, player2PosInPixles);
-            float camX = (centerOfPlayers.X + base.screenWidth);
-            float camY = (centerOfPlayers.Y + base.screenHeight);
+            float camX = (centerOfPlayers.X + (base.screenWidth*screenIncreaseFactor)/2);
+            float camY = (centerOfPlayers.Y + (base.screenHeight*screenIncreaseFactor)/2);
 
             _cameraPosition.X = camX;
             _cameraPosition.Y = camY;

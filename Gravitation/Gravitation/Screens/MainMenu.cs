@@ -163,7 +163,7 @@ namespace Gravitation.Screens
                     case (int)listItems.VERSES:
                         {
                             mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.DogFight(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip,new SpriteObjects.Ship(mPlayer))));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, new SpriteObjects.Ship(mPlayer))));
                         }
                         break;
                     case (int)listItems.NETWORKED:
