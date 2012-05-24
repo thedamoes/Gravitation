@@ -121,6 +121,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraControls\Camera.cs" />
+    <Compile Include="CameraControls\TwoPlayerCamera.cs" />
     <Compile Include="ControllerAgents\AIAgent.cs" />
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
@@ -196,6 +198,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Maps\mapSpecificationScheema.xsd">
       <SubType>Designer</SubType>
     </None>
