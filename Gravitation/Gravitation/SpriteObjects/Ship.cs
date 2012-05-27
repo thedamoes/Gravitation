@@ -206,6 +206,7 @@ namespace Gravitation.SpriteObjects
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
+
           if(fixtureb.Body.IsBullet)
           {
 
@@ -216,6 +217,7 @@ namespace Gravitation.SpriteObjects
               //been shot
               return true;
           }
+
             return true;
         }
 

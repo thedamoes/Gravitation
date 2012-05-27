@@ -14,6 +14,7 @@ namespace Gravitation.DataClasses
     {
         private String mMapName;
         private SpriteObjects.Ship mShip; // deff need to add more later
+        private SpriteObjects.Ship mShip2;
 
         public String MapName
         {
@@ -25,11 +26,19 @@ namespace Gravitation.DataClasses
             get { return mShip; }
         }
 
+        public SpriteObjects.Ship Ship2
+        {
+            get { return mShip2; }
+        }
+
         public GameConfiguration(
                                 String mapName,
-                                SpriteObjects.Ship playerShip)
+                                SpriteObjects.Ship playerShip,
+                                SpriteObjects.Ship player2Ship)
         {
             this.mShip = playerShip;
+            this.mShip2 = player2Ship;
+
             this.mMapName = mapName;
         }
     

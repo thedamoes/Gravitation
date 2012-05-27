@@ -30,14 +30,16 @@ namespace MapEditor
         public Asset topWall = new Asset(null, null, 0);
         public Asset bottomWall = new Asset(null, null, 0);
 
+
+        //wrong 
         public Point leftWallPosition
         {
             get
             {
                 Point pos = new Point();
 
-                pos.Y =  Canvas.GetBottom(leftWall.image);
-                pos.X = Canvas.GetLeft(leftWall.image);
+                pos.Y = Canvas.GetTop(leftWall.image) + (leftWall.image.Source.Height / 3.3);
+                pos.X = Canvas.GetLeft(leftWall.image) + (leftWall.image.Source.Width /1.4);
 
                 return pos;
             }
@@ -48,20 +50,22 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(rightWall.image);
-                pos.X = Canvas.GetLeft(rightWall.image);
+                pos.Y = Canvas.GetTop(rightWall.image) + (rightWall.image.Source.Height/2.6);
+                pos.X = Canvas.GetLeft(rightWall.image) - (rightWall.image.Source.Width*3.3);
 
                 return pos;
             }
         }
+
+        // bottom and top positions correct dinny be toutching them 
         public Point bottomWallPosition
         {
             get
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(bottomWall.image);
-                pos.X = Canvas.GetLeft(bottomWall.image);
+                pos.Y = Canvas.GetTop(bottomWall.image) - (bottomWall.image.Source.Height /2);
+                pos.X = Canvas.GetLeft(bottomWall.image)+(bottomWall.image.Source.Width/2);
 
                 return pos;
             }
@@ -72,8 +76,8 @@ namespace MapEditor
             {
                 Point pos = new Point();
 
-                pos.Y = Canvas.GetBottom(topWall.image);
-                pos.X = Canvas.GetLeft(topWall.image);
+                pos.Y = Canvas.GetTop(topWall.image) + (topWall.image.Source.Height / 2);
+                pos.X = Canvas.GetLeft(topWall.image) + (topWall.image.Source.Width / 2);
 
                 return pos;
             }
@@ -131,7 +135,7 @@ namespace MapEditor
             objectList.Add(pic);
             this.mainCanvas.Children.Add(pic);
             Canvas.SetLeft(pic, position.X);
-            Canvas.SetBottom(pic, position.Y);
+            Canvas.SetTop(pic, position.Y);
 
             return pic;
 
@@ -177,7 +181,7 @@ namespace MapEditor
             this.bottomWall.mapNo = extractMapNo(url);
         }
 
-        private int extractMapNo(String url)
+        public int extractMapNo(String url)
         {
             String mapNum = "";
             for (int i = url.LastIndexOf('\\')-1; i > 0; i--)

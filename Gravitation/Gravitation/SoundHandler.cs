@@ -31,7 +31,7 @@ namespace Gravitation
         }
 
         public void playSound(Sounds sound) // load sounds on demand
-        {
+        {/*
             if (mSoundEffects[sound] != null)
                 mSoundEffects[sound].Play();
 
@@ -39,7 +39,7 @@ namespace Gravitation
             {
                 mSoundEffects[sound] = mCm.Load<SoundEffect>(mAssetNames[sound]);
                 mSoundEffects[sound].Play();
-            }
+            }*/
 
         }
     }
