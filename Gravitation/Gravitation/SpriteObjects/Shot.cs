@@ -34,6 +34,8 @@ namespace Gravitation.SpriteObjects
         public Vector2 mDirection;
         public bool Visible = false;
         public bool removed = false;
+        public int damage;
+
 
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
@@ -42,13 +44,15 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public Shot(World world, Vector2 position, float rotation)
+        public Shot(World world, Vector2 position, float rotation, int damage)
         {
             this.mworld = world;
             this.mrotation = rotation;
 
             this.mposition.Y = (position.Y * MeterInPixels) - (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             this.mposition.X = (position.X * MeterInPixels) - (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
+
+            this.damage = damage;
         }
 
 
@@ -109,7 +113,13 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollisionCategories = Category.Cat10;
             base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
 
+            foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+            {
+                fixturec.UserData = damage;
 
+            }
+
+            
             mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
             mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
 
@@ -204,6 +214,8 @@ namespace Gravitation.SpriteObjects
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
+
+
 
             Visible = false;
 

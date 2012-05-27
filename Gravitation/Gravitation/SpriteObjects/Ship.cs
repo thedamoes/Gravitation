@@ -30,12 +30,16 @@ namespace Gravitation.SpriteObjects
 
         public World world;
 
-       public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
-       public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
+        public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+        public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
+        public ShipParticleSystem mShipParticles = null;
+
+        public int sheilds = 100;
+        public int damage = 25;        
 
         ContentManager theContentManager;
         GraphicsDeviceManager graphics;
-
+        SpriteBatch mtheSpriteBatch;
 
         private Vector2 mPosition;
 
@@ -135,6 +139,9 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollisionCategories = Category.Cat11;
             base.mSpriteBody.CollidesWith = Category.All;
 
+            mShipParticles = new ShipParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, new Vector2(0, -20));
+            mShipParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, this.mtheSpriteBatch);
+
             
         }
 
@@ -147,7 +154,7 @@ namespace Gravitation.SpriteObjects
         public void fire()
         {
 
-                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation);
+                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage);
 
                 aShot.LoadContent(theContentManager, graphics);
 
@@ -183,9 +190,32 @@ namespace Gravitation.SpriteObjects
         }
 
 
+        public void thrust(GameTime gameTime, Matrix _view)
+        {
+            mShipParticles.SpriteBatchSettings.TransformationMatrix = _view;
+            mShipParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            mShipParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation);
+
+            foreach (DefaultSpriteParticle particle in mShipParticles.Particles)
+            {
+                mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0 , -20 ), base.mSpriteBody.Rotation));
+            }
+        }
+
+
+
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
+          if(fixtureb.Body.IsBullet)
+          {
 
+              int damage = Convert.ToInt32(fixtureb.UserData); 
+
+              sheilds -= damage;
+
+              //been shot
+              return true;
+          }
             return true;
         }
 
@@ -194,6 +224,7 @@ namespace Gravitation.SpriteObjects
         public override void Draw(SpriteBatch theSpriteBatch)
         {
             //Create a single body with multiple fixtures
+            this.mtheSpriteBatch = theSpriteBatch;
 
             Vector2 spritePos = base.mSpriteBody.Position * MeterInPixels;
 
@@ -211,7 +242,15 @@ namespace Gravitation.SpriteObjects
         }
 
 
+        private Vector2 rotateVector(Vector2 direction, float angle)
+        {
+            Vector2 newvec = new Vector2();
 
+            newvec.X = (float)((Math.Cos(angle) * direction.X) - (Math.Sin(angle) * direction.Y));
+            newvec.Y = (float)((Math.Sin(angle) * direction.X) + (Math.Cos(angle) * direction.Y));
+
+            return newvec;
+        }
 
     }
 }

@@ -19,6 +19,8 @@ namespace Gravitation.Screens
 {
     class GameScreen : IDrawableScreen
     {
+
+        GameTime gameTime;
         private World mWorld;
         private GraphicsDeviceManager graphics;
         private ContentManager Content;
@@ -87,6 +89,7 @@ namespace Gravitation.Screens
 
         public DataClasses.IScreenExitData Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
             //maintain camera position
             float playerPosInPixlesX = (-mPlayer1.myPosition.X * MeterInPixels);  // these here variables
             float playerPosInPixlesY = (-mPlayer1.myPosition.Y * MeterInPixels);  // are what the "zoom"
@@ -119,6 +122,8 @@ namespace Gravitation.Screens
 
             mPlayer1.updateShot(gameTime, _view);
 
+            mPlayer1.thrust(gameTime, _view);
+            
             foreach (SpriteObjects.Shot aShot in mPlayer1.mShip.remove_Shots)
             {
                 if (aShot != null && aShot.Visible == false && aShot.removed == false)
@@ -135,6 +140,12 @@ namespace Gravitation.Screens
                 }
             }
 
+
+            if (mPlayer1.mShip.sheilds <= 0)
+            {
+                mPlayer1.mShip.sheilds = 100;  //DEATH
+                mPlayer1.reset();
+            }
 
             mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
 
@@ -176,7 +187,7 @@ namespace Gravitation.Screens
                 mPlayer1.moveRight();
 
             if (state.IsKeyDown(Keys.W))
-                mPlayer1.moveForward();
+                mPlayer1.moveForward(gameTime, _view);
 
             if (state.IsKeyUp(Keys.D) && prevState.IsKeyDown(Keys.D))
                 mPlayer1.stall();

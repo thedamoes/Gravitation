@@ -55,9 +55,10 @@ namespace Gravitation.ControllerAgents
         {
             mDirection.Y += DIRECTION_WEIGHT;
         }
-        public void moveForward()
+        public void moveForward(GameTime gameTime, Matrix _view)
         {
             mDirection.Y -= DIRECTION_WEIGHT;
+            //mShip.thrust(gameTime, _view);
         }
         public void fire()
         {
@@ -118,6 +119,12 @@ namespace Gravitation.ControllerAgents
             mShip.updateShot(gameTime, _view);
 
         }
+
+        public void thrust(GameTime gameTime, Matrix _view)
+        {
+            mShip.thrust(gameTime, _view);
+        }
+
 
 
         public void loadShip(ContentManager cm, GraphicsDeviceManager graphics)

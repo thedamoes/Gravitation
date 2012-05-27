@@ -163,7 +163,7 @@ namespace DPSF.ParticleSystems
 			ParticleSystemEvents.AddTimedEvent(0.5f, UpdateParticleTransparencyToFadeOutUsingLerp());*/
 
 			// Setup the Emitter
-			Emitter.ParticlesPerSecond = 50f;
+			Emitter.ParticlesPerSecond = 30f;
 
 
             Emitter.PositionData.Position.X = intialPos.X;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
@@ -191,7 +191,7 @@ namespace DPSF.ParticleSystems
 			//-----------------------------------------------------------
 
 			// Set the Particle's Lifetime (how long it should exist for)
-            cParticle.Lifetime = 0.03f;//2.0f;
+            cParticle.Lifetime = 0.015f;//2.0f;
 
 			// Set the Particle's initial Position to be wherever the Emitter is
 
