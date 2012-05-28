@@ -77,6 +77,34 @@ namespace Gravitation.Screens.GameTypes
                     mPlayer1.mShip.remove_Shots.RemoveAt(i);
                 }
             }
+
+            foreach (SpriteObjects.Shot aShot in mPlayer2.mShip.remove_Shots)
+            {
+                if (aShot != null && aShot.Visible == false && aShot.removed == false)
+                {
+                    mPlayer2.mShip.shortRomoved();
+                }
+            }
+
+            for (int i = 0; i < mPlayer2.mShip.remove_Shots.Count; i++)
+            {
+                if (mPlayer2.mShip.remove_Shots.ElementAt(i).removed == true)
+                {
+                    mPlayer2.mShip.remove_Shots.RemoveAt(i);
+                }
+            }
+
+            if (mPlayer1.mShip.sheilds <= 0)
+            {
+                mPlayer1.mShip.sheilds = 100;  //DEATH
+                mPlayer1.reset();
+            }
+
+            if (mPlayer2.mShip.sheilds <= 0)
+            {
+                mPlayer2.mShip.sheilds = 100;  //DEATH
+                mPlayer2.reset();
+            }
             return base.Update(gameTime);
         }
 
