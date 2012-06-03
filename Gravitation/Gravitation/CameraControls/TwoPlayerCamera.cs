@@ -27,14 +27,14 @@ namespace Gravitation.CameraControls
             if (distanceBetweenShips.X < 0) distanceBetweenShips.X *= -1; // take positive distances
             if (distanceBetweenShips.Y < 0) distanceBetweenShips.Y *= -1; // take positive distances
 
-            // if the distance between the ships is > %70 of the screen
-            if (distanceBetweenShips.X + distanceBetweenShips.Y
-                > ((smallestScreenDimention * screenIncreaseFactor) * 0.70))
-                _cameraZoom -= new Vector3(0.001f, 0.001f, 0.001f);
+            float distanceAppartasPercent = (distanceBetweenShips.X + distanceBetweenShips.Y) /(smallestScreenDimention * screenIncreaseFactor);
 
-            else if (distanceBetweenShips.X + distanceBetweenShips.Y
-               < ((smallestScreenDimention * screenIncreaseFactor) * 0.40))
-                _cameraZoom += new Vector3(0.001f, 0.001f, 0.001f);
+            // if the distance between the ships is > %70 of the screen
+            if (distanceAppartasPercent > 0.90)
+                _cameraZoom -= _cameraZoom * new Vector3(0.005f, 0.005f, 0);
+
+            else if (distanceAppartasPercent < 0.50)
+                _cameraZoom += _cameraZoom * new Vector3(0.005f, 0.005f, 0);
 
             Vector2 centerOfPlayers = findCenter(player1PosInPixles, player2PosInPixles);
             float camX = (centerOfPlayers.X + (base.screenWidth*screenIncreaseFactor)/2);

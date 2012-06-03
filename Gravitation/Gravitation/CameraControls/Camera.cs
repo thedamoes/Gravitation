@@ -15,11 +15,15 @@ namespace Gravitation.CameraControls
 
         protected int screenHeight;
         protected int screenWidth;
+        protected float mapWidthInPixels;
+        protected float mapHeightInPixels;
 
         public Matrix View { get { return _view; } }
         public Vector2 position { get { return _cameraPosition; } }
         public Vector3 zoom { get { return _cameraZoom; } }
         public Vector2 screenCenter { get { return _screenCenter; } }
+
+       
 
 
         public Camera()
@@ -27,7 +31,7 @@ namespace Gravitation.CameraControls
             _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
-        public void initCamera(GraphicsDeviceManager graphics)
+        public void initCamera(GraphicsDeviceManager graphics, float mapHeight,float  mapWidth)
         {
             // Initialize camera controls
             _view = Matrix.Identity *
@@ -38,6 +42,9 @@ namespace Gravitation.CameraControls
 
             screenHeight = graphics.PreferredBackBufferHeight;
             screenWidth = graphics.PreferredBackBufferWidth;
+
+            this.mapHeightInPixels = mapHeight;
+            this.mapWidthInPixels = mapWidth;
         }
 
         public void updateCamera(Vector2 shipPos)

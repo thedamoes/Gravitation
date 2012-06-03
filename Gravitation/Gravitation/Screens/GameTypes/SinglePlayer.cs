@@ -38,7 +38,7 @@ namespace Gravitation.Screens.GameTypes
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
-            cam.initCamera(graphics);
+            cam.initCamera(graphics,base.mMapLoader.MapDimentions.Y,base.mMapLoader.MapDimentions.X);
             // load players
             mPlayer1.loadShip(Content, graphics);
             initalisePlayer1Controles();

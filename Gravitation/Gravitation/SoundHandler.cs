@@ -28,6 +28,8 @@ namespace Gravitation
             mAssetNames.Add(Sounds.SHIP_CRASH1, "Sounds/explosion_2");
             mAssetNames.Add(Sounds.SHIP_FIRE1, "Sounds/strela");
             mAssetNames.Add(Sounds.MOVE_MENU, "Sounds/click");
+
+            SoundEffect.MasterVolume = 0.2f;
         }
 
         public void playSound(Sounds sound) // load sounds on demand
