@@ -33,18 +33,18 @@ namespace Gravitation.Maps
                 mCurrentmap.MapDimentions.Width);
             }
         }
-        public short leftWallPosX
+        public float leftWallPosX
         {
             get
             {
-                return Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[0].Asset.Position.X);
+                return (this.mLeftWall.Position.X * Screens.BaseGame.MeterInPixels) - (this.mLeftWall.spriteOrigin.X * this.mLeftWall.Scale);
             }
         }
-        public short rightWallPosX
+        public float rightWallPosX
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[1].Asset.Position.X);
+                return (this.mRightWall.Position.X * Screens.BaseGame.MeterInPixels) + (this.mRightWall.spriteOrigin.X * this.mRightWall.Scale);
             }
         }
         public short bottonWallPosY
@@ -61,6 +61,15 @@ namespace Gravitation.Maps
                 return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y);
             }
         }
+
+        public float rightWallWidth
+        {
+            get
+            {
+                return Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[1].Asset.Width) * Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[1].Asset.Scale.X);
+            }
+        }
+
         public Vector2 shipStartPosP1
         {
             get
