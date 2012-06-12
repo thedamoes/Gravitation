@@ -44,21 +44,21 @@ namespace Gravitation.Maps
         {
             get
             {
-                return (this.mRightWall.Position.X * Screens.BaseGame.MeterInPixels) + (this.mRightWall.spriteOrigin.X * this.mRightWall.Scale);
+                return (this.mRightWall.Position.X * Screens.BaseGame.MeterInPixels) + (this.mRightWall.spriteOrigin.X);
             }
         }
-        public short bottonWallPosY
+        public float bottonWallPosY
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[2].Asset.Position.Y);
+                return (this.mBottomWall.Position.Y * Screens.BaseGame.MeterInPixels) + (this.mBottomWall.spriteOrigin.Y );
             }
         }
-        public short topWallPosY
+        public float topWallPosY
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y);
+                return (this.mTopWall.Position.Y * Screens.BaseGame.MeterInPixels) - (this.mTopWall.spriteOrigin.Y * this.mTopWall.Scale);
             }
         }
 

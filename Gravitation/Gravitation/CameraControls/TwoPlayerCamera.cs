@@ -42,19 +42,52 @@ namespace Gravitation.CameraControls
                                             centerOfPlayers,
                                             acctualScreenWidth);
 
-            if (camHitLeftWall && camHitRightWall)
+            bool camHitBottemWall = this.viewHitBottonWall(base.bottomWallPosY,
+                                                           centerOfPlayers,
+                                                           acctualScreenHeight);
+
+            bool camHitTopWall = this.viewHitTopWall(base.topWallPosY,
+                                                        centerOfPlayers,
+                                                        acctualScreenHeight);
+
+
+            if (camHitLeftWall || camHitRightWall)
             {
-               // camX = (base.leftWallPosX + base.rightWallPosX) / 2;
-            }   
-            else if (camHitLeftWall)
-            {
-                camX = ((acctualScreenWidth / 2) - centerOfPlayers.X) + ((centerOfPlayers.X) - (acctualScreenWidth / 2) - base.leftWallPosX);
-                this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                if (camHitLeftWall && camHitRightWall)
+                {
+                    camX = ((acctualScreenWidth / 2) - ((base.rightWallPosX + base.leftWallPosX)/2)); // center x of map
+                }
+                else if (camHitRightWall)
+                {
+                    camX = ((acctualScreenWidth / 2) - centerOfPlayers.X) - (base.rightWallPosX - ((centerOfPlayers.X) + (acctualScreenWidth / 2)));
+                    this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                    Console.WriteLine("hitRight");
+                }
+                else if (camHitLeftWall)
+                {
+                    camX = ((acctualScreenWidth / 2) - centerOfPlayers.X) + ((centerOfPlayers.X) - (acctualScreenWidth / 2) - base.leftWallPosX);
+                    this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                    Console.WriteLine("hitLeft");
+                }
             }
-            else if (camHitRightWall)
+            if (camHitBottemWall || camHitTopWall)
             {
-                camX = ((acctualScreenWidth / 2) - centerOfPlayers.X) - (base.rightWallPosX - ((centerOfPlayers.X) + (acctualScreenWidth / 2)));
-                this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                if (camHitBottemWall && camHitTopWall)
+                {
+                    camY = ((acctualScreenHeight / 2) - ((base.bottomWallPosY + base.topWallPosY) / 2)); // center y of map
+                }
+                else if (camHitBottemWall)
+                {
+                    camY = ((acctualScreenHeight / 2) - centerOfPlayers.Y) - (base.bottomWallPosY - ((centerOfPlayers.Y) + (acctualScreenHeight / 2)));
+                    this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                    Console.WriteLine("hitBotton");
+                }
+                else if (camHitTopWall)
+                {
+                    camY = ((acctualScreenHeight / 2) - centerOfPlayers.Y) + (((centerOfPlayers.Y) - (acctualScreenHeight / 2)) - base.topWallPosY);
+                    this.applyZoom(player1PosInPixles, player2PosInPixles, smallestScreenDimention, screenIncreaseFactor);
+                    Console.WriteLine("hitTop");
+                }
             }
             else
             {
@@ -84,6 +117,22 @@ namespace Gravitation.CameraControls
         private bool viewHitRightWall(float rightWallPos, Vector2 CamCenter, float camWidth)
         {
             if ((CamCenter.X) + (camWidth / 2) >= rightWallPos)
+                return true;
+            else
+                return false;
+        }
+
+        private bool viewHitBottonWall(float BottonWallPos, Vector2 CamCenter, float camHeight)
+        {
+            if ((CamCenter.Y) + (camHeight / 2) >= BottonWallPos)
+                return true;
+            else
+                return false;
+        }
+
+        private bool viewHitTopWall(float TopWallPos, Vector2 CamCenter, float camHeight)
+        {
+            if ((CamCenter.Y) - (camHeight / 2) <= TopWallPos)
                 return true;
             else
                 return false;
