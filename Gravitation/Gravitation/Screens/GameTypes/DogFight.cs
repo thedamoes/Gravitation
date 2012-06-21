@@ -42,7 +42,7 @@ namespace Gravitation.Screens.GameTypes
         {
             base.LoadContent(graphics, Content);
            
-            cam.initCamera(graphics, base.mMapLoader.MapDimentions.X,base.mMapLoader.MapDimentions.Y,
+            cam.initCamera(graphics,
                 base.mMapLoader.leftWallPosX,
                 base.mMapLoader.rightWallPosX,
                 base.mMapLoader.topWallPosY,
@@ -117,6 +117,7 @@ namespace Gravitation.Screens.GameTypes
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
+            this.cam.drawDebugLines(sb);
             mPlayer1.Draw(sb);
             mPlayer2.Draw(sb);
 #if DEBUG
@@ -132,6 +133,8 @@ namespace Gravitation.Screens.GameTypes
 
 
             debugView.RenderDebugData(ref projection, ref view);
+
+            
 
 #endif
             base.Draw(sb, gameTime);
