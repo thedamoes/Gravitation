@@ -19,6 +19,7 @@ namespace Gravitation.CameraControls
         protected float mapWidthInPixels;
         protected float mapHeightInPixels;
 
+        //protected const float MAX_ZOOM = 0.1f;
         protected const float MAX_ZOOM = 0.5f;
 
         //protected float topWallPosY;
@@ -80,22 +81,10 @@ namespace Gravitation.CameraControls
                                             (int)(this.mapWidthInPixels - acctualScreenWidth),
                                             (int)(this.mapHeightInPixels - acctualScreenHeight));
 
-            this.prizemTip = new Vector3((rightWallPos + leftWallPos) / 2, (bottomWallPos + topWallPos) / 2, this.mapWidthInPixels / screenWidth); // max zoom point
+            this.prizemTip = new Vector3(prizemBase.Center.X, prizemBase.Center.Y, this.mapWidthInPixels / screenWidth); // max zoom point
 
             this.initPrisemEdgeGradients();
             this.initYIntercepts();
-
-            // remove me later
-            basePrisemTex = new Texture2D(graphics.GraphicsDevice, prizemBase.Width, prizemBase.Height);
-            boundTex = new Texture2D(graphics.GraphicsDevice, 200, 1);
-
-            Color[] data = new Color[prizemBase.Width * prizemBase.Height];
-            for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
-            basePrisemTex.SetData(data);
-
-            Color[] data2 = new Color[200*1];
-            for (int i = 0; i < data2.Length; ++i) data2[i] = Color.White;
-            boundTex.SetData(data2);
         }
 
         public void updateCamera(Vector2 shipPos)
@@ -136,16 +125,16 @@ namespace Gravitation.CameraControls
             this.xLeftM = this.calculateGradient(   new Vector2(this.prizemTip.X,  this.prizemTip.Z),
                                                     new Vector2(prizemBase.Left,  1/Camera.MAX_ZOOM));
 
-            this.yTopM = this.calculateGradient( new Vector2(this.prizemTip.X,  this.prizemTip.Z),
+            this.yTopM = this.calculateGradient( new Vector2(this.prizemTip.Y,  this.prizemTip.Z),
                                                 new Vector2(prizemBase.Top,   1/Camera.MAX_ZOOM));
 
-            this.yBottomM = this.calculateGradient(new Vector2(this.prizemTip.X, this.prizemTip.Z),
+            this.yBottomM = this.calculateGradient(new Vector2(this.prizemTip.Y, this.prizemTip.Z),
                                                     new Vector2(prizemBase.Bottom, 1/ Camera.MAX_ZOOM));
         }
         private void initYIntercepts()
         {
-            this.xRightC = this.calculateYIntercept(this.prizemTip, this.xRightM);
-            this.xLeftC = this.calculateYIntercept(this.prizemTip, this.xLeftM);
+            this.xRightC = this.calculateXIntercept(this.prizemTip, this.xRightM);
+            this.xLeftC = this.calculateXIntercept(this.prizemTip, this.xLeftM);
             this.yTopC = this.calculateYIntercept(this.prizemTip, this.yTopM);
             this.yBottomC = this.calculateYIntercept(this.prizemTip, this.yBottomM);
         }
@@ -154,6 +143,11 @@ namespace Gravitation.CameraControls
             return (point1.Y - point2.Y) / (point1.X - point2.X);
         }
         private float calculateYIntercept(Vector3 PointOnline, float gradient)
+        {
+            return PointOnline.Z - (PointOnline .Y * gradient);
+        }
+
+        private float calculateXIntercept(Vector3 PointOnline, float gradient)
         {
             return PointOnline.Z - (PointOnline.X * gradient);
         }

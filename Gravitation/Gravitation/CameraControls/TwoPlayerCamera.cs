@@ -134,19 +134,6 @@ namespace Gravitation.CameraControls
             }
         }
 
-        public  void drawDebugLines(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
-        {
-            //Vector2 basePrisem = new Vector2(base.prizemBase.Center.X, base.prizemBase.Center.Y);
-            sb.Draw(base.basePrisemTex, base.prizemBase, Color.White);
-
-            /*float camPos = -base._cameraPosition.X;
-            if (isXOutofBounds(ref camPos, base.zoom.X))
-            {
-                Vector2 rightBound = new Vector2(camPos, base.prizemBase.Center.Y);
-                sb.Draw(base.boundTex, rightBound, Color.White);
-            }*/
-        }
-
         /*
         // overload updateCamera function for 2 players
         public void  updateCamera(Vector2 shipPos, Vector2 shipPos2) 

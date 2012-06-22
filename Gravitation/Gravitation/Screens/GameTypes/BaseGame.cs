@@ -75,7 +75,7 @@ namespace Gravitation.Screens
             {
                 // reinitalise and reload the map from xml DEBUG
                 mMapLoader.unloadBodies();
-                mMapLoader = new Maps.MapLoader("../../../Maps/test.xml", mWorld);
+                mMapLoader = new Maps.MapLoader(mMapLoader.MapFile, mWorld);
                 mMapLoader.loadMap(Content);
             }
 #endif

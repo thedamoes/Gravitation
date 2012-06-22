@@ -13,6 +13,10 @@ namespace Gravitation.Maps
 {
     class MapLoader
     {
+
+#if DEBUG
+        public String MapFile;
+#endif
         private Map mCurrentmap;
         
         private SpriteObjects.Wall mLeftWall;
@@ -51,7 +55,7 @@ namespace Gravitation.Maps
         {
             get
             {
-                return (this.mBottomWall.Position.Y * Screens.BaseGame.MeterInPixels) + (this.mBottomWall.spriteOrigin.Y );
+                return (this.mBottomWall.Position.Y * Screens.BaseGame.MeterInPixels) + (this.mBottomWall.spriteOrigin.Y);
             }
         }
         public float topWallPosY
@@ -97,6 +101,10 @@ namespace Gravitation.Maps
 
             // create obsticals
             createObsicals(ref mObsicals, mCurrentmap.Surfaces.Obsticals);
+
+#if DEBUG
+            this.MapFile = fileName;
+#endif
         }
 #if DEBUG
         public void unloadBodies()
