@@ -48,9 +48,6 @@ namespace Gravitation.CameraControls
         public Vector3 zoom { get { return _cameraZoom; } }
         public Vector2 screenCenter { get { return _screenCenter; } }
 
-        public Texture2D basePrisemTex;
-        public Texture2D boundTex;
-
 
         public Camera()
         {
@@ -90,33 +87,28 @@ namespace Gravitation.CameraControls
         public void updateCamera(Vector2 shipPos)
         {
             //maintain camera position
-            float playerPosInPixlesX = (-shipPos.X * Screens.BaseGame.MeterInPixels);  // these here variables
-            float playerPosInPixlesY = (-shipPos.Y * Screens.BaseGame.MeterInPixels);  // are what the "zoom"
-            float camX = (playerPosInPixlesX + this.screenWidth);  // offsets the camera by
-            float camY = (playerPosInPixlesY + this.screenHeight); // from it's origin
+            float playerPosInPixlesX = (shipPos.X * Screens.BaseGame.MeterInPixels);  // these here variables
+            float playerPosInPixlesY = (shipPos.Y * Screens.BaseGame.MeterInPixels);  // are what the "zoom"
+
+           
+
+            this.correctCameraPositionX(ref playerPosInPixlesX, this._cameraZoom.X);
+            this.correctCameraPositionY(ref playerPosInPixlesY, this._cameraZoom.X);
+
+            float camX = (-playerPosInPixlesX + this.screenWidth);  // offsets the camera by
+            float camY = (-playerPosInPixlesY + this.screenHeight); // from it's origin
+
 
             // couldent think of any other better way to do it?? if u can feel free
             // these lines stop the cammera from moveing past the bounds of the map
-
-
-            //if (-playerPosInPixlesX < (graphics.PreferredBackBufferWidth - mMapLoader.leftWallPosX)) _cameraPosition.X = (mMapLoader.leftWallPosX);
-            //else if (-playerPosInPixlesX > (mMapLoader.rightWallPosX - graphics.PreferredBackBufferWidth)) _cameraPosition.X = -(mMapLoader.rightWallPosX - (graphics.PreferredBackBufferWidth) * 2);
-            //else _cameraPosition.X = camX;
-
-
             _cameraPosition.X = camX;
-
-            //if (-playerPosInPixlesY < (graphics.PreferredBackBufferHeight + mMapLoader.topWallPosY)) _cameraPosition.Y = (-mMapLoader.topWallPosY);
-            //else if (-playerPosInPixlesY > (mMapLoader.bottonWallPosY - graphics.PreferredBackBufferHeight)) _cameraPosition.Y = (graphics.PreferredBackBufferHeight * 2) - mMapLoader.bottonWallPosY;
-            //else _cameraPosition.Y = camY;
-
             _cameraPosition.Y = camY;
 
-            _view = Matrix.CreateTranslation(new Vector3(_cameraPosition - _screenCenter, 0f)) *
-                Matrix.CreateTranslation(new Vector3(_screenCenter, 0f)) *
+            _view = Matrix.CreateTranslation(new Vector3(_cameraPosition, 0f)) *
                  Matrix.CreateScale(_cameraZoom);
         }
 
+        #region prisem Inintalisers
         private void initPrisemEdgeGradients()
         {
             this.xRightM = this.calculateGradient(new Vector2(this.prizemTip.X, this.prizemTip.Z),
@@ -146,11 +138,83 @@ namespace Gravitation.CameraControls
         {
             return PointOnline.Z - (PointOnline .Y * gradient);
         }
-
         private float calculateXIntercept(Vector3 PointOnline, float gradient)
         {
             return PointOnline.Z - (PointOnline.X * gradient);
         }
+        #endregion
+
+        #region Camera Position Correctors
+
+        protected void correctCameraPositionX(ref float cameraXPos, float cameraZoom)
+        {
+            float camPos = cameraXPos;
+            if (isXOutofBounds(ref camPos, cameraZoom))
+                cameraXPos = camPos;
+
+        }
+        protected void correctCameraPositionY(ref float cameraYPos, float cameraZoom)
+        {
+            float camPos = cameraYPos;
+            if (isYOutofBounds(ref camPos, cameraZoom))
+                cameraYPos = camPos;
+        }
+
+        private bool isXOutofBounds(ref float posX, float zoom)
+        {
+            float xBoundRight = getXForZoomRight(zoom);
+            float xBoundLeft = getXForZoomLeft(zoom);
+
+            if (posX < xBoundLeft || posX > xBoundRight)
+            {
+                if (posX < xBoundLeft)
+                    posX = xBoundLeft;
+                else
+                    posX = xBoundRight;
+
+                return true;
+            }
+            else
+                return false;
+        }
+        private bool isYOutofBounds(ref float posY, float zoom)
+        {
+            float yBoundTop = getYForZoomTop(zoom);
+            float yBoundBottom = getYForZoomBottom(zoom);
+
+            if (posY > yBoundBottom || posY < yBoundTop)
+            {
+                if (posY > yBoundBottom)
+                    posY = yBoundBottom;
+                else
+                    posY = yBoundTop;
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        private float getXForZoomLeft(float zoom)
+        {
+            float res = 1 / zoom - xLeftC;
+            return (res) / xLeftM;
+        }
+        private float getXForZoomRight(float zoom)
+        {
+            return (1 / zoom - xRightC) / xRightM;
+        }
+        private float getYForZoomTop(float zoom)
+        {
+            return (1 / zoom - yTopC) / yTopM;
+        }
+        private float getYForZoomBottom(float zoom)
+        {
+            return (1 / zoom - yBottomC) / yBottomM;
+        }
+
+
+        #endregion
 
     }
 }
