@@ -122,7 +122,9 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsNownKey(Keys.W, mPlayer1.moveForward);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+           // mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
+
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
         }
 

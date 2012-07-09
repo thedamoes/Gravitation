@@ -73,8 +73,6 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.updateShot(gameTime, cam.View);
             mPlayer2.updateShot(gameTime, cam.View);
 
-            mPlayer1.thrust(gameTime, cam.View);
-            mPlayer2.thrust(gameTime, cam.View);
 
 
             mPlayer1.mShip.shortRomoved();
@@ -159,6 +157,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+            //mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
+
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset); 
        }
 
@@ -172,6 +172,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Right, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
+            //mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
+
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset); 
         }
 
