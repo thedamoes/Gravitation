@@ -214,7 +214,7 @@ namespace DPSF.ParticleSystems
 
 			// Give the Particle a random Color
 			// Since we have Color Lerp enabled we must also set the Start and End Color
-			//cParticle.Color = cParticle.StartColor = cParticle.EndColor = DPSFHelper.RandomColor();
+			cParticle.Color = cParticle.StartColor = cParticle.EndColor = Color.Gold;
 		}
 
 		//===========================================================

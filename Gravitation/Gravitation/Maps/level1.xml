@@ -147,7 +147,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
       <Y>0</Y>
     </Player1>
     <Player2>
-      <X>0</X>
+      <X>2000</X>
       <Y>0</Y>
     </Player2>
     <default>

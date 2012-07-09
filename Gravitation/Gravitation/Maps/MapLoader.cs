@@ -70,6 +70,15 @@ namespace Gravitation.Maps
             }
         }
 
+        public Vector2 shipStartPosP2
+        {
+            get
+            {
+                return new Vector2(Convert.ToInt32(mCurrentmap.SpawnPoint.Player2.X),
+                                   Convert.ToInt32(mCurrentmap.SpawnPoint.Player2.Y));
+            }
+        }
+
         public MapLoader(String fileName, World world)
         {
             this.mWorld = world;

@@ -54,13 +54,10 @@ namespace Gravitation.Screens.GameTypes
 
             mPlayer1.updateShot(gameTime, cam.View);
 
-            foreach (SpriteObjects.Shot aShot in mPlayer1.mShip.remove_Shots)
-            {
-                if (aShot != null && aShot.Visible == false && aShot.removed == false)
-                {
+            mPlayer1.thrust(gameTime, cam.View);
+
                     mPlayer1.mShip.shortRomoved();
-                }
-            }
+  
 
             for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
             {
@@ -98,6 +95,16 @@ namespace Gravitation.Screens.GameTypes
         {
             mPlayer1ControllerConfig.actionKeys(state, prevState);
             base.HandleKeyboard(state,prevState);
+
+            if(state.IsKeyDown(Keys.W))
+            {
+                mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
+               // mPlayer1.mShip.mShipParticles.Emitter.BurstParticles = 1000;
+            }
+            else
+                mPlayer1.mShip.mShipParticles.Emitter.Enabled = false;
+
+
         }
 
         private void initalisePlayer1Controles()
@@ -106,7 +113,6 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsNownKey(Keys.A, mPlayer1.moveLeft);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.D, mPlayer1.moveRight);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.W, mPlayer1.moveForward);
-
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);

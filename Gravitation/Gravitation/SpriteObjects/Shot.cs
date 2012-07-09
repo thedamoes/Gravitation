@@ -194,7 +194,7 @@ namespace Gravitation.SpriteObjects
             this.mposition.Y = (theStartPosition.Y * MeterInPixels) - (float)Math.Round(88f * Math.Sin(rotation + 1.57079633));
             this.mposition.X = (theStartPosition.X * MeterInPixels) - (float)Math.Round(88f * Math.Cos(rotation + 1.57079633));
 
-            mDirection = new Vector2(0 , -20 );
+            mDirection = new Vector2(0 , -20);
 
             Visible = true;
 
@@ -215,10 +215,15 @@ namespace Gravitation.SpriteObjects
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
 
-
-
+            if(Visible == true)
+            {
+            mworld.RemoveBody(base.mSpriteBody);
             Visible = false;
+            }
 
+
+            
+           
 
             return true;
         }
