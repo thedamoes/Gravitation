@@ -13,6 +13,10 @@ namespace Gravitation.Maps
 {
     class MapLoader
     {
+
+#if DEBUG
+        public String MapFile;
+#endif
         private Map mCurrentmap;
         
         private SpriteObjects.Wall mLeftWall;
@@ -33,34 +37,43 @@ namespace Gravitation.Maps
                 mCurrentmap.MapDimentions.Width);
             }
         }
-        public short leftWallPosX
+        public float leftWallPosX
         {
             get
             {
-                return Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[0].Asset.Position.X);
+                return (this.mLeftWall.Position.X * Screens.BaseGame.MeterInPixels) - (this.mLeftWall.spriteOrigin.X * this.mLeftWall.Scale);
             }
         }
-        public short rightWallPosX
+        public float rightWallPosX
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[1].Asset.Position.X);
+                return (this.mRightWall.Position.X * Screens.BaseGame.MeterInPixels) + (this.mRightWall.spriteOrigin.X);
             }
         }
-        public short bottonWallPosY
+        public float bottonWallPosY
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[2].Asset.Position.Y);
+                return (this.mBottomWall.Position.Y * Screens.BaseGame.MeterInPixels) + (this.mBottomWall.spriteOrigin.Y);
             }
         }
-        public short topWallPosY
+        public float topWallPosY
         {
             get
             {
-                return Convert.ToInt16 (mCurrentmap.Surfaces.MapWalls[3].Asset.Position.Y);
+                return (this.mTopWall.Position.Y * Screens.BaseGame.MeterInPixels) - (this.mTopWall.spriteOrigin.Y * this.mTopWall.Scale);
             }
         }
+
+        public float rightWallWidth
+        {
+            get
+            {
+                return Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[1].Asset.Width) * Convert.ToInt16(mCurrentmap.Surfaces.MapWalls[1].Asset.Scale.X);
+            }
+        }
+
         public Vector2 shipStartPosP1
         {
             get
@@ -97,6 +110,10 @@ namespace Gravitation.Maps
 
             // create obsticals
             createObsicals(ref mObsicals, mCurrentmap.Surfaces.Obsticals);
+
+#if DEBUG
+            this.MapFile = fileName;
+#endif
         }
 #if DEBUG
         public void unloadBodies()

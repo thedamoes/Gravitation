@@ -5,8 +5,8 @@ xmlns="mapSpecificationScheema.xsd"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
   <MapDimentions>
-    <Width>2100</Width>
-    <Height>1100</Height>
+    <Width>12760</Width>
+    <Height>122258</Height>
   </MapDimentions>
 	<Surfaces>
     <BackgoundPicture>

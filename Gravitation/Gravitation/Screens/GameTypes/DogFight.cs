@@ -41,7 +41,13 @@ namespace Gravitation.Screens.GameTypes
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
-            cam.initCamera(graphics);
+            base.LoadContent(graphics, Content);
+           
+            cam.initCamera(graphics,
+                base.mMapLoader.leftWallPosX,
+                base.mMapLoader.rightWallPosX,
+                base.mMapLoader.topWallPosY,
+                base.mMapLoader.bottonWallPosY);
 
             // load players
             mPlayer1.loadShip(Content, graphics);
@@ -50,7 +56,7 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
 
-            base.LoadContent(graphics, Content);
+            
         }
 
         public override DataClasses.IScreenExitData Update(GameTime gameTime)
@@ -127,6 +133,8 @@ namespace Gravitation.Screens.GameTypes
 
 
             debugView.RenderDebugData(ref projection, ref view);
+
+            
 
 #endif
             base.Draw(sb, gameTime);

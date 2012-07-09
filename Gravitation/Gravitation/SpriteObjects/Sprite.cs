@@ -27,7 +27,7 @@ namespace Gravitation.SpriteObjects
 
         public Vector2 Position
         {
-            get { return mSpriteBody.Position; }
+            get {return mSpriteBody.Position; }
         }
         public string AssetName;
         public Rectangle Size;
