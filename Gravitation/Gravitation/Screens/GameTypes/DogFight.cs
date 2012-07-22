@@ -27,9 +27,10 @@ namespace Gravitation.Screens.GameTypes
             ship.ShipPosition = mMapLoader.shipStartPosP1;
             ship.World = base.mWorld;
 
+
             // load ship 2
             SpriteObjects.Ship ship2 = gameConfig.Ship2;
-            ship2.ShipPosition = mMapLoader.shipStartPosP1;
+            ship2.ShipPosition = mMapLoader.shipStartPosP2;
             ship2.World = base.mWorld;
 
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
@@ -62,19 +63,20 @@ namespace Gravitation.Screens.GameTypes
         {
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
+
+            mPlayer1.thrust(gameTime, cam.View);
+            mPlayer2.thrust(gameTime, cam.View);
+
             mPlayer1.applyMovement();
             mPlayer2.applyMovement();
 
             mPlayer1.updateShot(gameTime, cam.View);
             mPlayer2.updateShot(gameTime, cam.View);
 
-            foreach (SpriteObjects.Shot aShot in mPlayer1.mShip.remove_Shots)
-            {
-                if (aShot != null && aShot.Visible == false && aShot.removed == false)
-                {
-                    mPlayer1.mShip.shortRomoved();
-                }
-            }
+
+
+            mPlayer1.mShip.shortRomoved();
+            mPlayer2.mShip.shortRomoved();
 
             for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
             {
@@ -84,13 +86,6 @@ namespace Gravitation.Screens.GameTypes
                 }
             }
 
-            foreach (SpriteObjects.Shot aShot in mPlayer2.mShip.remove_Shots)
-            {
-                if (aShot != null && aShot.Visible == false && aShot.removed == false)
-                {
-                    mPlayer2.mShip.shortRomoved();
-                }
-            }
 
             for (int i = 0; i < mPlayer2.mShip.remove_Shots.Count; i++)
             {
@@ -100,16 +95,20 @@ namespace Gravitation.Screens.GameTypes
                 }
             }
 
+
+
+
+
             if (mPlayer1.mShip.sheilds <= 0)
             {
                 mPlayer1.mShip.sheilds = 100;  //DEATH
-                mPlayer1.reset();
+                mPlayer1.reset2(mMapLoader.shipStartPosP1);
             }
 
             if (mPlayer2.mShip.sheilds <= 0)
             {
                 mPlayer2.mShip.sheilds = 100;  //DEATH
-                mPlayer2.reset();
+                mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
             return base.Update(gameTime);
         }
@@ -158,6 +157,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+            //mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
+
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset); 
        }
 
@@ -171,6 +172,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Right, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
+            //mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
+
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset); 
         }
 

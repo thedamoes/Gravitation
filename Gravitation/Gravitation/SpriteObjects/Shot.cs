@@ -27,7 +27,7 @@ namespace Gravitation.SpriteObjects
 {
     public class Shot : Sprite
     {
-        public ShotParticleSystem mShotParticles = null;
+       // public ShotParticleSystem mShotParticles = null;
         public World mworld;
         public Vector2 mposition;
         public float mrotation;
@@ -120,8 +120,8 @@ namespace Gravitation.SpriteObjects
             }
 
             
-            mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
-            mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
+          //  mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
+           // mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
 
         }
         
@@ -148,7 +148,7 @@ namespace Gravitation.SpriteObjects
                 Color.White, mrotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 
-            mShotParticles.Draw();
+          //  mShotParticles.Draw();
 
             }
 
@@ -165,14 +165,14 @@ namespace Gravitation.SpriteObjects
 
             if (Visible == true)
             {
-                mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
+               /* mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                 mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
                 mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
 
                 foreach (DefaultSpriteParticle particle in mShotParticles.Particles)
                 {
                     mShotParticles.UpdateParticle(particle, -rotateVector(mDirection, mrotation));
-                }
+                }*/
                 
 
                 if (base.mSpriteBody.LinearVelocity.Y < -20)
@@ -194,7 +194,7 @@ namespace Gravitation.SpriteObjects
             this.mposition.Y = (theStartPosition.Y * MeterInPixels) - (float)Math.Round(88f * Math.Sin(rotation + 1.57079633));
             this.mposition.X = (theStartPosition.X * MeterInPixels) - (float)Math.Round(88f * Math.Cos(rotation + 1.57079633));
 
-            mDirection = new Vector2(0 , -20 );
+            mDirection = new Vector2(0 , -20);
 
             Visible = true;
 
@@ -215,10 +215,15 @@ namespace Gravitation.SpriteObjects
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
 
-
-
+            if(Visible == true)
+            {
+            mworld.RemoveBody(base.mSpriteBody);
             Visible = false;
+            }
 
+
+            
+           
 
             return true;
         }

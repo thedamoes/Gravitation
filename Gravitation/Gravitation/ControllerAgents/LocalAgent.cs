@@ -58,7 +58,7 @@ namespace Gravitation.ControllerAgents
         public void moveForward()
         {
             mDirection.Y -= DIRECTION_WEIGHT;
-            //mShip.thrust(gameTime, _view);
+            mShip.mShipParticles.Emitter.BurstParticles = 1000;
         }
         public void fire()
         {
@@ -71,13 +71,27 @@ namespace Gravitation.ControllerAgents
             mShip.mSpriteBody.AngularVelocity = 0;
             mRotatation = 0;
         }
+
+
         public void reset()
         {
-            mShip.mSpriteBody.Position = new Vector2(6.25f, 3.75f);
+            mShip.mSpriteBody.Position = new Vector2(4.25f, 3.75f);
             mShip.mSpriteBody.Rotation = 0;
+            mShip.mSpriteBody.AngularVelocity = 0.0f;
+            mShip.mSpriteBody.LinearVelocity = new Vector2(0, 0);
+
+            
+        }
+        public void reset2(Vector2 spawnpoint)
+        {
+            mShip.mSpriteBody.Position = (spawnpoint*0.015625f); //FIGURE OUT WHY THIS IS!!
+            mShip.mSpriteBody.Rotation = 0;
+            mShip.mSpriteBody.AngularVelocity = 0.0f;
             mShip.mSpriteBody.LinearVelocity = new Vector2(0, 0);
             
         }
+        
+        
 
         #endregion
 

@@ -181,7 +181,7 @@ namespace Gravitation.SpriteObjects
             {
                 if(aShot.Visible == false && aShot.removed == false)
                 {
-                    world.RemoveBody(aShot.mSpriteBody);
+                    //world.RemoveBody(aShot.mSpriteBody);
                     mShots.Remove(aShot);
                     aShot.removed = true;
                 }
@@ -193,12 +193,14 @@ namespace Gravitation.SpriteObjects
         public void thrust(GameTime gameTime, Matrix _view)
         {
             mShipParticles.SpriteBatchSettings.TransformationMatrix = _view;
-            mShipParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-            mShipParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation);
+            mShipParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);          
+
+            mShipParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, base.mSpriteBody.LinearVelocity);
 
             foreach (DefaultSpriteParticle particle in mShipParticles.Particles)
             {
-                mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0 , -20 ), base.mSpriteBody.Rotation));
+                //mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0, (-2 +(-0.1f * (float)Math.Sqrt((base.mSpriteBody.LinearVelocity.Y) * (base.mSpriteBody.LinearVelocity.Y))))), base.mSpriteBody.Rotation));
+                mShipParticles.UpdateParticle(particle, rotateVector(new Vector2(0, 2), base.mSpriteBody.Rotation));
             }
         }
 
@@ -235,12 +237,14 @@ namespace Gravitation.SpriteObjects
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 
 
+            mShipParticles.Draw();
+
             foreach (SpriteObjects.Shot aShot in mShots)
             {
                 if (aShot.Visible == true)
                     aShot.Draw(theSpriteBatch);
             }
-
+           
         }
 
 

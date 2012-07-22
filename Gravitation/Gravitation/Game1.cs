@@ -118,7 +118,6 @@ namespace Gravitation
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, currentScreen.getView());
 
             currentScreen.Draw(spriteBatch, gameTime);

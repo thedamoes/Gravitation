@@ -122,24 +122,8 @@ namespace Gravitation.Screens
 
             mPlayer1.updateShot(gameTime, _view);
 
-            mPlayer1.thrust(gameTime, _view);
+            //mPlayer1.thrust(gameTime, _view);
             
-            foreach (SpriteObjects.Shot aShot in mPlayer1.mShip.remove_Shots)
-            {
-                if (aShot != null && aShot.Visible == false && aShot.removed == false)
-                {
-                    mPlayer1.mShip.shortRomoved();
-                }
-            }
-
-            for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
-            {
-                if (mPlayer1.mShip.remove_Shots.ElementAt(i).removed == true)
-                {
-                    mPlayer1.mShip.remove_Shots.RemoveAt(i);
-                }
-            }
-
 
             if (mPlayer1.mShip.sheilds <= 0)
             {

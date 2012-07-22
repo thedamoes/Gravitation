@@ -154,7 +154,7 @@ namespace DPSF.ParticleSystems
 
             // This function must be executed after the Color Lerp function as the Color Lerp will overwrite the Color's
             // Transparency value, so we give this function an Execution Order of 100 to make sure it is executed last.
-            ParticleEvents.AddEveryTimeEvent(UpdateParticleTransparencyToFadeOutUsingLerp, 100);
+            ParticleEvents.AddEveryTimeEvent(UpdateParticleTransparencyToFadeOutUsingLerp, 1);
 
             // Set the Particle System's Emitter to toggle on and off every 0.5 seconds
             /*ParticleSystemEvents.LifetimeData.EndOfLifeOption = CParticleSystemEvents.EParticleSystemEndOfLifeOptions.Repeat;
@@ -166,14 +166,17 @@ namespace DPSF.ParticleSystems
             Emitter.ParticlesPerSecond = 500f;
 
 
-            Emitter.PositionData.Position.X = intialPos.X;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
-            Emitter.PositionData.Position.Y = intialPos.Y; //+ 280f; //- (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
+            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633));
+            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633));
+
+            Emitter.PositionData.Position.X = intialPos.X + xa;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
+            Emitter.PositionData.Position.Y = intialPos.Y + yb; //+ 280f; //- (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
 
             /* Emitter.PositionData.Position.X = intialPos.X;
              Emitter.PositionData.Position.Y = intialPos.Y;*/
             Emitter.PositionData.Position.Z = 1;
             //Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
-
+            Emitter.EmitParticlesAutomatically = false;
 
         }
 
@@ -191,15 +194,15 @@ namespace DPSF.ParticleSystems
             //-----------------------------------------------------------
 
             // Set the Particle's Lifetime (how long it should exist for)
-            cParticle.Lifetime =2.0f;//2.0f;
+            cParticle.Lifetime =0.05f;//2.0f;
 
             // Set the Particle's initial Position to be wherever the Emitter is
 
             cParticle.Position = Emitter.PositionData.Position;
 
             // Set the Particle's Velocity
-            Vector3 sVelocityMin = new Vector3(-20, -20, 0);
-            Vector3 sVelocityMax = new Vector3(20, 20, 0);
+            Vector3 sVelocityMin = new Vector3(-8, -8, 0);
+            Vector3 sVelocityMax = new Vector3(8, 8, 0);
             cParticle.Velocity = DPSFHelper.RandomVectorBetweenTwoVectors(sVelocityMin, sVelocityMax);
 
             // Adjust the Particle's Velocity direction according to the Emitter's Orientation
@@ -214,7 +217,8 @@ namespace DPSF.ParticleSystems
 
             // Give the Particle a random Color
             // Since we have Color Lerp enabled we must also set the Start and End Color
-            //cParticle.Color = cParticle.StartColor = cParticle.EndColor = DPSFHelper.RandomColor();
+            cParticle.Color = cParticle.StartColor = Color.Blue;
+                cParticle.EndColor = Color.Crimson;
         }
 
         //===========================================================
@@ -234,8 +238,8 @@ namespace DPSF.ParticleSystems
         public void UpdateParticle(DefaultSpriteParticle cParticle, Vector2 velocity)
         {
             // Place code to update the Particle here
-            cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0);
-            cParticle.Position += cParticle.Velocity;
+             cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0);
+             cParticle.Position += cParticle.Velocity;
         }
 
         //===========================================================
@@ -251,7 +255,7 @@ namespace DPSF.ParticleSystems
         /// Example of how to create a Particle System Event Function
         /// </summary>
         /// <param name="fElapsedTimeInSeconds">How long it has been since the last update</param>
-        public void UpdateParticleEmmiter(Vector2 shotPos, float rotation)
+        public void UpdateParticleEmmiter(Vector2 shotPos, float rotation, Vector2 speed)
         {
             // Place code to update the Particle System here
             // Example: Emitter.EmitParticles = true;
@@ -260,8 +264,11 @@ namespace DPSF.ParticleSystems
             Emitter.Enabled = true;
 
 
-            Emitter.PositionData.Position.X = shotPos.X; //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
-            Emitter.PositionData.Position.Y = shotPos.Y; //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
+            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633));
+            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633));
+
+            Emitter.PositionData.Position.X = shotPos.X +(xa); //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
+            Emitter.PositionData.Position.Y = shotPos.Y +(yb); //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
             Emitter.PositionData.Position.Z = 1;
         }
 
