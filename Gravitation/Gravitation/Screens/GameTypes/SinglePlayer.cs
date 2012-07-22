@@ -63,7 +63,8 @@ namespace Gravitation.Screens.GameTypes
 
             mPlayer1.thrust(gameTime, cam.View);
 
-                    mPlayer1.mShip.shortRomoved();
+            /*
+            mPlayer1.mShip.shortRomoved();
   
 
             for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
@@ -72,7 +73,7 @@ namespace Gravitation.Screens.GameTypes
                 {
                     mPlayer1.mShip.remove_Shots.RemoveAt(i);
                 }
-            }
+            }*/
             return base.Update(gameTime);
         }
 
