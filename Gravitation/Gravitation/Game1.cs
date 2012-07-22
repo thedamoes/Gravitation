@@ -51,7 +51,7 @@ namespace Gravitation
             graphics.PreferredBackBufferHeight = 480;
 
             Sound = new SoundHandler(Content);
-            currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
+            currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
             //currentScreen = new Screens.GameScreen(new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship()));
 
         }

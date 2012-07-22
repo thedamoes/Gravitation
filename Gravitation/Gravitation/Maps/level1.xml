@@ -49,8 +49,8 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
-            <X>3710</X>
-            <Y>-457</Y>
+            <X>3670</X>
+            <Y>-440</Y>
 					</Position>
 				</Asset>
 			</Wall>

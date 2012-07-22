@@ -138,10 +138,11 @@
     <Compile Include="Maps\mapSpecificationScheema.cs">
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Screens\MainMenu.cs" />
-    <Compile Include="Screens\MenuScreen.cs" />
-    <Compile Include="Screens\SelectShipScreen.cs" />
-    <Compile Include="Screens\ShipSelector.cs" />
+    <Compile Include="Screens\Menu\MainMenu.cs" />
+    <Compile Include="Screens\Menu\MenuButton.cs" />
+    <Compile Include="Screens\Menu\MenuScreen.cs" />
+    <Compile Include="Screens\Menu\SelectShipScreen.cs" />
+    <Compile Include="Screens\Menu\ShipSelector.cs" />
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\ParticleSystems\ShipParticleSystem.cs" />
