@@ -27,6 +27,8 @@ namespace Gravitation.SpriteObjects
 {
     public class Shot : Sprite
     {
+        public delegate void DestroyMeHandler(Shot shotToDestroy);
+
        // public ShotParticleSystem mShotParticles = null;
         public World mworld;
         public Vector2 mposition;
@@ -36,6 +38,7 @@ namespace Gravitation.SpriteObjects
         public bool removed = false;
         public int damage;
 
+        private DestroyMeHandler ondeathHandler;
 
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
@@ -44,7 +47,7 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public Shot(World world, Vector2 position, float rotation, int damage)
+        public Shot(World world, Vector2 position, float rotation, int damage, DestroyMeHandler onDeathHandler)
         {
             this.mworld = world;
             this.mrotation = rotation;
@@ -53,6 +56,7 @@ namespace Gravitation.SpriteObjects
             this.mposition.X = (position.X * MeterInPixels) - (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
 
             this.damage = damage;
+            this.ondeathHandler = onDeathHandler;
         }
 
 
@@ -205,26 +209,16 @@ namespace Gravitation.SpriteObjects
             float shotAngle = mrotation;
 
             base.mSpriteBody.LinearVelocity = rotateVector(mDirection, mrotation);
-
-
         }
-
-
-
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
-
-            if(Visible == true)
+            if (!this.removed)
             {
-            mworld.RemoveBody(base.mSpriteBody);
-            Visible = false;
+                mworld.RemoveBody(base.mSpriteBody);
+                this.ondeathHandler.Invoke(this);
             }
-
-
-            
-           
-
+            this.removed = true;
             return true;
         }
 

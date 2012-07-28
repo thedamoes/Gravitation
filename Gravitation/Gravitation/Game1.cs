@@ -51,8 +51,10 @@ namespace Gravitation
             graphics.PreferredBackBufferHeight = 480;
 
             Sound = new SoundHandler(Content);
-            currentScreen = new Screens.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
-            //currentScreen = new Screens.GameScreen(new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", new SpriteObjects.Ship()));
+            currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
+            //currentScreen = new Screens.GameTypes.SinglePlayer(new DataClasses.GameConfiguration("../../../Maps/level1.xml", new SpriteObjects.Ship(), null));
+
+            currentScreen.gameSelected += this.gameSelected;
 
         }
         protected override void Initialize()
@@ -85,19 +87,17 @@ namespace Gravitation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             HandleKeyboard();
-
-            DataClasses.IScreenExitData config = currentScreen.Update(gameTime);
-            if (config != null)
-            {
-
-                if (config.GetType().Equals(typeof(DataClasses.GameConfiguration)))
-                {
-                    currentScreen = new Screens.GameTypes.SinglePlayer((DataClasses.GameConfiguration)config);
-                    currentScreen.LoadContent(graphics, Content);
-                }
-            }
+            
+            currentScreen.Update(gameTime);
+           
 
             base.Update(gameTime);
+        }
+
+        private void gameSelected(object sender, DataClasses.GameSelectedEventArgs e)
+        {
+            currentScreen = e.getGame();
+            currentScreen.LoadContent(graphics, Content);
         }
 
         private void HandleKeyboard()

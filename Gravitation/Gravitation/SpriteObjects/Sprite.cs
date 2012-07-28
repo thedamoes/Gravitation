@@ -27,7 +27,13 @@ namespace Gravitation.SpriteObjects
 
         public Vector2 Position
         {
-            get {return mSpriteBody.Position; }
+            get
+            {
+                if (mSpriteBody != null)
+                    return mSpriteBody.Position;
+                else
+                    return mspritePos;
+            }
         }
         public string AssetName;
         public Rectangle Size;
@@ -150,7 +156,7 @@ namespace Gravitation.SpriteObjects
 
             theSpriteBatch.Draw(mSpriteTexture, mspritePos, Source,
                 Color.White, mspriteRotation , spriteOrigin,
-                new Vector2(WidthScale, HeightScale), SpriteEffects.None, 0f);
+                new Vector2(mWidthScale, mHeightScale), SpriteEffects.None, 0f);
 
         }
 

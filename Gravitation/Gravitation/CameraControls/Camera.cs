@@ -22,11 +22,6 @@ namespace Gravitation.CameraControls
         //protected const float MAX_ZOOM = 0.1f;
         protected const float MAX_ZOOM = 0.5f;
 
-        //protected float topWallPosY;
-        //protected float bottomWallPosY;
-        //protected float leftWallPosX;
-        //protected float rightWallPosX;
-
         //camera prisemBounds
         protected Rectangle prizemBase;
         protected Vector3 prizemTip;

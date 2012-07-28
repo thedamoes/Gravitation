@@ -15,8 +15,9 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.Screens
 {
-    class BaseGame: IDrawableScreen
+    public class BaseGame: IDrawableScreen
     {
+        public event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
         protected World mWorld;
         protected GraphicsDeviceManager graphics;
         private ContentManager Content;
@@ -56,10 +57,9 @@ namespace Gravitation.Screens
 #endif
         }
 
-        public virtual DataClasses.IScreenExitData Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             mWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
-            return null;
         }
 
         public virtual void Draw(SpriteBatch sb, GameTime gameTime)

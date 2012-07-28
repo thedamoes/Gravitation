@@ -52,7 +52,7 @@ namespace Gravitation.Screens.GameTypes
 
         }
 
-        public override DataClasses.IScreenExitData Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             cam.updateCamera(mPlayer1.myPosition);
 
@@ -62,18 +62,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.updateShot(gameTime, cam.View);
 
             mPlayer1.thrust(gameTime, cam.View);
-
-                    mPlayer1.mShip.shortRomoved();
-  
-
-            for (int i = 0; i < mPlayer1.mShip.remove_Shots.Count; i++)
-            {
-                if (mPlayer1.mShip.remove_Shots.ElementAt(i).removed == true)
-                {
-                    mPlayer1.mShip.remove_Shots.RemoveAt(i);
-                }
-            }
-            return base.Update(gameTime);
+            base.Update(gameTime);
         }
 
 

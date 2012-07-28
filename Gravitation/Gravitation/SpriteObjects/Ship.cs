@@ -31,7 +31,7 @@ namespace Gravitation.SpriteObjects
         public World world;
 
         public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
-        public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
+        //public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
         public ShipParticleSystem mShipParticles = null;
 
         public int sheilds = 100;
@@ -141,8 +141,6 @@ namespace Gravitation.SpriteObjects
 
             mShipParticles = new ShipParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, new Vector2(0, -20));
             mShipParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, this.mtheSpriteBatch);
-
-            
         }
 
 
@@ -154,15 +152,11 @@ namespace Gravitation.SpriteObjects
         public void fire()
         {
 
-                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage);
+            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
 
                 aShot.LoadContent(theContentManager, graphics);
-
                 aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
-
                 mShots.Add(aShot);
-                remove_Shots.Add(aShot);
-
                 mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
         }
 
@@ -175,20 +169,10 @@ namespace Gravitation.SpriteObjects
             }
         }
 
-        public void shortRomoved()
+        private void removeShot(Shot shotToRemove)
         {
-            foreach (SpriteObjects.Shot aShot in remove_Shots)
-            {
-                if(aShot.Visible == false && aShot.removed == false)
-                {
-                    //world.RemoveBody(aShot.mSpriteBody);
-                    mShots.Remove(aShot);
-                    aShot.removed = true;
-                }
-            }
-
+            mShots.Remove(shotToRemove);
         }
-
 
         public void thrust(GameTime gameTime, Matrix _view)
         {
