@@ -22,6 +22,7 @@ namespace Gravitation.Screens.GameTypes
 
         public DogFight(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
+
             // load ship 1
             SpriteObjects.Ship ship = gameConfig.Ship;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
