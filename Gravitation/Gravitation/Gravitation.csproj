@@ -127,6 +127,8 @@
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
     <Compile Include="ControllerAgents\NetworkedAgent.cs" />
+    <Compile Include="DataClasses\GameSelectedEventArgs.cs" />
+    <Compile Include="DataClasses\IGameHolder.cs" />
     <Compile Include="DataClasses\ScreenDataComnmunicators.cs" />
     <Compile Include="Input\ControlConfig.cs" />
     <Compile Include="Screens\GameTypes\BaseGame.cs" />
@@ -140,6 +142,7 @@
     </Compile>
     <Compile Include="Screens\Menu\MainMenu.cs" />
     <Compile Include="Screens\Menu\MenuButton.cs" />
+    <Compile Include="Screens\Menu\MenuL2Selection.cs" />
     <Compile Include="Screens\Menu\MenuScreen.cs" />
     <Compile Include="Screens\Menu\SelectShipScreen.cs" />
     <Compile Include="Screens\Menu\ShipSelector.cs" />

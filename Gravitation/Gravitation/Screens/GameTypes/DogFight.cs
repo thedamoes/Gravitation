@@ -59,7 +59,7 @@ namespace Gravitation.Screens.GameTypes
             
         }
 
-        public override DataClasses.IScreenExitData Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
@@ -85,7 +85,6 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer2.mShip.sheilds = 100;  //DEATH
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
-            return base.Update(gameTime);
         }
 
 

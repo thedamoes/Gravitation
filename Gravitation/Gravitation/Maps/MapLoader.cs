@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Gravitation.Maps
 {
-    class MapLoader
+    public class MapLoader
     {
 
 #if DEBUG

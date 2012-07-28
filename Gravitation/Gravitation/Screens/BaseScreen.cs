@@ -31,5 +31,11 @@ namespace Gravitation.Screens
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
         }
+
+        protected void fire<A>(EventHandler<A> evnt, A args) where A : EventArgs
+        {
+            if (evnt != null)
+                evnt.Invoke(this, args);
+        }
     }
 }

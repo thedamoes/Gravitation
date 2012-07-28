@@ -10,7 +10,7 @@ namespace Gravitation.DataClasses
         Type getDataClassType();
     }
 
-    class GameConfiguration : IScreenExitData
+    public class GameConfiguration : IScreenExitData
     {
         private String mMapName;
         private SpriteObjects.Ship mShip; // deff need to add more later
