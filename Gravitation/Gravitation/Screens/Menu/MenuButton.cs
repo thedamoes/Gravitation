@@ -12,7 +12,8 @@ namespace Gravitation.Screens.Menu
     class MenuButton : Sprite, IDrawableScreen
     {
         public event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
-        public event EventHandler click;
+        public event EventHandler<EventArgs> click;
+        public event EventHandler<EventArgs> highlighted;
 
         private SpriteFont mFont;
         private String myText;
@@ -30,6 +31,9 @@ namespace Gravitation.Screens.Menu
 
         public void highlight()
         {
+            if(!this.mIsHighlighted)
+                this.fire(this.highlighted, new EventArgs());
+
             this.mIsHighlighted = true;
         }
 
@@ -64,13 +68,13 @@ namespace Gravitation.Screens.Menu
 
             #if WINDOWS
             if (position.Contains(ms.X, ms.Y))
-                    this.mIsHighlighted = true;
-                else
-                    this.mIsHighlighted = false;
+                this.highlight();
+            else
+                this.unHighlight();
 
             if (ms.LeftButton == ButtonState.Pressed && this.mIsHighlighted)
             {
-                this.fireClick();
+                this.fire(this.click,new EventArgs());
             }
             #endif
         }
@@ -78,7 +82,7 @@ namespace Gravitation.Screens.Menu
         public void HandleKeyboard(KeyboardState curState, KeyboardState prevState)
         {
             if (this.mIsHighlighted && (curState.IsKeyDown(Keys.Enter) && !prevState.IsKeyDown(Keys.Enter)))
-                this.fireClick();
+                this.fire(this.click, new EventArgs());
         }
 
         public void LoadContent(GraphicsDeviceManager dMan, Microsoft.Xna.Framework.Content.ContentManager cm)
@@ -94,10 +98,10 @@ namespace Gravitation.Screens.Menu
 
         #region Event Fireres
 
-        private void fireClick()
+        private void fire<A>(EventHandler<A> evnt, A args) where A : EventArgs
         {
-            if (this.click != null)
-                this.click(this, new EventArgs());
+            if (evnt != null)
+                evnt(this, args);
         }
         #endregion
 

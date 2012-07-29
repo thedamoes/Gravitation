@@ -92,6 +92,18 @@ namespace Gravitation.Screens.Menu
             this.multiplayer_bttn.click += this.multiplayerSelected;
             this.option_bttn.click += this.optionsSelected;
             this.singlePlayer_Dogfight.click += this.dogfightSelected;
+            this.multiplayer_local.click += this.localPlayMultiplayerSelected;
+
+            this.single_Player_bttn.highlighted += buttonUnhighlighted;
+            this.multiplayer_bttn.highlighted += buttonUnhighlighted;
+            this.option_bttn.highlighted += buttonUnhighlighted;
+            this.singlePlayer_Race.highlighted += buttonUnhighlighted;
+            this.singlePlayer_Swarm.highlighted += buttonUnhighlighted;
+            this.singlePlayer_Dogfight.highlighted += buttonUnhighlighted;
+            this.multiplayer_internet.highlighted += buttonUnhighlighted;
+            this.multiplayer_local.highlighted += buttonUnhighlighted;
+            this.button_config.highlighted += buttonUnhighlighted;
+
 
             this.singlePlayerL2Buttons[0] = this.singlePlayer_Dogfight;
             this.singlePlayerL2Buttons[1] = this.singlePlayer_Race;
@@ -149,55 +161,6 @@ namespace Gravitation.Screens.Menu
 
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
         {
-
-            /*if (curState.IsKeyDown(Keys.Down) && !prevState.IsKeyDown(Keys.Down))
-                Iterator++;
-
-            if (curState.IsKeyDown(Keys.Up) && !prevState.IsKeyDown(Keys.Up))
-                Iterator--;
-
-            if (curState.IsKeyDown(Keys.Enter) && !prevState.IsKeyDown(Keys.Enter))
-            {
-                switch(Iterator)
-                {
-                    case (int)listItems.RACE:
-                        {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip,null)));
-                        }
-                        break;
-                    case (int)listItems.SWARM:
-                        {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/test.xml", mShip,null)));
-                        }
-                        break;
-                    case (int)listItems.VERSES:
-                        {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.DogFight(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, new SpriteObjects.Ship(mPlayer))));
-                        }
-                        break;
-                    case (int)listItems.NETWORKED:
-                        {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.GameTypes.SinglePlayer(
-                                                                                         new DataClasses.GameConfiguration("../../../Maps/firstLevel.xml", mShip,null)));
-                        }
-                        break;
-                    case (int)listItems.SHIP:
-                        {
-                            mNextScreen = new DataClasses.DisplayNewScreen(new Screens.Menu.SelectShipScreen(screenHeight, mScreenWidth));
-                        }
-                        break;
-                    case (int)listItems.EXIT:
-                        {
-                            //Exit(); need to find some way of doing this 
-                        }
-                        break;
-                    default: { }
-                        break;
-                }
-            }*/
         }
 
         public Microsoft.Xna.Framework.Matrix getView()
@@ -226,7 +189,18 @@ namespace Gravitation.Screens.Menu
             base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, null))));
         }
+
+        private void localPlayMultiplayerSelected(object sender, EventArgs e)
+        {
+            base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.DogFight(
+                                                                                       new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, new SpriteObjects.Ship(mPlayer)))));
+        }
         #endregion
+
+        private void buttonUnhighlighted(object sender, EventArgs e)
+        {
+            this.mPlayer.playSound(SoundHandler.Sounds.MOVE_MENU);
+        }
 
         private void createBackground(ref SpriteObjects.Sprite back, float scaleX, float scaleY)
         {

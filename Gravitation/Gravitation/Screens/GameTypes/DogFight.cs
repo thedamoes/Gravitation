@@ -86,6 +86,8 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer2.mShip.sheilds = 100;  //DEATH
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
+
+            base.Update(gameTime);
         }
 
 
