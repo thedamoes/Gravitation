@@ -130,6 +130,11 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerXBOXButtonPress(new Input.XBOXControllerAnalog(Input.XBOXControllerAnalog.SICK.LEFT, Input.XBOXControllerAnalog.AXIS.X_AXIS), mPlayer1.moveLeft);
             mPlayer1ControllerConfig.registerXBOXButtonPress(new Input.XBOXControllerAnalog(Input.XBOXControllerAnalog.SICK.LEFT, Input.XBOXControllerAnalog.AXIS.X_AXIS), mPlayer1.moveRight);
 
+            mPlayer1ControllerConfig.registerXBOXButtonPress(Buttons.DPadLeft, mPlayer1.moveLeft);
+            mPlayer1ControllerConfig.registerXBOXButtonPress(Buttons.DPadRight, mPlayer1.moveRight);
+            mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.DPadLeft, mPlayer1.stall);
+            mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.DPadRight, mPlayer1.stall);
+
             mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickUp, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickRight, mPlayer1.stall);
             mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickLeft, mPlayer1.stall);
