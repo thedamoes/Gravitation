@@ -95,7 +95,7 @@ namespace Gravitation.Screens.Menu
             this.multiplayer_local.click += this.localPlayMultiplayerSelected;
 
             this.single_Player_bttn.highlighted += buttonUnhighlighted;
-            this.multiplayer_bttn.highlighted += buttonUnhighlighted;
+            this.multiplayer_bttn.highlighted += buttonUnhighlighted; 
             this.option_bttn.highlighted += buttonUnhighlighted;
             this.singlePlayer_Race.highlighted += buttonUnhighlighted;
             this.singlePlayer_Swarm.highlighted += buttonUnhighlighted;

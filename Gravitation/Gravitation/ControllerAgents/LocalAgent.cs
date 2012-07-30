@@ -60,6 +60,28 @@ namespace Gravitation.ControllerAgents
             mDirection.Y -= DIRECTION_WEIGHT;
             mShip.mShipParticles.Emitter.BurstParticles = 1000;
         }
+
+        // analog Handlers
+        public void moveRight(float amount)
+        {
+            if(amount < 0)
+            mRotatation += amount*ROTATION_WEIGHT;
+        }
+        public void moveLeft(float amount)
+        {
+            if(amount > 0)
+                mRotatation -= -1 * amount * ROTATION_WEIGHT;
+        }
+        public void moveBack(float amount)
+        {
+            mDirection.Y += amount*DIRECTION_WEIGHT;
+        }
+        public void moveForward(float amount)
+        {
+            mDirection.Y -= amount*DIRECTION_WEIGHT;
+            mShip.mShipParticles.Emitter.BurstParticles = 1000;
+        }
+
         public void fire()
         {
 

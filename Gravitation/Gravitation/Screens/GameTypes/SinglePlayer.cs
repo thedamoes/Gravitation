@@ -49,6 +49,7 @@ namespace Gravitation.Screens.GameTypes
             // load players
             mPlayer1.loadShip(Content, graphics);
             initalisePlayer1Controles();
+            initaliseXBOXControlerControls();
 
         }
 
@@ -91,7 +92,8 @@ namespace Gravitation.Screens.GameTypes
         {
             mPlayer1ControllerConfig.actionKeys(state, prevState);
             base.HandleKeyboard(state,prevState);
-
+            
+            /*
             if(state.IsKeyDown(Keys.W))
             {
                 mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
@@ -99,7 +101,7 @@ namespace Gravitation.Screens.GameTypes
             }
             else
                 mPlayer1.mShip.mShipParticles.Emitter.Enabled = false;
-
+            */
 
         }
 
@@ -108,13 +110,31 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig = new Input.ControlConfig();
             mPlayer1ControllerConfig.registerIsNownKey(Keys.A, mPlayer1.moveLeft);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.D, mPlayer1.moveRight);
-            mPlayer1ControllerConfig.registerIsNownKey(Keys.W, mPlayer1.moveForward);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.W, delegate()
+            {
+                mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
+                mPlayer1.moveForward();
+            });
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
+
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-           // mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
 
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
+        }
+
+        private void initaliseXBOXControlerControls()
+        {
+            mPlayer1ControllerConfig.registerXBOXButtonPress(new Input.XBOXControllerAnalog(Input.XBOXControllerAnalog.SICK.LEFT, Input.XBOXControllerAnalog.AXIS.Y_AXIS), delegate(float vale) { mPlayer1.moveForward(vale); if(vale != 0) mPlayer1.mShip.mShipParticles.Emitter.Enabled = true; });
+            mPlayer1ControllerConfig.registerXBOXButtonPress(new Input.XBOXControllerAnalog(Input.XBOXControllerAnalog.SICK.LEFT, Input.XBOXControllerAnalog.AXIS.X_AXIS), mPlayer1.moveLeft);
+            mPlayer1ControllerConfig.registerXBOXButtonPress(new Input.XBOXControllerAnalog(Input.XBOXControllerAnalog.SICK.LEFT, Input.XBOXControllerAnalog.AXIS.X_AXIS), mPlayer1.moveRight);
+
+            mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickUp, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
+            mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickRight, mPlayer1.stall);
+            mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickLeft, mPlayer1.stall);
+
+            mPlayer1ControllerConfig.registerXBOXButtonPress(Buttons.RightShoulder, mPlayer1.fire);
         }
 
         public override Matrix getView()

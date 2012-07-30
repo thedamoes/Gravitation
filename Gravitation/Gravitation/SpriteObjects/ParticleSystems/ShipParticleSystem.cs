@@ -261,7 +261,7 @@ namespace DPSF.ParticleSystems
             // Example: Emitter.EmitParticles = true;
             // Example: SetTexture("TextureAssetName");
 
-            Emitter.Enabled = true;
+            Emitter.Enabled = false;
 
 
             float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633));
