@@ -37,6 +37,8 @@ namespace DPSF.ParticleSystems
         private Vector2 intialPos;
         private float rotation;
         private Vector2 velocity;
+
+        private int count = 0;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -166,8 +168,8 @@ namespace DPSF.ParticleSystems
             Emitter.ParticlesPerSecond = 500f;
 
 
-            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633));
-            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633));
+            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633)); 
+            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633)); 
 
             Emitter.PositionData.Position.X = intialPos.X + xa;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             Emitter.PositionData.Position.Y = intialPos.Y + yb; //+ 280f; //- (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
@@ -177,6 +179,8 @@ namespace DPSF.ParticleSystems
             Emitter.PositionData.Position.Z = 1;
             //Emitter.PositionData.Position = new Vector3(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height, 0);
             Emitter.EmitParticlesAutomatically = false;
+
+            Emitter.OrientationData.Orientation.W = rotation;
 
         }
 
@@ -235,11 +239,24 @@ namespace DPSF.ParticleSystems
         /// </summary>
         /// <param name="cParticle">The Particle to update</param>
         /// <param name="fElapsedTimeInSeconds">How long it has been since the last update</param>
-        public void UpdateParticle(DefaultSpriteParticle cParticle, Vector2 velocity)
+        public void UpdateParticle(DefaultSpriteParticle cParticle, Vector2 velocity, float rotation)
         {
+
             // Place code to update the Particle here
-             cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0);
-             cParticle.Position += cParticle.Velocity;
+            if (count < 5) { cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0); count++; }
+            else { cParticle.Velocity += new Vector3(-velocity.X, velocity.Y, 0); count = 0; }
+             
+            
+            // Adjust the Particle's Velocity direction according to the Emitter's Orientation
+            cParticle.Velocity = Vector3.Transform(cParticle.Velocity, Emitter.OrientationData.Orientation);
+
+            //Console.WriteLine(cParticle.Velocity);
+            cParticle.Position = Emitter.PositionData.Position;
+
+
+            cParticle.Position += cParticle.Velocity;
+
+           
         }
 
         //===========================================================
@@ -264,8 +281,8 @@ namespace DPSF.ParticleSystems
             Emitter.Enabled = false;
 
 
-            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633));
-            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633));
+            float xa = (float)Math.Round(22f * Math.Cos(rotation + 1.57079633)); // 44
+            float yb = (float)Math.Round(22f * Math.Sin(rotation + 1.57079633)); // 44
 
             Emitter.PositionData.Position.X = shotPos.X +(xa); //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             Emitter.PositionData.Position.Y = shotPos.Y +(yb); //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));

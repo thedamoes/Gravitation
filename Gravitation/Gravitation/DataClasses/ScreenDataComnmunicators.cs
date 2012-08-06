@@ -41,6 +41,12 @@ namespace Gravitation.DataClasses
 
             this.mMapName = mapName;
         }
+
+        public void ShipConfig(SpriteObjects.Ship playerShip, SpriteObjects.Ship player2Ship)
+        {
+            this.mShip = playerShip;
+            this.mShip2 = player2Ship;
+        }
     
         public Type  getDataClassType()
         {
