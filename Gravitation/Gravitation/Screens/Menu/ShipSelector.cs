@@ -25,12 +25,13 @@ namespace Gravitation.Screens.Menu
         public XGTabControl TabControl { get; protected set; }
         public XGTabPage PageOne { get; protected set; }
         public event EventHandler<EventArgs> okClicked;
+        private SoundHandler handler;
 
-        public ShipSettings(int screenWidth, int screenHeight)
+        public ShipSettings(int screenWidth, int screenHeight, SoundHandler hanlder)
             : base(new Rectangle(screenWidth-500, 2, 500, 300), true)
         {
            // Game = game;
-
+            this.handler = hanlder;
             // Add our window to the Controls to be managed by the XNA GUI manager
 
             XnaGUIManager.Controls.Add(this);
@@ -47,7 +48,7 @@ namespace Gravitation.Screens.Menu
 
             // Create the first tab page (ToolPage class)
 
-            PageOne = new ToolPage(pageRect);
+            PageOne = new ToolPage(pageRect,handler);
             ((ToolPage)PageOne).okClicked += delegate(object sender, EventArgs e) { if (this.okClicked != null) this.okClicked(this, e); };
             TabControl.Children.Add(PageOne);
         }
@@ -81,12 +82,13 @@ namespace Gravitation.Screens.Menu
 
 
         private const int Y_INCRMENT = 30;
+        private SoundHandler handler;
 
-        public ToolPage(Rectangle rect)
+        public ToolPage(Rectangle rect, SoundHandler handler)
             : base(rect, "Ship Settings")
         {
             ShipConfiguration = null;
-            
+            this.handler = handler;
             // stupid c# isent letting me pass these by refence so i have to do it lik ethis
             int currenty = 66;
 
@@ -121,7 +123,7 @@ namespace Gravitation.Screens.Menu
 
         void Ok_Clicked(XGControl sender)
         {
-            ShipConfiguration = new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship());
+            ShipConfiguration = new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship(this.handler));
 
             if (okClicked != null)
                 okClicked(this, new EventArgs());

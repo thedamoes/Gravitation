@@ -204,7 +204,7 @@ namespace Gravitation.Screens.Menu
 
         private void singleplayerRaceSelected(object senderm, EventArgs e)
         {
-            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer));
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer),mPlayer);
             this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
 

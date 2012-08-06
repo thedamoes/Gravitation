@@ -12,7 +12,7 @@ namespace Gravitation.Screens.Menu
         Type gameType;
         ShipSettings settingsWindow;
         public event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
-        public SelectShipScreen(int screenHeight, int screenWidth, Type gameType)
+        public SelectShipScreen(int screenHeight, int screenWidth, Type gameType, SoundHandler handler)
             : base(screenHeight, screenWidth)
         {
             if (gameType.BaseType != typeof(BaseGame))
@@ -20,7 +20,7 @@ namespace Gravitation.Screens.Menu
                 throw new ArgumentException("Awww shit Nigga  What the fuck u playing at gaim type aint a base game");
             }
             this.gameType = gameType;
-            settingsWindow = new ShipSettings(screenWidth, screenWidth);
+            settingsWindow = new ShipSettings(screenWidth, screenWidth, handler);
             settingsWindow.okClicked += new EventHandler<EventArgs>(settingsWindow_okClicked);
 
         }
