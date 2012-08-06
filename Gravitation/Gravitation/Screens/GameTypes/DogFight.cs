@@ -19,6 +19,7 @@ namespace Gravitation.Screens.GameTypes
         private Input.ControlConfig mPlayer1ControllerConfig;
         private Input.ControlConfig mPlayer2ControllerConfig;
 
+        private GameTime mgameTime;
 
         public DogFight(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
@@ -27,7 +28,6 @@ namespace Gravitation.Screens.GameTypes
             SpriteObjects.Ship ship = gameConfig.Ship;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
             ship.World = base.mWorld;
-
 
             // load ship 2
             SpriteObjects.Ship ship2 = gameConfig.Ship2;
@@ -57,11 +57,12 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
 
-            
         }
 
         public override void Update(GameTime gameTime)
         {
+            mgameTime = gameTime;
+
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
 
@@ -86,6 +87,11 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer2.mShip.sheilds = 100;  //DEATH
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
+
+            /*
+             * mPlayer1.mShip.mSpriteBody.Mass = 0.5f; //Mass makes ship slower and harder to fly (powerup)
+             */
+
 
             base.Update(gameTime);
         }
@@ -129,8 +135,13 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig = new Input.ControlConfig();
             mPlayer1ControllerConfig.registerIsNownKey(Keys.A, mPlayer1.moveLeft);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.D, mPlayer1.moveRight);
-            mPlayer1ControllerConfig.registerIsNownKey(Keys.W, mPlayer1.moveForward);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.W,  delegate()
+            {
+                mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
+                mPlayer1.moveForward();
+            });
 
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
@@ -144,8 +155,13 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig = new Input.ControlConfig();
             mPlayer2ControllerConfig.registerIsNownKey(Keys.Left, mPlayer2.moveLeft);
             mPlayer2ControllerConfig.registerIsNownKey(Keys.Right, mPlayer2.moveRight);
-            mPlayer2ControllerConfig.registerIsNownKey(Keys.Up, mPlayer2.moveForward);
+            mPlayer2ControllerConfig.registerIsNownKey(Keys.Up, delegate()
+            {
+                mPlayer2.mShip.mShipParticles.Emitter.Enabled = true;
+                mPlayer2.moveForward();
+            });
 
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Up, delegate() { mPlayer2.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Right, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);

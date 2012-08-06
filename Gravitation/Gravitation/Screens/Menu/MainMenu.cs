@@ -20,7 +20,7 @@ namespace Gravitation.Screens.Menu
         private SpriteObjects.Sprite mBackground;
 
         private int mScreenWidth;
-
+     
         private DataClasses.GameConfiguration mGameConfig = null;
         private IDrawableScreen mNextScreen = null;
 
@@ -197,6 +197,7 @@ namespace Gravitation.Screens.Menu
 
         private void dogfightSelected(object sender, EventArgs e)
         {
+
             base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, null))));
         }

@@ -45,6 +45,9 @@ namespace Gravitation.SpriteObjects
 
         private SoundHandler mPlayer;
 
+        private bool timer = true;
+
+
         public Vector2 ShipPosition
         {
             set { mPosition = value; }
@@ -141,6 +144,7 @@ namespace Gravitation.SpriteObjects
 
             mShipParticles = new ShipParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, new Vector2(0, -20));
             mShipParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, this.mtheSpriteBatch);
+
         }
 
 
@@ -152,16 +156,26 @@ namespace Gravitation.SpriteObjects
         public void fire()
         {
 
-            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+            if (timer)
+            {
+                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
 
                 aShot.LoadContent(theContentManager, graphics);
                 aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
                 mShots.Add(aShot);
                 mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+                
+                timer = false;
+            }
         }
 
         public void updateShot(GameTime gameTime, Matrix _view)
         {
+            if (gameTime.TotalGameTime.Milliseconds % 200 == 0)
+            {
+                timer = true;
+            }
+
             foreach (SpriteObjects.Shot aShot in mShots)
             {
                 if(aShot.Visible == true)
@@ -184,7 +198,7 @@ namespace Gravitation.SpriteObjects
             foreach (DefaultSpriteParticle particle in mShipParticles.Particles)
             {
                 //mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0, (-2 +(-0.1f * (float)Math.Sqrt((base.mSpriteBody.LinearVelocity.Y) * (base.mSpriteBody.LinearVelocity.Y))))), base.mSpriteBody.Rotation));
-                mShipParticles.UpdateParticle(particle, rotateVector(new Vector2(0, 2), base.mSpriteBody.Rotation));
+                mShipParticles.UpdateParticle(particle, rotateVector(new Vector2(0, 10), base.mSpriteBody.Rotation), base.mSpriteBody.Rotation);
             }
         }
 
@@ -193,18 +207,29 @@ namespace Gravitation.SpriteObjects
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
 
-          if(fixtureb.Body.IsBullet)
-          {
+            if (fixtureb.Body.IsBullet)
+            {
 
-              int damage = Convert.ToInt32(fixtureb.UserData); 
+                int damage = Convert.ToInt32(fixtureb.UserData);
 
-              sheilds -= damage;
+                sheilds -= damage;
 
-              //been shot
-              return true;
-          }
+                //been shot
+                return true;
+            }
+            else
+            {
+                float Yvel = base.mSpriteBody.LinearVelocity.Y;
+                float Xvel = base.mSpriteBody.LinearVelocity.X;
 
-            return true;
+                int wallDamage = (int)Math.Max(Math.Sqrt(Yvel*Yvel), Math.Sqrt(Xvel*Xvel));
+
+                sheilds -= wallDamage;
+
+                return true;
+            }
+
+           
         }
 
 

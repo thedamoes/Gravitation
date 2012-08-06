@@ -61,7 +61,7 @@ namespace Gravitation.ControllerAgents
             mShip.mShipParticles.Emitter.BurstParticles = 1000;
         }
 
-        // analog Handlers
+        #region analogHandlers
         public void moveRight(float amount)
         {
             if(amount < 0)
@@ -81,7 +81,7 @@ namespace Gravitation.ControllerAgents
             mDirection.Y -= amount*DIRECTION_WEIGHT;
             mShip.mShipParticles.Emitter.BurstParticles = 1000;
         }
-
+        #endregion
         public void fire()
         {
 
@@ -144,8 +144,43 @@ namespace Gravitation.ControllerAgents
 
             shipAngle = mShip.mSpriteBody.Rotation;
 
-            mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));
 
+            float Yvel = mShip.mSpriteBody.LinearVelocity.Y;
+            float Xvel = mShip.mSpriteBody.LinearVelocity.X;
+
+            int posSpd = (int)Math.Max(Math.Sqrt(Yvel * Yvel), Math.Sqrt(Xvel * Xvel));
+
+            int totalSpeed = posSpd;
+
+            float excessX = 0;
+            float excessY = 0;
+
+            if(Xvel > 15)
+            {
+                excessX = Xvel-15;
+            }
+            else if(Xvel < -15)
+            {
+                excessX = Xvel+15;
+            }
+
+            if(Yvel > 15)
+            {
+                excessY = Yvel-15;
+            }
+            else if(Yvel < -15)
+            {
+                excessY = Yvel+15;
+            }
+
+            if (totalSpeed > 15)
+            {
+                mShip.mSpriteBody.ApplyLinearImpulse(new Vector2(-excessX,-excessY));
+            }
+            else
+            {
+                mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));
+            }
             resetParams();
         }
 

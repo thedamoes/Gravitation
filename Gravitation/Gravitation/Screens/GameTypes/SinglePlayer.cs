@@ -26,6 +26,8 @@ namespace Gravitation.Screens.GameTypes
         private ControllerAgents.LocalAgent mPlayer1;
         private Input.ControlConfig mPlayer1ControllerConfig;
 
+        private GameTime mgameTime;
+
         public SinglePlayer(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
             SpriteObjects.Ship ship = gameConfig.Ship;
@@ -35,6 +37,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
             this.cam = new CameraControls.Camera();
         }
+
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
@@ -55,6 +58,7 @@ namespace Gravitation.Screens.GameTypes
 
         public override void Update(GameTime gameTime)
         {
+            mgameTime = gameTime;
             cam.updateCamera(mPlayer1.myPosition);
 
             //update Controlling agients
@@ -63,6 +67,14 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.updateShot(gameTime, cam.View);
 
             mPlayer1.thrust(gameTime, cam.View);
+
+
+            if (mPlayer1.mShip.sheilds <= 0)
+            {
+                mPlayer1.mShip.sheilds = 100;  //DEATH
+                mPlayer1.reset2(mMapLoader.shipStartPosP1);
+            }
+
             base.Update(gameTime);
         }
 
@@ -93,15 +105,6 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.actionKeys(state, prevState);
             base.HandleKeyboard(state,prevState);
             
-            /*
-            if(state.IsKeyDown(Keys.W))
-            {
-                mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
-               // mPlayer1.mShip.mShipParticles.Emitter.BurstParticles = 1000;
-            }
-            else
-                mPlayer1.mShip.mShipParticles.Emitter.Enabled = false;
-            */
 
         }
 
