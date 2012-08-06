@@ -22,7 +22,7 @@ namespace Gravitation.Screens.Menu
         private int mScreenWidth;
 
         private DataClasses.GameConfiguration mGameConfig = null;
-        private DataClasses.DisplayNewScreen mNextScreen = null;
+        private IDrawableScreen mNextScreen = null;
 
         private SpriteObjects.Ship mShip = null;
 
@@ -93,6 +93,7 @@ namespace Gravitation.Screens.Menu
             this.option_bttn.click += this.optionsSelected;
             this.singlePlayer_Dogfight.click += this.dogfightSelected;
             this.multiplayer_local.click += this.localPlayMultiplayerSelected;
+            this.singlePlayer_Race.click += this.singleplayerRaceSelected;
 
             this.single_Player_bttn.highlighted += buttonUnhighlighted;
             this.multiplayer_bttn.highlighted += buttonUnhighlighted; 
@@ -141,22 +142,32 @@ namespace Gravitation.Screens.Menu
 
         public void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            this.single_Player_bttn.Update(gameTime);
-            this.multiplayer_bttn.Update(gameTime);
-            this.option_bttn.Update(gameTime);
-            this.detailedSelectionContainer.Update(gameTime);
+            if (this.mNextScreen == null)
+            {
+                this.single_Player_bttn.Update(gameTime);
+                this.multiplayer_bttn.Update(gameTime);
+                this.option_bttn.Update(gameTime);
+                this.detailedSelectionContainer.Update(gameTime);
+            }
+            else
+                this.mNextScreen.Update(gameTime);
 
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
-            mBackground.Draw(sb);
-            this.single_Player_bttn.Draw(sb,gameTime);
-            this.multiplayer_bttn.Draw(sb, gameTime);
-            this.option_bttn.Draw(sb, gameTime);
-            this.detailedSelectionContainer.Draw(sb,gameTime);
+            if (this.mNextScreen == null)
+            {
+                mBackground.Draw(sb);
+                this.single_Player_bttn.Draw(sb, gameTime);
+                this.multiplayer_bttn.Draw(sb, gameTime);
+                this.option_bttn.Draw(sb, gameTime);
+                this.detailedSelectionContainer.Draw(sb, gameTime);
 
-            sb.DrawString(mHeaderFont, Title, new Vector2((float)(mScreenWidth * 0.10 - mFont.MeasureString(Title).X / 2), 20), Color.White);
+                sb.DrawString(mHeaderFont, Title, new Vector2((float)(mScreenWidth * 0.10 - mFont.MeasureString(Title).X / 2), 20), Color.White);
+            }
+            else
+                this.mNextScreen.Draw(sb, gameTime);
         }
 
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
@@ -188,6 +199,12 @@ namespace Gravitation.Screens.Menu
         {
             base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
                                                                                         new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, null))));
+        }
+
+        private void singleplayerRaceSelected(object senderm, EventArgs e)
+        {
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer));
+            this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
 
         private void localPlayMultiplayerSelected(object sender, EventArgs e)

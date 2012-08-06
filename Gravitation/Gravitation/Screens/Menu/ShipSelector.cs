@@ -24,7 +24,7 @@ namespace Gravitation.Screens.Menu
         //public Game1 Game;
         public XGTabControl TabControl { get; protected set; }
         public XGTabPage PageOne { get; protected set; }
-
+        public event EventHandler<EventArgs> okClicked;
 
         public ShipSettings(int screenWidth, int screenHeight)
             : base(new Rectangle(screenWidth-500, 2, 500, 300), true)
@@ -48,6 +48,7 @@ namespace Gravitation.Screens.Menu
             // Create the first tab page (ToolPage class)
 
             PageOne = new ToolPage(pageRect);
+            ((ToolPage)PageOne).okClicked += delegate(object sender, EventArgs e) { if (this.okClicked != null) this.okClicked(this, e); };
             TabControl.Children.Add(PageOne);
         }
 
@@ -76,6 +77,7 @@ namespace Gravitation.Screens.Menu
         public XGLabel selectSprite { get; protected set; }
 
         public DataClasses.ShipConfiguration ShipConfiguration;
+        public event EventHandler<EventArgs> okClicked;
 
 
         private const int Y_INCRMENT = 30;
@@ -120,6 +122,9 @@ namespace Gravitation.Screens.Menu
         void Ok_Clicked(XGControl sender)
         {
             ShipConfiguration = new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship());
+
+            if (okClicked != null)
+                okClicked(this, new EventArgs());
         }
 
        
