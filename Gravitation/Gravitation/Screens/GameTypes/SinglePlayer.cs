@@ -25,6 +25,9 @@ namespace Gravitation.Screens.GameTypes
         
         private ControllerAgents.LocalAgent mPlayer1;
         private Input.ControlConfig mPlayer1ControllerConfig;
+        private SpriteObjects.Upgrade u;
+        private List<String> powerups = new List<string>();
+
 
         private GameTime mgameTime;
 
@@ -33,7 +36,9 @@ namespace Gravitation.Screens.GameTypes
             SpriteObjects.Ship ship = gameConfig.Ship;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
             ship.World = base.mWorld;
+            
 
+            powerups.Add("f");
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
             this.cam = new CameraControls.Camera();
         }
@@ -53,6 +58,10 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.loadShip(Content, graphics);
             initalisePlayer1Controles();
             initaliseXBOXControlerControls();
+            u = new SpriteObjects.Upgrade(base.mWorld, new Vector2(mMapLoader.leftWallPosX, mMapLoader.topWallPosY), new Vector2(mMapLoader.rightWallPosX, mMapLoader.bottonWallPosY), powerups);
+
+
+            u.LoadContent(Content, graphics);
 
         }
 
@@ -61,6 +70,7 @@ namespace Gravitation.Screens.GameTypes
             mgameTime = gameTime;
             cam.updateCamera(mPlayer1.myPosition);
 
+            u.Update(gameTime, cam.View);
             //update Controlling agients
             mPlayer1.applyMovement();
 
@@ -82,6 +92,7 @@ namespace Gravitation.Screens.GameTypes
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
             mPlayer1.Draw(sb);
+            u.Draw(sb);
 #if DEBUG
 
 

@@ -115,7 +115,7 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.OnCollision += Body_OnCollision;
 
             base.mSpriteBody.CollisionCategories = Category.Cat10;
-            base.mSpriteBody.CollidesWith = Category.Cat1 | Category.Cat11;
+            base.mSpriteBody.CollidesWith = Category.All & ~Category.Cat10;//Category.Cat1 & Category.Cat11;
 
             foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
             {

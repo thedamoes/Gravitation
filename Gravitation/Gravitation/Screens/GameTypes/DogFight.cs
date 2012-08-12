@@ -18,6 +18,10 @@ namespace Gravitation.Screens.GameTypes
         private ControllerAgents.LocalAgent mPlayer2;
         private Input.ControlConfig mPlayer1ControllerConfig;
         private Input.ControlConfig mPlayer2ControllerConfig;
+        private SpriteObjects.Upgrade u;
+        private List<String> powerups = new List<string>();
+
+
 
         private GameTime mgameTime;
 
@@ -38,6 +42,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2 = new ControllerAgents.LocalAgent(ship2);
 
             cam = new CameraControls.TwoPlayerCamera();
+
+            powerups.Add("f");
         }
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
@@ -57,6 +63,12 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
 
+            u = new SpriteObjects.Upgrade(base.mWorld, new Vector2(mMapLoader.leftWallPosX, mMapLoader.topWallPosY), new Vector2(mMapLoader.rightWallPosX, mMapLoader.bottonWallPosY), powerups);
+
+
+            u.LoadContent(Content, graphics);
+
+
         }
 
         public override void Update(GameTime gameTime)
@@ -65,6 +77,8 @@ namespace Gravitation.Screens.GameTypes
 
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
+
+            u.Update(gameTime, cam.View);
 
             mPlayer1.thrust(gameTime, cam.View);
             mPlayer2.thrust(gameTime, cam.View);
@@ -101,6 +115,8 @@ namespace Gravitation.Screens.GameTypes
         {
             mPlayer1.Draw(sb);
             mPlayer2.Draw(sb);
+
+            u.Draw(sb);
 #if DEBUG
 
 

@@ -135,7 +135,7 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;
-
+            base.mSpriteBody.IsBullet = true;
 
             base.mSpriteBody.OnCollision += Body_OnCollision;
 
@@ -207,15 +207,19 @@ namespace Gravitation.SpriteObjects
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
 
-            if (fixtureb.Body.IsBullet)
+            if(!Convert.ToString(fixtureb.UserData).Equals("Dynamic"))
             {
-
-                int damage = Convert.ToInt32(fixtureb.UserData);
-
-                sheilds -= damage;
-
-                //been shot
-                return true;
+                if (fixtureb.Body.IsBullet)
+                {
+                    int damage = Convert.ToInt32(fixtureb.UserData);
+                    sheilds -= damage;
+                    //been shot
+                    return true;
+                }
+                else
+                {
+                    return false; //powerup
+                }
             }
             else
             {
