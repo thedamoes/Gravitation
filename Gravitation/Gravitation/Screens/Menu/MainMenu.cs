@@ -47,7 +47,7 @@ namespace Gravitation.Screens.Menu
 
             createBackground(ref mBackground, 0.5f, 0.5f);
 
-            this.mShip = new SpriteObjects.Ship(mPlayer);
+            this.mShip = new SpriteObjects.Ship(mPlayer,25,100);
 
             this.createMenuButtons();
             this.detailedSelectionContainer = new MenuL2Selection();
@@ -204,14 +204,14 @@ namespace Gravitation.Screens.Menu
 
         private void singleplayerRaceSelected(object senderm, EventArgs e)
         {
-            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer),mPlayer);
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer),mPlayer,1);
             this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
 
-        private void localPlayMultiplayerSelected(object sender, EventArgs e)
+        private void localPlayMultiplayerSelected(object senderm, EventArgs e)
         {
-            base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.DogFight(
-                                                                                       new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, new SpriteObjects.Ship(mPlayer)))));
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth, typeof(Screens.GameTypes.DogFight), mPlayer, 2);
+            this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
         #endregion
 

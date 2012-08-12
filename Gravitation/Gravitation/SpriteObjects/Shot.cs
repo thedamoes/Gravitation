@@ -104,7 +104,6 @@ namespace Gravitation.SpriteObjects
             }
 
 
-
             base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mworld, list, 0f, (mposition / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
