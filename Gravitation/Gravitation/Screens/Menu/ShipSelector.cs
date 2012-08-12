@@ -23,48 +23,57 @@ namespace Gravitation.Screens.Menu
     {
         //public Game1 Game;
         public XGTabControl TabControl { get; protected set; }
-        public XGTabPage PageOne { get; protected set; }
+
         public event EventHandler<EventArgs> okClicked;
         private SoundHandler handler;
+        private XGTabPage[] playerTabs;
+        private XGButton okBttn;
 
-        public ShipSettings(int screenWidth, int screenHeight, SoundHandler hanlder)
+        public ShipSettings(int screenWidth, int screenHeight, SoundHandler hanlder, int numOfPlayers)
             : base(new Rectangle(screenWidth-500, 2, 500, 300), true)
         {
-           // Game = game;
             this.handler = hanlder;
-            // Add our window to the Controls to be managed by the XNA GUI manager
 
             XnaGUIManager.Controls.Add(this);
 
-            // Offset the Tab Control and Tab Page rectangles relative to this Tool Window 
-
-            Rectangle pageRect = this.Rectangle; // tab pages are the size of the tab control
-            pageRect.X = pageRect.Y = 0;  // but use parent relative coordintates
-
-            // Create the Tab Control
+            Rectangle pageRect = this.Rectangle;
+            pageRect.X = pageRect.Y = 0;
 
             TabControl = new XGTabControl(pageRect);
-            Children.Add(TabControl); // add the tab control to our child control list
+            Children.Add(TabControl);
 
-            // Create the first tab page (ToolPage class)
+            playerTabs = new XGTabPage[numOfPlayers];
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                playerTabs[i] = new ToolPage(pageRect, handler);
+                ((ToolPage)playerTabs[i]).okClicked += this.okClick;
+                TabControl.Children.Add(playerTabs[i]);
+            }
 
-            PageOne = new ToolPage(pageRect,handler);
-            ((ToolPage)PageOne).okClicked += delegate(object sender, EventArgs e) { if (this.okClicked != null) this.okClicked(this, e); };
-            TabControl.Children.Add(PageOne);
+            
         }
 
-        public DataClasses.ShipConfiguration getShip()
+        public DataClasses.ShipConfiguration[] getShips()
         {
-            return ((ToolPage)PageOne).ShipConfiguration;
+            DataClasses.ShipConfiguration[] ships = new DataClasses.ShipConfiguration[this.playerTabs.Count()];
+            for(int i =0; i <this.playerTabs.Count(); i++)
+            {
+                ToolPage page = (ToolPage)this.playerTabs[i];
+                DataClasses.ShipConfiguration config = page.ShipConfiguration;
+                ships[i] = config;
+            }
+            return ships;
+        }
+
+        private void okClick(object sender, EventArgs e) 
+        {
+            if (this.okClicked != null) 
+                this.okClicked(this, new EventArgs());
         }
     }
 
-    /// <summary>
-    /// ToolPage is an XGTabPage that displays various controls
-    /// </summary>
     public class ToolPage : XGTabPage
     {
-       // public Game1 Game;
         public  XGHSlider SheildStrength { get; protected set; }
         public XGLabel SheildLable { get; protected set; }
         public XGLabel SpeedLable { get; protected set; }
@@ -72,13 +81,16 @@ namespace Gravitation.Screens.Menu
         public XGHSlider FirePowerSlider { get; protected set; }
         public XGLabel FireSpeed { get; protected set; }
         public XGLabel FirePower { get; protected set; }
-
         public XGButton okButton { get; protected set; }
-
         public XGLabel selectSprite { get; protected set; }
-
-        public DataClasses.ShipConfiguration ShipConfiguration;
         public event EventHandler<EventArgs> okClicked;
+        public DataClasses.ShipConfiguration ShipConfiguration
+        {
+            get
+            {
+                return new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship(this.handler, this.FirePowerSlider.Value, this.SheildStrength.Value));
+            }
+        }
 
 
         private const int Y_INCRMENT = 30;
@@ -87,7 +99,6 @@ namespace Gravitation.Screens.Menu
         public ToolPage(Rectangle rect, SoundHandler handler)
             : base(rect, "Ship Settings")
         {
-            ShipConfiguration = null;
             this.handler = handler;
             // stupid c# isent letting me pass these by refence so i have to do it lik ethis
             int currenty = 66;
@@ -123,11 +134,10 @@ namespace Gravitation.Screens.Menu
 
         void Ok_Clicked(XGControl sender)
         {
-            ShipConfiguration = new Gravitation.DataClasses.ShipConfiguration(new Gravitation.SpriteObjects.Ship(this.handler));
-
             if (okClicked != null)
                 okClicked(this, new EventArgs());
         }
+
 
        
     }

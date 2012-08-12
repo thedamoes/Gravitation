@@ -59,32 +59,15 @@ namespace Gravitation.SpriteObjects
             set { world = value; }
         }
 
-
-        public Ship(World world, Vector2 position)
-        {
-            this.world = world;
-            this.mPosition = position;
-        }
-
-        public Ship(World world)
-        {
-            this.world = world;
-            this.mPosition = new Vector2(100f,100f);
-        }
-
-        public Ship(SoundHandler player)
+        public Ship(SoundHandler player, float power, float sheildStrength)
         {
             this.world = null;
             this.mPosition = new Vector2(100f, 100f);
 
             this.mPlayer = player;
-        }
 
-        public Ship()
-        {
-            this.world = null;
-            this.mPosition = new Vector2(100f, 100f);
-            this.mPlayer = null;
+            this.damage = (int)power;
+            this.sheilds = (int)sheildStrength;
         }
 
         public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
@@ -112,7 +95,7 @@ namespace Gravitation.SpriteObjects
             //1. To translate the vertices so the polygon is centered around the centroid.
             Vector2 centroid = -textureVertices.GetCentroid();
             textureVertices.Translate(ref centroid);
-
+            
             //2. To draw the texture the correct place.
             base.spriteOrigin = -centroid;
 
@@ -128,8 +111,6 @@ namespace Gravitation.SpriteObjects
             {
                 verti.Scale(ref vertScale);
             }
-
-
 
             base.mSpriteBody = BodyFactory.CreateCompoundPolygon(world, list, 1f, (mPosition / MeterInPixels), BodyType.Dynamic);
             base.mSpriteBody.Restitution = 0.3f;

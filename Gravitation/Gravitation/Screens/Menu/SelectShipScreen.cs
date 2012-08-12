@@ -12,7 +12,7 @@ namespace Gravitation.Screens.Menu
         Type gameType;
         ShipSettings settingsWindow;
         public event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
-        public SelectShipScreen(int screenHeight, int screenWidth, Type gameType, SoundHandler handler)
+        public SelectShipScreen(int screenHeight, int screenWidth, Type gameType, SoundHandler handler, int numOfPlayers)
             : base(screenHeight, screenWidth)
         {
             if (gameType.BaseType != typeof(BaseGame))
@@ -20,14 +20,19 @@ namespace Gravitation.Screens.Menu
                 throw new ArgumentException("Awww shit Nigga  What the fuck u playing at gaim type aint a base game");
             }
             this.gameType = gameType;
-            settingsWindow = new ShipSettings(screenWidth, screenWidth, handler);
+            settingsWindow = new ShipSettings(screenWidth, screenWidth, handler, numOfPlayers);
             settingsWindow.okClicked += new EventHandler<EventArgs>(settingsWindow_okClicked);
-
         }
 
         void settingsWindow_okClicked(object sender, EventArgs e)
         {
-            object[] constructoArgs = new object[]{(object)new DataClasses.GameConfiguration("../../../Maps/level1.xml", settingsWindow.getShip().Ship, null)};
+            object[] constructoArgs;
+            DataClasses.ShipConfiguration[] ships = settingsWindow.getShips();
+
+            if (ships.Count() == 1)
+                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/level1.xml", ships[0].Ship, null) };
+            else
+                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/level1.xml", ships[0].Ship, ships[1].Ship) };
 
             System.Reflection.ConstructorInfo constructorInfo = this.gameType.GetConstructor(new Type[]{typeof(DataClasses.GameConfiguration)});
                 
