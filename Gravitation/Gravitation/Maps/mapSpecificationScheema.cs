@@ -28,7 +28,7 @@ public partial class Map {
     
     private MapSurfaces surfacesField;
     
-    private MapPowerups powerupsField;
+    private MapPosition[] powerupsField;
     
     private MapSpawnPoint spawnPointField;
     
@@ -53,7 +53,8 @@ public partial class Map {
     }
     
     /// <remarks/>
-    public MapPowerups Powerups {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Position", IsNullable=false)]
+    public MapPosition[] Powerups {
         get {
             return this.powerupsField;
         }
@@ -81,12 +82,13 @@ public partial class Map {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapMapDimentions {
     
-    private ushort widthField;
+    private string widthField;
     
-    private ushort heightField;
+    private string heightField;
     
     /// <remarks/>
-    public ushort Width {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Width {
         get {
             return this.widthField;
         }
@@ -96,7 +98,8 @@ public partial class MapMapDimentions {
     }
     
     /// <remarks/>
-    public ushort Height {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Height {
         get {
             return this.heightField;
         }
@@ -659,165 +662,7 @@ public partial class MapSurfacesAssetPosition {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapPowerups {
-    
-    private MapPowerupsPowerup powerupField;
-    
-    /// <remarks/>
-    public MapPowerupsPowerup Powerup {
-        get {
-            return this.powerupField;
-        }
-        set {
-            this.powerupField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapPowerupsPowerup {
-    
-    private MapPowerupsPowerupAsset assetField;
-    
-    private string powerupTypeField;
-    
-    /// <remarks/>
-    public MapPowerupsPowerupAsset Asset {
-        get {
-            return this.assetField;
-        }
-        set {
-            this.assetField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string powerupType {
-        get {
-            return this.powerupTypeField;
-        }
-        set {
-            this.powerupTypeField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapPowerupsPowerupAsset {
-    
-    private byte heightField;
-    
-    private byte widthField;
-    
-    private MapPowerupsPowerupAssetScale scaleField;
-    
-    private MapPowerupsPowerupAssetPosition positionField;
-    
-    private string nameField;
-    
-    /// <remarks/>
-    public byte Height {
-        get {
-            return this.heightField;
-        }
-        set {
-            this.heightField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public byte Width {
-        get {
-            return this.widthField;
-        }
-        set {
-            this.widthField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public MapPowerupsPowerupAssetScale Scale {
-        get {
-            return this.scaleField;
-        }
-        set {
-            this.scaleField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public MapPowerupsPowerupAssetPosition Position {
-        get {
-            return this.positionField;
-        }
-        set {
-            this.positionField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapPowerupsPowerupAssetScale {
-    
-    private byte xField;
-    
-    private byte yField;
-    
-    /// <remarks/>
-    public byte X {
-        get {
-            return this.xField;
-        }
-        set {
-            this.xField = value;
-        }
-    }
-    
-    /// <remarks/>
-    public byte Y {
-        get {
-            return this.yField;
-        }
-        set {
-            this.yField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
-public partial class MapPowerupsPowerupAssetPosition {
+public partial class MapPosition {
     
     private byte xField;
     

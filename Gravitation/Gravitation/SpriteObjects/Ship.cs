@@ -101,7 +101,7 @@ namespace Gravitation.SpriteObjects
 
             //We simplify the vertices found in the texture.
             textureVertices = SimplifyTools.ReduceByDistance(textureVertices, 4f); //WOOOOOT
-
+            
             //Since it is a concave polygon, we need to partition it into several smaller convex polygons
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
@@ -116,7 +116,6 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;
-
 
             base.mSpriteBody.OnCollision += Body_OnCollision;
 

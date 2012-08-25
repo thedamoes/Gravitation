@@ -124,22 +124,15 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 	</Surfaces>
 
 	<Powerups>
-		<Powerup powerupType="ZeroGravity">
-			<Asset name="zeroGravityPowerup">
-					<Height>100</Height>
-					<Width>100</Width>
-					<Scale>
-						<X>1</X>
-						<Y>1</Y>
-					</Scale>
-					<Position>
-						<X>50</X>
-						<Y>100</Y>
-					</Position>
-				</Asset>
-		</Powerup>
-		
-  	</Powerups>
+	  <Position>
+		  <X>50</X>
+		  <Y>100</Y>
+	  </Position>
+    <Position>
+      <X>50</X>
+      <Y>100</Y>
+    </Position>
+  </Powerups>
 
   <SpawnPoint>
     <Player1>
