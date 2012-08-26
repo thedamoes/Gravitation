@@ -21,6 +21,7 @@ using FarseerPhysics.DebugViews;
 
 using DPSF;
 using DPSF.ParticleSystems;
+using FarseerPhysics.Collision;
 
 namespace Gravitation.SpriteObjects
 {
@@ -36,6 +37,7 @@ namespace Gravitation.SpriteObjects
 
         private Vector2 mapTopLeft;
         private Vector2 mapBottomRight;
+        private AABB wallCheck;
 
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
@@ -53,7 +55,7 @@ namespace Gravitation.SpriteObjects
             /*this.mposition.Y = (position.Y * MeterInPixels);
             this.mposition.X = (position.X * MeterInPixels);*/
 
-            this.mposition = randomBetweenTwoVectors(mapTopLeft, mapBottomRight);//MeterInPixels;
+            this.mposition = new Vector2((-0.5f * MeterInPixels),0);//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);//MeterInPixels;
             Console.WriteLine("upgrade pos = " + this.mposition);
 
             this.upgradeList = upgradeList.ToDictionary(v => v, v => 0);
@@ -106,7 +108,7 @@ namespace Gravitation.SpriteObjects
 
 
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mworld, list, 0f, (mposition / MeterInPixels), BodyType.Dynamic);
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mworld, list, 0f, (mposition / MeterInPixels), BodyType.Kinematic);
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 1f;
             //base.mSpriteBody.IsStatic = true;
@@ -123,6 +125,8 @@ namespace Gravitation.SpriteObjects
 
             }
 
+            wallCheck = new AABB(base.mSpriteBody.Position, 5f, 5f);
+            
 
             //  mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
             // mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
@@ -156,6 +160,7 @@ namespace Gravitation.SpriteObjects
 
         public void Update(GameTime gameTime, Matrix _view)
         {
+                         
 
             if (Visible)
             {
@@ -173,13 +178,14 @@ namespace Gravitation.SpriteObjects
             {
                 if (move)
                 {
-                    base.mSpriteBody.Position = randomBetweenTwoVectors(mapTopLeft, mapBottomRight);
+                    base.mSpriteBody.Position -= new Vector2 (0.5f, 0);//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);
                     move = false;
                     Console.WriteLine("upgrade pos = " + base.mSpriteBody.Position);
+                    mworld.QueryAABB(insideWall, ref wallCheck);
                 }
                 else
                 {
-                    Visible = true;
+                    Visible = true;   
                 }
             }
                 
@@ -234,6 +240,37 @@ namespace Gravitation.SpriteObjects
         { 
             return (float) rnd.NextDouble() * (maximum - minimum) + minimum;
         }
+
+
+
+        public bool insideWall(Fixture fix)
+        {
+
+            Console.WriteLine(fix.UserData);
+   
+            if (fix.UserData.Equals("wall")) //overlapping wall
+            {
+
+                move = true;
+                return false;
+            }
+            else if (fix.UserData.Equals("f"))
+            {
+                move = false;
+                return true;
+            }
+            else
+            {
+                move = false;
+                return true;
+            }
+
+
+           
+
+        }
+
+
 
 
 

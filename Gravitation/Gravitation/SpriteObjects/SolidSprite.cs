@@ -61,7 +61,7 @@ namespace Gravitation.SpriteObjects
 
 
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mWorld, list, 1f, (mPosition / MeterInPixels), BodyType.Dynamic);
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mWorld, list, 1f, (mPosition / MeterInPixels), BodyType.Static);
             base.mSpriteBody.Restitution = 0.3f;
             base.mSpriteBody.Friction = 0.4f;
             base.mSpriteBody.IsStatic = true;
@@ -69,6 +69,14 @@ namespace Gravitation.SpriteObjects
 
             base.mSpriteBody.CollisionCategories = Category.Cat1;
             base.mSpriteBody.CollidesWith = Category.All;
+
+            foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+            {
+                fixturec.UserData = "wall";
+
+            }
+
+
         }
 
         public override void Draw(SpriteBatch theSpriteBatch)
