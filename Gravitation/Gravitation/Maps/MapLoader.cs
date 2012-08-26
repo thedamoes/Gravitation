@@ -33,8 +33,8 @@ namespace Gravitation.Maps
         {
             get
             {
-                return new Vector2 (mCurrentmap.MapDimentions.Height,
-                mCurrentmap.MapDimentions.Width);
+                return new Vector2 (int.Parse(mCurrentmap.MapDimentions.Height),
+                int.Parse(mCurrentmap.MapDimentions.Width));
             }
         }
         public float leftWallPosX

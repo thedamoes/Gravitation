@@ -121,36 +121,12 @@
         <xs:element name="Powerups">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Powerup">
+              <xs:element name="Position" maxOccurs="unbounded" minOccurs="1">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Asset">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element name="Height" type="xs:unsignedByte" />
-                          <xs:element name="Width" type="xs:unsignedByte" />
-                          <xs:element name="Scale">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element name="X" type="xs:unsignedByte" />
-                                <xs:element name="Y" type="xs:unsignedByte" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                          <xs:element name="Position">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element name="X" type="xs:unsignedByte" />
-                                <xs:element name="Y" type="xs:unsignedByte" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                        <xs:attribute name="name" type="xs:string" use="required" />
-                      </xs:complexType>
-                    </xs:element>
+                    <xs:element name="X" type="xs:unsignedByte" />
+                    <xs:element name="Y" type="xs:unsignedByte" />
                   </xs:sequence>
-                  <xs:attribute name="powerupType" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
