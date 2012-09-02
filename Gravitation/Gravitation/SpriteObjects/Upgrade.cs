@@ -31,7 +31,7 @@ namespace Gravitation.SpriteObjects
         public World mworld;
         public Vector2 mposition;
         public bool Visible = false;
-        private Dictionary<String,Int32> upgradeList;
+        private Dictionary<String,Int32> upgradeList; // <upgradeName, number of times used>
         private Random rnd = new Random();
         private bool move = false;
 
