@@ -35,22 +35,18 @@ namespace Gravitation.SpriteObjects
         private Random rnd = new Random();
         private bool move = false;
 
-        private Vector2 mapTopLeft;
-        private Vector2 mapBottomRight;
-        private AABB wallCheck;
+        private List<Vector2> spawnPoints = new List<Vector2>();
 
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
         SpriteBatch mtheSpriteBatch;
 
-        public Upgrade(World world, Vector2 mapTopLeft, Vector2 mapBottomRight, List<String> upgradeList)
+        public Upgrade(World world, List<Vector2> spawnPoints, List<String> upgradeList)
         {
             this.mworld = world;
 
 
-            this.mapTopLeft = mapTopLeft;
-            this.mapBottomRight = mapBottomRight;
-
+            this.spawnPoints.AddRange(spawnPoints); //May need to keep an eye on this (basically want a deep copy)
 
             /*this.mposition.Y = (position.Y * MeterInPixels);
             this.mposition.X = (position.X * MeterInPixels);*/
