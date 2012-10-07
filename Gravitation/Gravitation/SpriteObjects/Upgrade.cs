@@ -35,8 +35,7 @@ namespace Gravitation.SpriteObjects
         private Random rnd = new Random();
         private bool move = false;
 
-        private List<Vector2> spawnPoints = new List<Vector2>();
-
+        private Dictionary <Vector2, Int32> spawnPoints =  new Dictionary<Vector2,int>();
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
         SpriteBatch mtheSpriteBatch;
@@ -45,13 +44,18 @@ namespace Gravitation.SpriteObjects
         {
             this.mworld = world;
 
-
-            this.spawnPoints.AddRange(spawnPoints); //May need to keep an eye on this (basically want a deep copy)
+            foreach (Vector2 x in spawnPoints)
+            {
+                this.spawnPoints.Add(x, 0); 
+            }
 
             /*this.mposition.Y = (position.Y * MeterInPixels);
             this.mposition.X = (position.X * MeterInPixels);*/
 
-            this.mposition = new Vector2((-0.5f * MeterInPixels),0);//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);//MeterInPixels;
+            int index = (int) GetRandomNumber(0f, spawnPoints.Count());
+
+            this.mposition = selectRandomSpawn();//new Vector2((-0.5f * MeterInPixels),0);//MeterInPixels;
+            
             Console.WriteLine("upgrade pos = " + this.mposition);
 
             this.upgradeList = upgradeList.ToDictionary(v => v, v => 0);
@@ -120,8 +124,6 @@ namespace Gravitation.SpriteObjects
                 fixturec.UserData = randomSelect(upgradeList);
 
             }
-
-            wallCheck = new AABB(base.mSpriteBody.Position, 5f, 5f);
             
 
             //  mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
@@ -160,6 +162,8 @@ namespace Gravitation.SpriteObjects
 
             if (Visible)
             {
+
+                Console.WriteLine("upgrade pos = " + this.mposition);
                 /* mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                  mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
                  mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
@@ -174,13 +178,13 @@ namespace Gravitation.SpriteObjects
             {
                 if (move)
                 {
-                    base.mSpriteBody.Position -= new Vector2 (0.5f, 0);//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);
+                    base.mSpriteBody.Position = selectRandomSpawn();//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);
                     move = false;
                     Console.WriteLine("upgrade pos = " + base.mSpriteBody.Position);
-                    mworld.QueryAABB(insideWall, ref wallCheck);
                 }
                 else
                 {
+                    Console.WriteLine("upgrade pos = " + this.mposition);
                     Visible = true;   
                 }
             }
@@ -198,8 +202,6 @@ namespace Gravitation.SpriteObjects
             }
             else //if (Convert.ToString(base.mSpriteBody.ContactList.Other.UserData).Equals("Dynamic"))
             {
-                //collision with wall; need to move
-                move = true;
                 return true;
             }
             
@@ -226,12 +228,6 @@ namespace Gravitation.SpriteObjects
         }
 
 
-        public Vector2 randomBetweenTwoVectors(Vector2 first, Vector2 second)
-        {
-            return new Vector2(GetRandomNumber(first.X, second.X), GetRandomNumber(first.Y, second.Y));
-        }
-
-
         public float GetRandomNumber(float minimum, float maximum)
         { 
             return (float) rnd.NextDouble() * (maximum - minimum) + minimum;
@@ -239,35 +235,40 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public bool insideWall(Fixture fix)
+
+        private Vector2 selectRandomSpawn()
         {
 
-            Console.WriteLine(fix.UserData);
-   
-            if (fix.UserData.Equals("wall")) //overlapping wall
-            {
+            Vector2 position = new Vector2();
 
-                move = true;
-                return false;
-            }
-            else if (fix.UserData.Equals("f"))
+            int index = (int)GetRandomNumber(0f, spawnPoints.Count());
+            int value = spawnPoints.ElementAt(index).Value;
+
+            if (value == spawnPoints.Values.Min())
             {
-                move = false;
-                return true;
+                position = spawnPoints.ElementAt(index).Key;
+                spawnPoints[spawnPoints.ElementAt(index).Key]++; //this SHOULD increment the value associated with the key in the Dictionary
+                                                                 //Also why the fuck doesn't c# have Hashmaps....like what the hell man .
             }
             else
             {
-                move = false;
-                return true;
-            }
+                for(int v = 0; v<spawnPoints.Values.Count; v++)
+                {
+                    if(spawnPoints.Values.ElementAt(v) == spawnPoints.Values.Min())
+                    {
+                        position = spawnPoints.Keys.ElementAt(v);
+                        spawnPoints[spawnPoints.ElementAt(v).Key]++;
+                        break;
+                    }
+                }
 
+            }
 
            
 
+            return position;
+
         }
-
-
-
 
 
 

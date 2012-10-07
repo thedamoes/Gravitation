@@ -27,6 +27,8 @@ namespace Gravitation.Maps
 
         private SpriteObjects.Obstical[] mObsicals;
 
+        private List<Vector2> powerupSpawnPoints;
+
         private World mWorld;
 
         public Vector2 MapDimentions
@@ -92,6 +94,30 @@ namespace Gravitation.Maps
             }
         }
 
+        public List<Vector2> getPowerupSpawns
+        {
+            get
+            {
+                return powerupSpawnPoints;
+            }
+        }
+
+        private List<Vector2> getUpgradeSpawns(MapPosition[] powerupsSpec)
+        {
+
+            List<Vector2> spawnPoints = new List<Vector2>();
+
+            for (int z = 0; z < powerupsSpec.Length; z++)
+            {
+                spawnPoints.Add(new Vector2(
+                    Convert.ToInt32(powerupsSpec[z].X),
+                    Convert.ToInt32(powerupsSpec[z].Y))); 
+            }
+       
+            return spawnPoints;
+
+        }
+
         public MapLoader(String fileName, World world)
         {
             this.mWorld = world;
@@ -110,6 +136,10 @@ namespace Gravitation.Maps
 
             // create obsticals
             createObsicals(ref mObsicals, mCurrentmap.Surfaces.Obsticals);
+
+            //populate spawnPoint list
+
+            powerupSpawnPoints = getUpgradeSpawns(mCurrentmap.Powerups);
 
 #if DEBUG
             this.MapFile = fileName;

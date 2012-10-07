@@ -124,9 +124,17 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 	</Surfaces>
 	<Powerups>
       <Position>
-        <X>50</X>
-        <Y>100</Y>
+        <X>10</X>
+        <Y>0</Y>
       </Position>
+    <Position>
+      <X>15</X>
+      <Y>0</Y>
+    </Position>
+    <Position>
+      <X>20</X>
+      <Y>0</Y>
+    </Position>
   	</Powerups>
   <SpawnPoint>
     <Player1>

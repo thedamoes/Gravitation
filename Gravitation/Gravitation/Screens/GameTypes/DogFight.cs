@@ -63,7 +63,7 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
 
-            u = new SpriteObjects.Upgrade(base.mWorld, new Vector2(mMapLoader.leftWallPosX, mMapLoader.topWallPosY), new Vector2(mMapLoader.rightWallPosX, mMapLoader.bottonWallPosY), powerups);
+            u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups);
 
 
             u.LoadContent(Content, graphics);

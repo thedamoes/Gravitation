@@ -58,7 +58,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.loadShip(Content, graphics);
             initalisePlayer1Controles();
             initaliseXBOXControlerControls();
-            u = new SpriteObjects.Upgrade(base.mWorld, new Vector2(mMapLoader.leftWallPosX, mMapLoader.topWallPosY), new Vector2(mMapLoader.rightWallPosX, mMapLoader.bottonWallPosY), powerups);
+            u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups);
 
 
             u.LoadContent(Content, graphics);
