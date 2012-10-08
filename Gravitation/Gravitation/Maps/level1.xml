@@ -125,7 +125,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 	<Powerups>
       <Position>
         <X>10</X>
-        <Y>0</Y>
+        <Y>-20</Y>
       </Position>
     <Position>
       <X>15</X>

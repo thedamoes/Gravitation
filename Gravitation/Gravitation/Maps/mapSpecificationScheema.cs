@@ -664,12 +664,13 @@ public partial class MapSurfacesAssetPosition {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="mapSpecificationScheema.xsd")]
 public partial class MapPosition {
     
-    private byte xField;
+    private string xField;
     
-    private byte yField;
+    private string yField;
     
     /// <remarks/>
-    public byte X {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string X {
         get {
             return this.xField;
         }
@@ -679,7 +680,8 @@ public partial class MapPosition {
     }
     
     /// <remarks/>
-    public byte Y {
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+    public string Y {
         get {
             return this.yField;
         }
