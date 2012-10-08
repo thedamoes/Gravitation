@@ -187,7 +187,7 @@ namespace Gravitation.SpriteObjects
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
-
+            
             if(!Convert.ToString(fixtureb.UserData).Equals("wall"))
             {
                 if (fixtureb.Body.IsBullet)

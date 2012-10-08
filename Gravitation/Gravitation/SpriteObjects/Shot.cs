@@ -110,6 +110,7 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.IsStatic = false;
             base.mSpriteBody.IsBullet = true;
             base.mSpriteBody.IgnoreGravity = true;
+            base.mSpriteBody.Mass = 0.00000001f;
 
             base.mSpriteBody.OnCollision += Body_OnCollision;
 
