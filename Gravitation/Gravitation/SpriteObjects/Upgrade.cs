@@ -34,13 +34,15 @@ namespace Gravitation.SpriteObjects
         private Dictionary<String,Int32> upgradeList; // <upgradeName, number of times used>
         private Random rnd = new Random();
         private bool move = false;
+        private int upgradeTimer = 0;
+        private int timeToWait = 0;
 
         private Dictionary <Vector2, Int32> spawnPoints =  new Dictionary<Vector2,int>();
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
         SpriteBatch mtheSpriteBatch;
 
-        public Upgrade(World world, List<Vector2> spawnPoints, List<String> upgradeList)
+        public Upgrade(World world, List<Vector2> spawnPoints, List<String> upgradeList, int upgradeTimer)
         {
             this.mworld = world;
 
@@ -59,6 +61,8 @@ namespace Gravitation.SpriteObjects
             Console.WriteLine("upgrade pos = " + this.mposition);
 
             this.upgradeList = upgradeList.ToDictionary(v => v, v => 0);
+
+            this.upgradeTimer = upgradeTimer;
 
         }
 
@@ -178,14 +182,23 @@ namespace Gravitation.SpriteObjects
             {
                 if (move)
                 {
-                    base.mSpriteBody.Position = selectRandomSpawn();//randomBetweenTwoVectors(mapTopLeft, mapBottomRight);
-                    move = false;
-                    Console.WriteLine("upgrade pos = " + base.mSpriteBody.Position);
+                    int firstVal = timeToWait;
+                    int secondVal = (int)gameTime.ElapsedGameTime.Milliseconds;
+
+                    timeToWait += secondVal;//(secondVal - firstVal);
+
+                    if (timeToWait >= (upgradeTimer*1000))
+                    {
+                        base.mSpriteBody.Position = selectRandomSpawn();
+                        move = false;
+                        Console.WriteLine("upgrade pos = " + base.mSpriteBody.Position);
+                    }
                 }
                 else
                 {
                     Console.WriteLine("upgrade pos = " + this.mposition);
-                    Visible = true;   
+                    timeToWait = 0;
+                    Visible = true;
                 }
             }
                 

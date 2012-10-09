@@ -63,7 +63,9 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
 
-            u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups);
+            int exampleUpgradeTime = 10; //seconds
+
+            u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
 
 
             u.LoadContent(Content, graphics);
