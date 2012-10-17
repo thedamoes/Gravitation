@@ -10,8 +10,6 @@ namespace Gravitation.Screens.GameTypes
 {
     class DogFight : TwoPlayerBaseGame
     {
-
-        
         // game content
         
         
