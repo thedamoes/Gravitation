@@ -15,7 +15,7 @@ namespace Gravitation.Screens.Menu
         public SelectShipScreen(int screenHeight, int screenWidth, Type gameType, SoundHandler handler, int numOfPlayers)
             : base(screenHeight, screenWidth)
         {
-            if (gameType.BaseType != typeof(BaseGame))
+            if (gameType.BaseType != typeof(BaseGame) && gameType.BaseType.BaseType != typeof(BaseGame))
             {
                 throw new ArgumentException("Awww shit Nigga  What the fuck u playing at gaim type aint a base game");
             }

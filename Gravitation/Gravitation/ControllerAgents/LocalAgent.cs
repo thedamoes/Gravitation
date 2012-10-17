@@ -12,7 +12,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.ControllerAgents
 {
-    class LocalAgent : IControllerInterface
+    public class LocalAgent : IControllerInterface
     {
 
         #region members

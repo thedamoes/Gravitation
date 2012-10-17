@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Gravitation.CameraControls
 {
-    class TwoPlayerCamera : Camera
+    public class TwoPlayerCamera : Camera
     {
 
         // overload updateCamera function for 2 players
