@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Gravitation.CameraControls
 {
-    class Camera
+    public class Camera
     {
         protected Matrix _view;
         protected Vector2 _cameraPosition;

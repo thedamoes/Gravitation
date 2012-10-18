@@ -8,20 +8,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Gravitation.Screens.GameTypes
 {
-    class DogFight : BaseGame
+    class DogFight : TwoPlayerBaseGame
     {
-        private CameraControls.TwoPlayerCamera cam;
-        
         // game content
         
-        private ControllerAgents.LocalAgent mPlayer1;
-        private ControllerAgents.LocalAgent mPlayer2;
-        private Input.ControlConfig mPlayer1ControllerConfig;
-        private Input.ControlConfig mPlayer2ControllerConfig;
+        
         private SpriteObjects.Upgrade u;
         private List<String> powerups = new List<string>();
-
-
 
         private GameTime mgameTime;
 
@@ -61,58 +54,19 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1.loadShip(Content, graphics);
             mPlayer2.loadShip(Content, graphics);
 
-            initalisePlayer1Controles();
-            initalisePlayer2Controles();
-
             int exampleUpgradeTime = 10; //seconds
 
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
 
-
             u.LoadContent(Content, graphics);
-
-
         }
 
         public override void Update(GameTime gameTime)
         {
             mgameTime = gameTime;
-
-            cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
-            //update Controlling agients
-
             u.Update(gameTime, cam.View);
-
-            mPlayer1.thrust(gameTime, cam.View);
-            mPlayer2.thrust(gameTime, cam.View);
-
-            mPlayer1.applyMovement();
-            mPlayer2.applyMovement();
-
-            mPlayer1.updateShot(gameTime, cam.View);
-            mPlayer2.updateShot(gameTime, cam.View);
-
-
-            if (mPlayer1.mShip.sheilds <= 0)
-            {
-                mPlayer1.mShip.sheilds = 100;  //DEATH
-                mPlayer1.reset2(mMapLoader.shipStartPosP1);
-            }
-
-            if (mPlayer2.mShip.sheilds <= 0)
-            {
-                mPlayer2.mShip.sheilds = 100;  //DEATH
-                mPlayer2.reset2(mMapLoader.shipStartPosP2);
-            }
-
-            /*
-             * mPlayer1.mShip.mSpriteBody.Mass = 0.5f; //Mass makes ship slower and harder to fly (powerup)
-             */
-
-
             base.Update(gameTime);
         }
-
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
@@ -144,52 +98,10 @@ namespace Gravitation.Screens.GameTypes
 
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
         {
-
-            mPlayer1ControllerConfig.actionKeys(state, prevState);
-            mPlayer2ControllerConfig.actionKeys(state, prevState);
-
             base.HandleKeyboard(state,prevState);
         }
 
-        private void initalisePlayer1Controles()
-        {
-            mPlayer1ControllerConfig = new Input.ControlConfig();
-            mPlayer1ControllerConfig.registerIsNownKey(Keys.A, mPlayer1.moveLeft);
-            mPlayer1ControllerConfig.registerIsNownKey(Keys.D, mPlayer1.moveRight);
-            mPlayer1ControllerConfig.registerIsNownKey(Keys.W,  delegate()
-            {
-                mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
-                mPlayer1.moveForward();
-            });
 
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
-            //mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
-
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset); 
-       }
-
-        private void initalisePlayer2Controles()
-        {
-            mPlayer2ControllerConfig = new Input.ControlConfig();
-            mPlayer2ControllerConfig.registerIsNownKey(Keys.Left, mPlayer2.moveLeft);
-            mPlayer2ControllerConfig.registerIsNownKey(Keys.Right, mPlayer2.moveRight);
-            mPlayer2ControllerConfig.registerIsNownKey(Keys.Up, delegate()
-            {
-                mPlayer2.mShip.mShipParticles.Emitter.Enabled = true;
-                mPlayer2.moveForward();
-            });
-
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Up, delegate() { mPlayer2.mShip.mShipParticles.Emitter.Enabled = false; });
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Right, mPlayer2.stall);
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
-            //mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
-
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset); 
-        }
 
         public override Matrix getView()
         {

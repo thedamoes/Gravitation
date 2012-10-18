@@ -123,6 +123,13 @@
   <ItemGroup>
     <Compile Include="CameraControls\Camera.cs" />
     <Compile Include="CameraControls\TwoPlayerCamera.cs" />
+    <Compile Include="Comms\Receivers\AbstractReceiver.cs" />
+    <Compile Include="Comms\MessageFactory.cs" />
+    <Compile Include="Comms\Messages\ShipStatusMessage.cs" />
+    <Compile Include="Comms\Messages\AbstractMessage.cs" />
+    <Compile Include="Comms\OnShipStatusRecevedEventArgs.cs" />
+    <Compile Include="Comms\Receivers\UDPReceiver.cs" />
+    <Compile Include="Comms\Server.cs" />
     <Compile Include="ControllerAgents\AIAgent.cs" />
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
@@ -135,6 +142,8 @@
     <Compile Include="Screens\BaseScreen.cs" />
     <Compile Include="Screens\GameTypes\DogFight.cs" />
     <Compile Include="Screens\GameTypes\SinglePlayer.cs" />
+    <Compile Include="Screens\GameTypes\TwoPlayerBaseGame.cs" />
+    <Compile Include="Screens\GameTypes\TwoPlayerServerWrapper.cs" />
     <Compile Include="Screens\IDrawableScreen.cs" />
     <Compile Include="Maps\MapLoader.cs" />
     <Compile Include="Maps\mapSpecificationScheema.cs">
