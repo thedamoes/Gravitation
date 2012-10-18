@@ -38,7 +38,6 @@ namespace Gravitation.Screens.GameTypes
 
         public override void Update(GameTime gameTime)
         {
-          
 
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
@@ -162,6 +161,11 @@ namespace Gravitation.Screens.GameTypes
             //mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
 
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset);
+        }
+
+        public override Matrix getView()
+        {
+            return cam.View;
         }
     }
 }

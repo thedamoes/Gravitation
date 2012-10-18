@@ -27,6 +27,10 @@ namespace Gravitation.ControllerAgents
         {
             get { return mShip.ShipPosition; }
         }
+        public float Rotation
+        {
+            get { return this.mRotatation; }
+        }
 
 
 
