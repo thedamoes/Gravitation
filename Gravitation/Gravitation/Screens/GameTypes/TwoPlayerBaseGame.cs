@@ -71,7 +71,6 @@ namespace Gravitation.Screens.GameTypes
 
             base.Update(gameTime);
         }
-
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
             mPlayer1.Draw(sb);
@@ -96,7 +95,6 @@ namespace Gravitation.Screens.GameTypes
 #endif
             base.Draw(sb, gameTime);
         }
-
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
             base.LoadContent(graphics, Content);
@@ -114,7 +112,6 @@ namespace Gravitation.Screens.GameTypes
             initalisePlayer1Controles();
             initalisePlayer2Controles();
         }
-
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
         {
 
