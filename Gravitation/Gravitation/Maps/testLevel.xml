@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<Map
+xmlns="mapSpecificationScheema.xsd"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
+  <MapDimentions>
+    <Width>2100</Width>
+    <Height>1100</Height>
+  </MapDimentions>
+	<Surfaces>
+    <BackgoundPicture>
+      <Asset name="grid">
+        <Scale>
+          <X>1</X>
+          <Y>1</Y>
+        </Scale>
+        <Rotation>0.0</Rotation>
+        <Position>
+          <X>0</X>
+          <Y>-800</Y>
+        </Position>
+      </Asset>
+		</BackgoundPicture>
+		<MapWalls>
+			<Wall walltype="left">
+				<Asset name="wall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>9</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+            <X>0</X>
+            <Y>-800</Y>
+					</Position>
+				</Asset>
+			</Wall>
+			
+			<Wall walltype="right">
+				<Asset name="wall">
+					<Height>300</Height>
+					<Width>100</Width>
+					<Scale>
+						<X>1</X>
+						<Y>9</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+            <X>2000</X>
+            <Y>-800</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+			<Wall walltype="bottom">
+				<Asset name="top">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>9</X>
+						<Y>2</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+						<X>800</X>
+            <Y>250</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+		
+			<Wall walltype="top">
+				<Asset name="top">
+					<Height>100</Height>
+					<Width>300</Width>
+					<Scale>
+						<X>8</X>
+						<Y>4</Y>
+					</Scale>
+          <Rotation>0.0</Rotation>
+					<Position>
+						<X>800</X>
+						<Y>-1800</Y>
+					</Position>
+				</Asset>
+			</Wall>
+
+
+		</MapWalls>
+    <Obsticals>
+      <Asset name="wall">
+        <Height>500</Height>
+        <Width>100</Width>
+        <Scale>
+          <X>1</X>
+          <Y>1</Y>
+        </Scale>
+        <Rotation>2.0</Rotation>
+        <Position>
+          <X>500</X>
+          <Y>-500</Y>
+        </Position>
+      </Asset>
+
+      <Asset name="wall">
+        <Height>100</Height>
+        <Width>100</Width>
+        <Scale>
+          <X>1</X>
+          <Y>1</Y>
+        </Scale>
+        <Position>
+          <X>1000</X>
+          <Y>-300</Y>
+        </Position>
+      </Asset>
+
+    </Obsticals>
+	</Surfaces>
+	<Powerups>
+      <Position>
+        <X>10</X>
+        <Y>-20</Y>
+      </Position>
+    <Position>
+      <X>15</X>
+      <Y>0</Y>
+    </Position>
+    <Position>
+      <X>20</X>
+      <Y>0</Y>
+    </Position>
+  	</Powerups>
+  <SpawnPoint>
+    <Player1>
+      <X>200</X>
+      <Y>0</Y>
+    </Player1>
+    <Player2>
+      <X>500</X>
+      <Y>0</Y>
+    </Player2>
+    <default>
+      <X>100</X>
+      <Y>0</Y>
+    </default>
+  </SpawnPoint>
+	
+</Map>

@@ -123,9 +123,12 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.CollisionCategories = Category.Cat12;
             base.mSpriteBody.CollidesWith = Category.All & ~Category.Cat10;//Category.Cat1 | Category.Cat11;
 
+            String selectedUpgrade = randomSelect(upgradeList);
+
+
             foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
             {
-                fixturec.UserData = randomSelect(upgradeList);
+                fixturec.UserData = selectedUpgrade;
 
             }
             
@@ -167,6 +170,8 @@ namespace Gravitation.SpriteObjects
             if (Visible)
             {
 
+
+
                 Console.WriteLine("upgrade pos = " + this.mposition);
                 /* mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                  mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -196,6 +201,17 @@ namespace Gravitation.SpriteObjects
                 }
                 else
                 {
+
+                    String selectedUpgrade = randomSelect(upgradeList);
+
+
+                    foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+                    {
+                        fixturec.UserData = selectedUpgrade;
+
+                    }
+
+
                     Console.WriteLine("upgrade pos = " + this.mposition);
                     timeToWait = 0;
                     Visible = true;
@@ -209,9 +225,17 @@ namespace Gravitation.SpriteObjects
             if (fixtureb.Body.IsBullet)
             {
                 //collision with ship
-                Visible = false;
-                move = true;
-                return false;
+                if (Visible)
+                {
+                    Visible = false;
+                    move = true;
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             else //if (Convert.ToString(base.mSpriteBody.ContactList.Other.UserData).Equals("Dynamic"))
             {
@@ -232,7 +256,8 @@ namespace Gravitation.SpriteObjects
 
                 if (pair.Value == upgradeList.Values.Min())
                 {
-                    powerup = pair.Key; // Found
+                    powerup = pair.Key; // Founds
+                    upgradeList[pair.Key]++;
                     break;
                 }
             }

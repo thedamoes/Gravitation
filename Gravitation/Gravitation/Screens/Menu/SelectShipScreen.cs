@@ -30,9 +30,9 @@ namespace Gravitation.Screens.Menu
             DataClasses.ShipConfiguration[] ships = settingsWindow.getShips();
 
             if (ships.Count() == 1)
-                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/level1.xml", ships[0].Ship, null) };
+                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/testLevel.xml", ships[0].Ship, null) };
             else
-                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/level1.xml", ships[0].Ship, ships[1].Ship) };
+                constructoArgs = new object[] { (object)new DataClasses.GameConfiguration("../../../Maps/testLevel.xml", ships[0].Ship, ships[1].Ship) };
 
             System.Reflection.ConstructorInfo constructorInfo = this.gameType.GetConstructor(new Type[]{typeof(DataClasses.GameConfiguration)});
                 

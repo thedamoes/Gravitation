@@ -92,8 +92,7 @@ namespace Gravitation.Screens.GameTypes
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
-            mPlayer1.Draw(sb);
-            u.Draw(sb);
+           
 #if DEBUG
 
 
@@ -110,6 +109,9 @@ namespace Gravitation.Screens.GameTypes
 
 #endif
             base.Draw(sb, gameTime);
+
+            mPlayer1.Draw(sb);
+            u.Draw(sb);
         }
 
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)

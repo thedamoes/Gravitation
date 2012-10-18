@@ -199,6 +199,24 @@ namespace Gravitation.SpriteObjects
                 }
                 else
                 {
+                    String powerupData = Convert.ToString(fixtureb.UserData);
+                    
+                    switch (powerupData)
+                    {
+                        case "shield" :
+                            {
+                                sheilds = 100;
+                                Console.Out.WriteLine("sheilds" + sheilds);
+                                break;
+                            }
+                        case "power":
+                            {
+                                damage = 100;
+                                Console.Out.WriteLine("damage"+damage);
+                                break;
+                            }
+                    }
+
                     return false; //powerup
                 }
             }

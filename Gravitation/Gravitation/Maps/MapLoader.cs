@@ -175,7 +175,7 @@ namespace Gravitation.Maps
 
         public void drawMap(SpriteBatch sb)
         {
-           // mBackground.Draw(sb); // draw background
+            mBackground.Draw(sb); // draw background
             
             mLeftWall.Draw(sb); // draw walls
             mRightWall.Draw(sb);

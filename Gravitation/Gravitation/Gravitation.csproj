@@ -169,6 +169,9 @@
     <Content Include="Maps\level1.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Maps\testLevel.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GravitationContent\GravitationContent.contentproj">

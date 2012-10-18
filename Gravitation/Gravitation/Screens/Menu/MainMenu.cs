@@ -199,7 +199,7 @@ namespace Gravitation.Screens.Menu
         {
 
             base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/level1.xml", mShip, null))));
+                                                                                        new DataClasses.GameConfiguration("../../../Maps/testLevel.xml", mShip, null))));
         }
 
         private void singleplayerRaceSelected(object senderm, EventArgs e)

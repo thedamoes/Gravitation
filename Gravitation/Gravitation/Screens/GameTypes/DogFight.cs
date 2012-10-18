@@ -43,7 +43,8 @@ namespace Gravitation.Screens.GameTypes
 
             cam = new CameraControls.TwoPlayerCamera();
 
-            powerups.Add("f");
+            powerups.Add("shield");
+            powerups.Add("power");
         }
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
@@ -115,10 +116,7 @@ namespace Gravitation.Screens.GameTypes
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
         {
-            mPlayer1.Draw(sb);
-            mPlayer2.Draw(sb);
-
-            u.Draw(sb);
+          
 #if DEBUG
 
 
@@ -137,6 +135,11 @@ namespace Gravitation.Screens.GameTypes
 
 #endif
             base.Draw(sb, gameTime);
+
+            mPlayer1.Draw(sb);
+            mPlayer2.Draw(sb);
+            u.Draw(sb);
+
         }
 
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
