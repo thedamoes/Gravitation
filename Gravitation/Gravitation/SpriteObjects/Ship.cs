@@ -67,7 +67,7 @@ namespace Gravitation.SpriteObjects
             this.mPlayer = player;
 
             this.damage = (int)power;
-            this.sheilds = (int)sheildStrength;
+            this.sheilds = this.sheilds - (10*(int)sheildStrength);
         }
 
         public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
