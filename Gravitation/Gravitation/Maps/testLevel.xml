@@ -24,66 +24,66 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 		</BackgoundPicture>
 		<MapWalls>
 			<Wall walltype="left">
-				<Asset name="wall">
+				<Asset name="longWall">
 					<Height>300</Height>
 					<Width>100</Width>
 					<Scale>
 						<X>1</X>
-						<Y>9</Y>
+						<Y>2</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
             <X>0</X>
-            <Y>-800</Y>
+            <Y>-400</Y>
 					</Position>
 				</Asset>
 			</Wall>
 			
 			<Wall walltype="right">
-				<Asset name="wall">
+				<Asset name="longWall">
 					<Height>300</Height>
 					<Width>100</Width>
 					<Scale>
 						<X>1</X>
-						<Y>9</Y>
+						<Y>2</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
-            <X>2000</X>
+            <X>3000</X>
             <Y>-800</Y>
 					</Position>
 				</Asset>
 			</Wall>
 
 			<Wall walltype="bottom">
-				<Asset name="top">
+				<Asset name="longPlatform">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
-						<X>9</X>
-						<Y>2</Y>
+						<X>3</X>
+						<Y>1</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
 						<X>800</X>
-            <Y>250</Y>
+            <Y>150</Y>
 					</Position>
 				</Asset>
 			</Wall>
 
 		
 			<Wall walltype="top">
-				<Asset name="top">
+				<Asset name="longPlatform">
 					<Height>100</Height>
 					<Width>300</Width>
 					<Scale>
-						<X>8</X>
-						<Y>4</Y>
+						<X>3</X>
+						<Y>1.5</Y>
 					</Scale>
           <Rotation>0.0</Rotation>
 					<Position>
 						<X>800</X>
-						<Y>-1800</Y>
+						<Y>-2000</Y>
 					</Position>
 				</Asset>
 			</Wall>
