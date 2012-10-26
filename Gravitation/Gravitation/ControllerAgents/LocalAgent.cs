@@ -20,7 +20,7 @@ namespace Gravitation.ControllerAgents
         private Vector2 mDirection; // X = unless you want weard stuff to happen this should be 0 (could have a powerup that sets this value to non 0)
                                     // Y = how mutch forward
         private float mRotatation = 0;
-        private const float DIRECTION_WEIGHT = 2.5f;
+        private const float DIRECTION_WEIGHT = 2.5f; //2.5
         private const float ROTATION_WEIGHT = 0.5f;
 
         public Vector2 myPosition
@@ -125,9 +125,10 @@ namespace Gravitation.ControllerAgents
 
         public void applyMovement()
         {
-            if (mDirection == Vector2.Zero && mRotatation == 0 ) // optimisation
+            if (mDirection == Vector2.Zero && mRotatation == 0) // optimisation
+            {
                 return;
-
+            }
             
             float shipAngle;
 
@@ -135,10 +136,12 @@ namespace Gravitation.ControllerAgents
             //following if satement is to limit the rotation velocity so we don't spin LIGHT SPPPEEEED
             if (mShip.mSpriteBody.AngularVelocity > 5)
             {
+                mShip.mSpriteBody.AngularVelocity = 5;
                 //do nothing
             }
             else if (mShip.mSpriteBody.AngularVelocity < -5)
             {
+                mShip.mSpriteBody.AngularVelocity = -5;
                 //do nothing
             }
             else
@@ -155,29 +158,30 @@ namespace Gravitation.ControllerAgents
             int posSpd = (int)Math.Max(Math.Sqrt(Yvel * Yvel), Math.Sqrt(Xvel * Xvel));
 
             int totalSpeed = posSpd;
+            int speedLimit = 10;
 
             float excessX = 0;
             float excessY = 0;
 
-            if(Xvel > 15)
+            if (Xvel > speedLimit)
             {
-                excessX = Xvel-15;
+                excessX = Xvel - speedLimit;
             }
-            else if(Xvel < -15)
+            else if (Xvel < -speedLimit)
             {
-                excessX = Xvel+15;
-            }
-
-            if(Yvel > 15)
-            {
-                excessY = Yvel-15;
-            }
-            else if(Yvel < -15)
-            {
-                excessY = Yvel+15;
+                excessX = Xvel + speedLimit;
             }
 
-            if (totalSpeed > 15)
+            if (Yvel > speedLimit)
+            {
+                excessY = Yvel - speedLimit;
+            }
+            else if (Yvel < -speedLimit)
+            {
+                excessY = Yvel + speedLimit;
+            }
+
+            if (totalSpeed > speedLimit) //15
             {
                 mShip.mSpriteBody.ApplyLinearImpulse(new Vector2(-excessX,-excessY));
             }

@@ -66,8 +66,8 @@ namespace Gravitation.SpriteObjects
 
             this.mPlayer = player;
 
-            this.damage = (int)power;
-            this.sheilds = (int)sheildStrength;
+            this.damage = (int)power; // need to change this 
+            this.sheilds = this.sheilds - (10*(int)sheildStrength); // and this too
         }
 
         public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
@@ -126,6 +126,7 @@ namespace Gravitation.SpriteObjects
             mShipParticles = new ShipParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, new Vector2(0, -20));
             mShipParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, this.mtheSpriteBatch);
 
+            base.mSpriteBody.LinearDamping = 1f;
         }
 
 

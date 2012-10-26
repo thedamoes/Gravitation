@@ -48,7 +48,7 @@ namespace Gravitation
             Content.RootDirectory = "Content";
 
             graphics.PreferredBackBufferWidth = 700;
-            graphics.PreferredBackBufferHeight = 700;
+            graphics.PreferredBackBufferHeight = 500;
 
             Sound = new SoundHandler(Content);
             currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);

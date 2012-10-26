@@ -30,7 +30,7 @@ namespace Gravitation.Screens
 
         public BaseGame(DataClasses.GameConfiguration gameConfig)
         {
-            mWorld = new World(new Vector2(0, 2));
+            mWorld = new World(new Vector2(0, 1f)); //0.5
             mMapLoader = new Maps.MapLoader(gameConfig.MapName, mWorld);
         }
 
