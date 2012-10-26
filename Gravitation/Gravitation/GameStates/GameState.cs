@@ -8,10 +8,16 @@ namespace Gravitation.GameStates
 {
     public class shipState
     {
-        Vector2 position;
-        float rotation;
+        public Vector2 position;
+        public float rotation;
+
+        public shipState() { }
+
     }
     public class GameState
     {
+        public shipState playerstate = new shipState();
+
+        public GameState() { }
     }
 }

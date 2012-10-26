@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Gravitation.GameStates;
 
 namespace Gravitation.Screens.GameTypes
 {
@@ -16,6 +17,22 @@ namespace Gravitation.Screens.GameTypes
         protected Input.ControlConfig mPlayer2ControllerConfig;
 
         protected CameraControls.TwoPlayerCamera cam;
+
+        private TwoPlayerGameState state = new TwoPlayerGameState();
+
+        public TwoPlayerGameState GameState
+        {
+            get {
+                    this.state.player2State.position = this.mPlayer2.mShip.Position;
+                    this.state.playerstate.position = this.mPlayer1.mShip.Position;
+
+                    this.state.player2State.rotation = this.mPlayer2.Rotation;
+                    this.state.playerstate.rotation = this.mPlayer1.Rotation;
+                    
+                    return this.state;
+
+                }
+        }
 
         public TwoPlayerBaseGame(DataClasses.GameConfiguration gameConfig)
             : base(gameConfig)

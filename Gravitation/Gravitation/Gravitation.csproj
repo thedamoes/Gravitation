@@ -128,8 +128,12 @@
     <Compile Include="Comms\Messages\ShipStatusMessage.cs" />
     <Compile Include="Comms\Messages\AbstractMessage.cs" />
     <Compile Include="Comms\OnShipStatusRecevedEventArgs.cs" />
+    <Compile Include="Comms\Receivers\TCPRecevier.cs" />
     <Compile Include="Comms\Receivers\UDPReceiver.cs" />
     <Compile Include="Comms\Server.cs" />
+    <Compile Include="Comms\Transmiters\AbstractTransmitter.cs" />
+    <Compile Include="Comms\Transmiters\TCPTransmiter.cs" />
+    <Compile Include="Comms\Transmiters\UDPTransmiter.cs" />
     <Compile Include="ControllerAgents\AIAgent.cs" />
     <Compile Include="ControllerAgents\IControllerInterface.cs" />
     <Compile Include="ControllerAgents\LocalAgent.cs" />
@@ -137,6 +141,8 @@
     <Compile Include="DataClasses\GameSelectedEventArgs.cs" />
     <Compile Include="DataClasses\IGameHolder.cs" />
     <Compile Include="DataClasses\ScreenDataComnmunicators.cs" />
+    <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\TwoPlayerGameState.cs" />
     <Compile Include="Input\ControlConfig.cs" />
     <Compile Include="Screens\GameTypes\BaseGame.cs" />
     <Compile Include="Screens\BaseScreen.cs" />
