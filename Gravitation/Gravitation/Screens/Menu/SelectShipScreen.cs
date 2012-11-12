@@ -62,7 +62,7 @@ namespace Gravitation.Screens.Menu
 
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
         {
-            
+               
         }
 
         public Microsoft.Xna.Framework.Matrix getView()

@@ -22,10 +22,8 @@ namespace Gravitation.Comms
             {
                 case 101:
                     return new Messages.ShipStateUpdate(messageData);
-                    break;
                 default: // throw away unknowmn messages
                     return null;
-                    break;
             }
 
 
