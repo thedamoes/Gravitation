@@ -3,28 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using Gravitation.Comms.Transmiters;
 using Gravitation.Comms.Receivers;
 
-namespace Gravitation.Comms
+namespace Gravitation.Comms.Transevers
 {
-    public abstract class AbstractReceiver : IReceiver
+    public abstract class AbstractTransever : ITransmitter, IReceiver
     {
         public event EventHandler<OnMessageRecevedEventArgs> onMessageRecieved;
+        public abstract bool Connected
+        {
+            get;
+        }
+
         protected IPEndPoint endpoint;
 
         protected bool stoped = true;
 
-        public AbstractReceiver(IPEndPoint endpoint)
+        public AbstractTransever(IPEndPoint endpoint)
         {
             this.endpoint = endpoint;
         }
 
+        public AbstractTransever(int port)
+        {
+            this.endpoint = new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), port);
+        }
+
         public abstract void startListening();
-        public void stopListening()
+        public virtual void stopListening()
         {
             this.stoped = true;
         }
 
+        public abstract void sendMessage(Messages.AbstractMessage message);
         protected void fireOnMessageReceved(Messages.AbstractMessage ss)
         {
             this.fire<OnMessageRecevedEventArgs>(this.onMessageRecieved, new OnMessageRecevedEventArgs(ss));

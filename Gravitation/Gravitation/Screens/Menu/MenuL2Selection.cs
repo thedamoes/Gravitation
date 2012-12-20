@@ -46,5 +46,11 @@ namespace Gravitation.Screens.Menu
         {
             throw new NotImplementedException();
         }
+
+
+        public void windowCloseing()
+        {
+            
+        }
     }
 }

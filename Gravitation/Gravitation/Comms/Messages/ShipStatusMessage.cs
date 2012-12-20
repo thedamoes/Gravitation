@@ -57,5 +57,10 @@ namespace Gravitation.Comms.Messages
             this.readNextVal(ref this.ship1rotateion);
             this.readNextVal(ref this.ship2rotateion);
         }
+
+        protected override char getMessageHeader()
+        {
+            return (char)101;
+        }
     }
 }

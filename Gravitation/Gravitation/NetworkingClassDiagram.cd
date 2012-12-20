@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Gravitation.Comms.MessageFactory" Collapsed="true">
+    <Position X="19.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\MessageFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.OnMessageRecevedEventArgs" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\OnShipStatusRecevedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.AbstractReceiver">
+    <Position X="4.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAQACAAAAAAAAAAAAAAEAQBAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\AbstractReceiver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.UDPReceiver">
+    <Position X="4.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\UDPReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Server" Collapsed="true">
+    <Position X="17.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAQAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.EventArgs.ReceiverHolderEventArgs" Collapsed="true">
+    <Position X="21" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\EventArgs\ReceiverHolderEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.EventArgs.ChatRecevedEventArgs" Collapsed="true">
+    <Position X="17.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Lobby\EventArgs\ChatRecevedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.EventArgs.PlayerConnectedEventArgs" Collapsed="true">
+    <Position X="19.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Lobby\EventArgs\PlayerConnectedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.GameLobbyComms">
+    <Position X="10.75" Y="9" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIBAAAABAAAEAAIAgAEAAAAAgAAAAABAAAQAAAAEA=</HashCode>
+      <FileName>Comms\Lobby\GameLobbyComms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.ServerGameLobbyComms">
+    <Position X="10.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAA=</HashCode>
+      <FileName>Comms\Lobby\ServerGameLobbyComms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.AbstractMessage">
+    <Position X="7.25" Y="1" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAEAAAAAAAAAAAAIAABBAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\AbstractMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.ShipStateUpdate">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABAAAQAAAAgAAAAIAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\ShipStatusMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.LobbyMessages.ChatMessage">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACA=</HashCode>
+      <FileName>Comms\Messages\LobbyMessages\ChatMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.LobbyMessages.NewPlayerConnected">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\LobbyMessages\NewPlayerConnected.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Receivers.TCPRecevier" Collapsed="true">
+    <Position X="19.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\TCPRecevier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.AbstractServerTransever">
+    <Position X="15" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAKAAAAQAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\AbstractServerTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.AbstractTransever">
+    <Position X="14" Y="1" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAQACAAAAAAAAgAAAAAEAQBAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\AbstractTransever.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.TCPServerTransever">
+    <Position X="15" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgAAAAAAAAAAEABAAEAIgAIAQAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Comms\Transevers\TCPServerTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.MessageRecevedStatestruct" Collapsed="true">
+    <Position X="21" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Comms\Transevers\TCPTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.TCPTransever">
+    <Position X="12.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAQAQAAAACAAAgAAAAAAAAAAIABAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\TCPTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.AbstractTransmitter">
+    <Position X="7.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAgAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\AbstractTransmitter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.TCPTransmiter" Collapsed="true">
+    <Position X="21" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\TCPTransmiter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.UDPTransmiter">
+    <Position X="7.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\UDPTransmiter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Gravitation.Comms.Receivers.IReceiver" Collapsed="true">
+    <Position X="17.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\IReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.Comms.Transmiters.ITransmitter" Collapsed="true">
+    <Position X="19.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\ITransmitter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

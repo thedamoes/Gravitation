@@ -177,6 +177,13 @@ namespace Gravitation.Screens.Menu
                 this.mNextScreen.Draw(sb, gameTime);
         }
 
+        public override void windowCloseing()
+        {
+            base.windowCloseing();
+            if (this.mNextScreen != null)
+                this.mNextScreen.windowCloseing();
+        }
+
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
         {
             if(this.mNextScreen != null)

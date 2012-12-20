@@ -42,5 +42,11 @@ namespace Gravitation.Screens.GameTypes
         {
             return this.game.getView();
         }
+
+
+        public void windowCloseing()
+        {
+            
+        }
     }
 }

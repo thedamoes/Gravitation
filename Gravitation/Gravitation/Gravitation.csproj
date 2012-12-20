@@ -18,6 +18,7 @@
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -131,15 +131,28 @@
   <ItemGroup>
     <Compile Include="CameraControls\Camera.cs" />
     <Compile Include="CameraControls\TwoPlayerCamera.cs" />
+    <Compile Include="Comms\EventArgs\ReceiverHolderEventArgs.cs" />
+    <Compile Include="Comms\Lobby\EventArgs\ChatRecevedEventArgs.cs" />
+    <Compile Include="Comms\Lobby\EventArgs\PlayerConnectedEventArgs.cs" />
+    <Compile Include="Comms\Lobby\GameLobbyComms.cs" />
+    <Compile Include="Comms\Lobby\ServerGameLobbyComms.cs" />
+    <Compile Include="Comms\Messages\LobbyMessages\ChatMessage.cs" />
+    <Compile Include="Comms\Messages\LobbyMessages\NewPlayerConnected.cs" />
     <Compile Include="Comms\Receivers\AbstractReceiver.cs" />
     <Compile Include="Comms\MessageFactory.cs" />
     <Compile Include="Comms\Messages\ShipStatusMessage.cs" />
     <Compile Include="Comms\Messages\AbstractMessage.cs" />
     <Compile Include="Comms\OnShipStatusRecevedEventArgs.cs" />
+    <Compile Include="Comms\Receivers\IReceiver.cs" />
     <Compile Include="Comms\Receivers\TCPRecevier.cs" />
     <Compile Include="Comms\Receivers\UDPReceiver.cs" />
     <Compile Include="Comms\Server.cs" />
+    <Compile Include="Comms\Transevers\AbstractServerTransever.cs" />
+    <Compile Include="Comms\Transevers\AbstractTransever.cs" />
+    <Compile Include="Comms\Transevers\TCPServerTransever.cs" />
+    <Compile Include="Comms\Transevers\TCPTransever.cs" />
     <Compile Include="Comms\Transmiters\AbstractTransmitter.cs" />
+    <Compile Include="Comms\Transmiters\ITransmitter.cs" />
     <Compile Include="Comms\Transmiters\TCPTransmiter.cs" />
     <Compile Include="Comms\Transmiters\UDPTransmiter.cs" />
     <Compile Include="ControllerAgents\AIAgent.cs" />
@@ -164,9 +177,14 @@
       <DependentUpon>mapSpecificationScheema.xsd</DependentUpon>
     </Compile>
     <Compile Include="Screens\Menu\MainMenu.cs" />
+    <Compile Include="Screens\Menu\NetworkMenuScreens\GameLobbyScreen.cs" />
     <Compile Include="Screens\Menu\UserControls\BaseUserControls\DockableControlHolder.cs" />
     <Compile Include="Screens\Menu\UserControls\BaseUserControls\window.xaml.cs">
       <DependentUpon>window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\Menu\UserControls\DataConverters\GameLobyControlToGridHeight.cs" />
+    <Compile Include="Screens\Menu\UserControls\GameLobby.xaml.cs">
+      <DependentUpon>GameLobby.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screens\Menu\UserControls\IPSelection.xaml.cs">
       <DependentUpon>IPSelection.xaml</DependentUpon>
@@ -195,6 +213,8 @@
     <Compile Include="SpriteObjects\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="comsTesterClient.py" />
+    <Content Include="comsTesterListener.py" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
     <Content Include="Maps\firstLevel.xml">
@@ -246,9 +266,14 @@
     <None Include="Maps\mapSpecificationScheema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NetworkingClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Screens\Menu\UserControls\BaseUserControls\window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\Menu\UserControls\GameLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -65,5 +65,12 @@ namespace Gravitation.Screens.Menu
             if (this.gameSelected != null)
                 this.gameSelected(sender, e);
         }
+
+
+        public void windowCloseing()
+        {
+            if (this.currentMenuScreen != null)
+                this.currentMenuScreen.windowCloseing();
+        }
     }
 }

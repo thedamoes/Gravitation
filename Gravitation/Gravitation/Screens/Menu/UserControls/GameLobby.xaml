@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Gravitation.Screens.Menu.UserControls.GameLobby"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:c="clr-namespace:Gravitation.Screens.Menu.UserControls.DataConverters"
+             d:DesignHeight="222" d:DesignWidth="458" xmlns:my="clr-namespace:Gravitation.Screens.Menu.UserControls.BaseUserControls">
+    
+    <UserControl.Template>
+        <ControlTemplate 
+             TargetType="{x:Type UserControl}">
+            <Grid Background="#FF555555" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=ActualWidth}" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=ActualHeight}">
+                <Border BorderBrush="Black" BorderThickness="2" Name="border1" Width="Auto" Margin="0,22,0,0" Padding="0,0,10,0" />
+                <Rectangle Height="25" Name="rectangle1" Stroke="Black" Width="Auto" DockPanel.Dock="Top" VerticalAlignment="Top" Fill="#FF343434" />
+                <Label Content="Lobby" Height="25" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" Width="177" Foreground="White" />
+                <Image Height="20" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="44" Source="/Resources/windowIcon.png" Margin="0,5,12,0">
+                </Image>
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+            </Grid>
+        </ControlTemplate >
+    </UserControl.Template>
+    <Grid VerticalAlignment="Bottom">
+        <Grid.Resources>
+            <c:GameLobyControlToGridHeight x:Key="gameLobyToControlGridHeight"></c:GameLobyControlToGridHeight>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*" />
+            <ColumnDefinition Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=ActualWidth}" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*" />
+            <RowDefinition Height="22" />
+            <RowDefinition Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1}, Path=ActualHeight}" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="12,32,204,40" Name="textBlock1" Text="" Background="#FF8D8D8D" Grid.Row="2" Grid.Column="1" />
+        <Button Content="Send" HorizontalAlignment="Left" Margin="144,0,0,12" Name="sendBttn" Width="35" Grid.Row="2" Height="22" VerticalAlignment="Bottom" Grid.Column="1" />
+        <Label Content="Players" Grid.Column="1" Grid.Row="2" Height="27" Margin="0,32,143,0" Name="label1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" />
+        <ListBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,70,12,40" Name="listBox1" Width="182" Background="#FF939393" />
+        <Button Content="Start The Game" Grid.Column="1" Grid.Row="2" Height="22" Margin="0,0,12,12" Name="startGameBttn" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="93" />
+        <my:TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="12,0,0,12" x:Name="textBox1" VerticalAlignment="Bottom" Width="126" />
+    </Grid>
+</UserControl>

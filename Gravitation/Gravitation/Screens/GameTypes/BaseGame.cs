@@ -85,5 +85,11 @@ namespace Gravitation.Screens
         {
             return new Matrix(); // dont call this method always override
         }
+
+
+        public virtual void windowCloseing()
+        {
+            
+        }
     }
 }

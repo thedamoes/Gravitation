@@ -26,7 +26,7 @@ namespace Gravitation.ControllerAgents
 
         ~NetworkedAgent()
         {
-            receiver.shutdownComms();
+            receiver.stopListening();
         }
 
         public void applyMovement()
@@ -38,7 +38,7 @@ namespace Gravitation.ControllerAgents
         {
             // may need to load a ship will think about it later
 
-            Thread commsThread = new Thread(new ThreadStart(receiver.startComms));
+            Thread commsThread = new Thread(new ThreadStart(receiver.startListening));
             commsThread.Start();
         }
 
