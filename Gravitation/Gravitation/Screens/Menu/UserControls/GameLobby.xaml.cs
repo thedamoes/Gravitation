@@ -29,6 +29,12 @@ namespace Gravitation.Screens.Menu.UserControls
         {
             InitializeComponent();
             this.sendBttn.Click += new RoutedEventHandler(sendBttn_Click);
+            this.textBox1.enterHit += new EventHandler<EventArgs>(textBox1_enterHit);
+        }
+
+        void textBox1_enterHit(object sender, EventArgs e)
+        {
+            this.sendBttn_Click(sender, new RoutedEventArgs());
         }
 
         void sendBttn_Click(object sender, RoutedEventArgs e)
@@ -43,7 +49,7 @@ namespace Gravitation.Screens.Menu.UserControls
           new Action(
             delegate()
             {
-                this.textBlock1.Text += message + "\n\r";
+                this.textBlock1.Text += message;
             }));
             
         }

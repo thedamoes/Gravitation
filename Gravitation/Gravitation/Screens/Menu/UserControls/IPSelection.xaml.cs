@@ -33,6 +33,7 @@ namespace Gravitation.Screens.Menu.UserControls
 
             this.button1.Click += this.connClick;
             this.buttonHost.Click += this.hostClick;
+            this.textBox1.DisableCharacters = true;
         }
 
         public void handleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState)
