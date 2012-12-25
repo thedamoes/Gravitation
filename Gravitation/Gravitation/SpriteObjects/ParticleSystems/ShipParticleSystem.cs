@@ -167,9 +167,10 @@ namespace DPSF.ParticleSystems
             // Setup the Emitter
             Emitter.ParticlesPerSecond = 500f;
 
-
-            float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633)); 
-            float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633)); 
+            
+                float xa = (float)Math.Round(44f * Math.Cos(rotation + 1.57079633)); 
+                float yb = (float)Math.Round(44f * Math.Sin(rotation + 1.57079633));  
+             
 
             Emitter.PositionData.Position.X = intialPos.X + xa;//- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             Emitter.PositionData.Position.Y = intialPos.Y + yb; //+ 280f; //- (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
@@ -241,11 +242,12 @@ namespace DPSF.ParticleSystems
         /// <param name="fElapsedTimeInSeconds">How long it has been since the last update</param>
         public void UpdateParticle(DefaultSpriteParticle cParticle, Vector2 velocity, float rotation)
         {
-
+            cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0);
             // Place code to update the Particle here
-            if (count < 5) { cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0); count++; }
-            else { cParticle.Velocity += new Vector3(-velocity.X, velocity.Y, 0); count = 0; }
-             
+            /*if (count < 2) { cParticle.Velocity += new Vector3(velocity.X, velocity.Y, 0); count++; }
+            else if (count < 3) { cParticle.Velocity += new Vector3((4), (4), 0); count++; }
+            else if (count < 4) { cParticle.Velocity += new Vector3(( - 4), (- 4), 0); count++; }
+            else { count = 0; }*/
             
             // Adjust the Particle's Velocity direction according to the Emitter's Orientation
             cParticle.Velocity = Vector3.Transform(cParticle.Velocity, Emitter.OrientationData.Orientation);
@@ -282,7 +284,7 @@ namespace DPSF.ParticleSystems
 
 
             float xa = (float)Math.Round(22f * Math.Cos(rotation + 1.57079633)); // 44
-            float yb = (float)Math.Round(22f * Math.Sin(rotation + 1.57079633)); // 44
+            float yb = (float)Math.Round(22f *  Math.Sin(rotation + 1.57079633)); // 44
 
             Emitter.PositionData.Position.X = shotPos.X +(xa); //- (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
             Emitter.PositionData.Position.Y = shotPos.Y +(yb); //+ 280f;//(float)Math.Round(48f * Math.Cos(rotation + 1.57079633));

@@ -21,7 +21,10 @@ namespace Gravitation.Screens.GameTypes
         {
 
             powerups.Add("shield");
-            powerups.Add("power");
+            powerups.Add("Shotgun");
+            powerups.Add("Laser");
+            powerups.Add("Machinegun");
+            powerups.Add("Spiral");
         }
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)

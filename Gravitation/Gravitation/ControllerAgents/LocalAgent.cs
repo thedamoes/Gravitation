@@ -20,7 +20,7 @@ namespace Gravitation.ControllerAgents
         private Vector2 mDirection; // X = unless you want weard stuff to happen this should be 0 (could have a powerup that sets this value to non 0)
                                     // Y = how mutch forward
         private float mRotatation = 0;
-        private const float DIRECTION_WEIGHT = 2.5f; //2.5
+        private const float DIRECTION_WEIGHT = 3.5f; //2.5
         private const float ROTATION_WEIGHT = 0.5f;
 
         public Vector2 myPosition
@@ -158,7 +158,7 @@ namespace Gravitation.ControllerAgents
             int posSpd = (int)Math.Max(Math.Sqrt(Yvel * Yvel), Math.Sqrt(Xvel * Xvel));
 
             int totalSpeed = posSpd;
-            int speedLimit = 10;
+            int speedLimit = 50;//10
 
             float excessX = 0;
             float excessY = 0;
@@ -193,18 +193,12 @@ namespace Gravitation.ControllerAgents
         }
 
 
-        public void updateShot(GameTime gameTime, Matrix _view)
+        public void updateShip(GameTime gameTime, Matrix _view)
         {
             mShip.updateShot(gameTime, _view);
-
-        }
-
-        public void thrust(GameTime gameTime, Matrix _view)
-        {
             mShip.thrust(gameTime, _view);
+            mShip.updatePassiveShipState(gameTime, _view);
         }
-
-
 
         public void loadShip(ContentManager cm, GraphicsDeviceManager graphics)
         {

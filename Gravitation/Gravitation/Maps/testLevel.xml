@@ -12,13 +12,13 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
     <BackgoundPicture>
       <Asset name="grid">
         <Scale>
-          <X>1</X>
-          <Y>1</Y>
+          <X>4</X>
+          <Y>3</Y>
         </Scale>
         <Rotation>0.0</Rotation>
         <Position>
           <X>0</X>
-          <Y>-800</Y>
+          <Y>-2000</Y>
         </Position>
       </Asset>
 		</BackgoundPicture>
@@ -122,16 +122,16 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
 	</Surfaces>
 	<Powerups>
       <Position>
-        <X>10</X>
-        <Y>-20</Y>
+        <X>1500</X>
+        <Y>-800</Y>
       </Position>
     <Position>
-      <X>15</X>
-      <Y>0</Y>
+      <X>2000</X>
+      <Y>-0</Y>
     </Position>
     <Position>
-      <X>20</X>
-      <Y>0</Y>
+      <X>1000</X>
+      <Y>-600</Y>
     </Position>
   	</Powerups>
   <SpawnPoint>
@@ -140,7 +140,7 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
       <Y>0</Y>
     </Player1>
     <Player2>
-      <X>500</X>
+      <X>2800</X>
       <Y>0</Y>
     </Player2>
     <default>

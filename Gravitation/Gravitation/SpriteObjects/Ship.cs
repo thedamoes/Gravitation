@@ -31,11 +31,66 @@ namespace Gravitation.SpriteObjects
         public World world;
 
         public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
-        //public List<SpriteObjects.Shot> remove_Shots = new List<SpriteObjects.Shot>();
         public ShipParticleSystem mShipParticles = null;
 
         public int sheilds = 100;
-        public int damage = 25;        
+        public int damage = 25;
+
+        public int shotsPerSec = 3;
+        public float shotSpeed = -20;
+
+
+        public fireState currentFireState = fireState.Standard;
+        public passiveState currentPassiveState = passiveState.Standard;
+        public secondaryFire currentSecondaryFire = secondaryFire.Standard;
+
+        public enum fireState 
+        {
+            Standard,
+            Shotgun,
+            Machinegun,
+            Laser,
+            Heavyshot, //basically has high mass
+            SlowShot, //shotSpeed is reduced, not ROF
+            DoubleShot,
+        };
+
+        public enum secondaryFire
+        {
+            EmpShot,
+            GuidedShot, 
+            Mines,
+            Turrets,
+            Tether,
+            ControlledTether,
+            ElasticTether,
+            ThrusterTether,
+            WeponisedThruster,
+            Net,
+            HeavyNet,
+            FreezeNet,
+            CeasefireNet,
+            Drones,
+            RocketPods,
+            RearGunner,
+            Standard
+        };
+
+        public enum passiveState
+        {
+            Standard,
+            SpiralFire,
+            NoGravity,
+            HighGravity,
+            InverseGravity,
+            AutoCannon,
+            Invincible,
+            ReverseControls,
+            DecreaseROF,
+            IncreaseROF,
+            BouncyShots
+        };
+
 
         ContentManager theContentManager;
         GraphicsDeviceManager graphics;
@@ -45,8 +100,10 @@ namespace Gravitation.SpriteObjects
 
         private SoundHandler mPlayer;
 
+        private Random rand = new Random();
         private bool timer = true;
-
+        private int time = 0;
+        private float spiralShotRotation = 0;
 
         public Vector2 ShipPosition
         {
@@ -68,6 +125,7 @@ namespace Gravitation.SpriteObjects
 
             this.damage = (int)power; // need to change this 
             this.sheilds = this.sheilds - (10*(int)sheildStrength); // and this too
+
         }
 
         public void LoadContent(ContentManager theContentManager, string theAssetName, GraphicsDeviceManager graphics)
@@ -137,25 +195,128 @@ namespace Gravitation.SpriteObjects
 
         public void fire()
         {
-
-            if (timer)
+            switch(currentFireState)
             {
-                SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+                case (fireState.Standard):
+                    {
+                        if (timer)
+                        {
+                            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
 
-                aShot.LoadContent(theContentManager, graphics);
-                aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation);
-                mShots.Add(aShot);
-                mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
-                
-                timer = false;
+                            aShot.LoadContent(theContentManager, graphics);
+                            aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, shotSpeed);
+                            mShots.Add(aShot);
+                            mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+
+                            timer = false;
+                        }
+                        break;
+                    }
+                case (fireState.Shotgun):
+                    {
+                        if (timer)
+                        {
+
+                            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+                            SpriteObjects.Shot bShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+                            SpriteObjects.Shot cShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+
+                            aShot.LoadContent(theContentManager, graphics);
+                            bShot.LoadContent(theContentManager, graphics);
+                            cShot.LoadContent(theContentManager, graphics);
+
+                            aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, shotSpeed);
+                            bShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation + 0.05f, shotSpeed);
+                            cShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation - 0.05f, shotSpeed);
+
+                            mShots.Add(aShot);
+                            mShots.Add(bShot);
+                            mShots.Add(cShot);
+
+                            mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+
+                            timer = false;
+                        }
+
+                        break;
+                    }
+                case(fireState.Laser):
+                    {
+                        if (timer)
+                        {                           
+                            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, 1, this.removeShot);
+
+                            aShot.LoadContent(theContentManager, graphics);
+                            aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, (shotSpeed * 100));
+                            mShots.Add(aShot);
+                            timer = false;
+                        }
+                        break;
+                    }
+                case (fireState.Machinegun):
+                    {
+                        if(timer)
+                        {
+                            float randomRotation = rand.Next(-1, 1);
+                            float secondRotation = rand.Next(-9,9);
+
+                            secondRotation = secondRotation / 100;
+
+                            randomRotation = (randomRotation / 10) + secondRotation;
+
+                            SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
+
+                            aShot.LoadContent(theContentManager, graphics);
+                            aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation + randomRotation, shotSpeed);
+                            mShots.Add(aShot);
+                            mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+
+                            timer = false;
+                        }
+
+                        break;
+                    }
             }
         }
 
         public void updateShot(GameTime gameTime, Matrix _view)
         {
-            if (gameTime.TotalGameTime.Milliseconds % 200 == 0)
+            time += gameTime.ElapsedGameTime.Milliseconds;
+
+            switch(currentFireState)
             {
-                timer = true;
+                case (fireState.Standard):
+                    {
+                        if (time >= (1000 / shotsPerSec)) //250
+                        {
+                            timer = true;
+                            time = 0;
+                        }
+                        break;
+                    }
+                case(fireState.Shotgun):
+                    {
+                        if (time >= (1000 / shotsPerSec)) //250
+                        {
+                            timer = true;
+                            time = 0;
+                        }
+                        break;
+                    }
+                case(fireState.Laser):
+                    {
+                        timer = true;
+                        break;
+                    }
+                case(fireState.Machinegun):
+                    {
+                        if (time >= (500 / shotsPerSec)) //250
+                        {
+                            timer = true;
+                            time = 0;
+                        }
+                        break;
+                    }
             }
 
             foreach (SpriteObjects.Shot aShot in mShots)
@@ -170,8 +331,35 @@ namespace Gravitation.SpriteObjects
             mShots.Remove(shotToRemove);
         }
 
+        public void updatePassiveShipState(GameTime gameTime, Matrix _view)
+        {
+            switch (currentPassiveState)
+            {
+                case (passiveState.SpiralFire):
+                    {
+                        SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, spiralShotRotation, damage, this.removeShot);
+
+                        aShot.LoadContent(theContentManager, graphics);
+                        aShot.fire(base.mSpriteBody.Position, spiralShotRotation, shotSpeed);
+                        mShots.Add(aShot);
+
+                        spiralShotRotation += 0.1f;
+
+                        if(spiralShotRotation == 6.3){
+                            spiralShotRotation = 0;
+                        }
+                        
+                        break;
+                    }
+            }
+
+
+        }
+
+
         public void thrust(GameTime gameTime, Matrix _view)
         {
+
             mShipParticles.SpriteBatchSettings.TransformationMatrix = _view;
             mShipParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);          
 
@@ -182,8 +370,18 @@ namespace Gravitation.SpriteObjects
                 //mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0, (-2 +(-0.1f * (float)Math.Sqrt((base.mSpriteBody.LinearVelocity.Y) * (base.mSpriteBody.LinearVelocity.Y))))), base.mSpriteBody.Rotation));
                 mShipParticles.UpdateParticle(particle, rotateVector(new Vector2(0, 10), base.mSpriteBody.Rotation), base.mSpriteBody.Rotation);
             }
+
         }
 
+        public void playThrustSound()
+        {
+                mPlayer.playSound(SoundHandler.Sounds.SHIP_THRUST1, 1f);
+        }
+
+        public void pauseThrustSound()
+        {
+            mPlayer.pauseSound(SoundHandler.Sounds.SHIP_THRUST1);
+        }
 
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
@@ -206,14 +404,27 @@ namespace Gravitation.SpriteObjects
                     {
                         case "shield" :
                             {
-                                sheilds = 100;
-                                Console.Out.WriteLine("sheilds" + sheilds);
+                                sheilds = 200;
                                 break;
                             }
-                        case "power":
+                        case "Shotgun":
                             {
-                                damage = 100;
-                                Console.Out.WriteLine("damage"+damage);
+                                currentFireState = fireState.Shotgun;
+                                break;
+                            }
+                        case "Laser":
+                            {
+                                currentFireState = fireState.Laser;
+                                break;
+                            }
+                        case "Machinegun":
+                            {
+                                currentFireState = fireState.Machinegun;
+                                break;
+                            }
+                        case "Spiral":
+                            {
+                                currentPassiveState = passiveState.SpiralFire;
                                 break;
                             }
                     }

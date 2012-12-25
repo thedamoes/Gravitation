@@ -192,13 +192,14 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public void fire(Vector2 theStartPosition, float rotation)
+        public void fire(Vector2 theStartPosition, float rotation, float shotSpeed)
         {
 
             this.mposition.Y = (theStartPosition.Y * MeterInPixels) - (float)Math.Round(88f * Math.Sin(rotation + 1.57079633));
             this.mposition.X = (theStartPosition.X * MeterInPixels) - (float)Math.Round(88f * Math.Cos(rotation + 1.57079633));
 
-            mDirection = new Vector2(0 , -20);
+
+            mDirection = new Vector2(0, shotSpeed);
 
             Visible = true;
 

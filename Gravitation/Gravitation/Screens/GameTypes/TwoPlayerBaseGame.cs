@@ -15,6 +15,12 @@ namespace Gravitation.Screens.GameTypes
         protected Input.ControlConfig mPlayer1ControllerConfig;
         protected Input.ControlConfig mPlayer2ControllerConfig;
 
+        private int player1BaseShield = 0;
+        private int player1BaseDamage = 0;
+
+        private int player2BaseShield = 0;
+        private int player2BaseDamage = 0;
+
         protected CameraControls.TwoPlayerCamera cam;
 
         public TwoPlayerBaseGame(DataClasses.GameConfiguration gameConfig)
@@ -22,11 +28,15 @@ namespace Gravitation.Screens.GameTypes
         {
             // load ship 1
             SpriteObjects.Ship ship = gameConfig.Ship;
+            player1BaseDamage = gameConfig.Ship.damage;
+            player1BaseShield = gameConfig.Ship.sheilds;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
             ship.World = base.mWorld;
 
             // load ship 2
             SpriteObjects.Ship ship2 = gameConfig.Ship2;
+            player2BaseDamage = gameConfig.Ship2.damage;
+            player2BaseShield = gameConfig.Ship2.sheilds;
             ship2.ShipPosition = mMapLoader.shipStartPosP2;
             ship2.World = base.mWorld;
 
@@ -42,25 +52,29 @@ namespace Gravitation.Screens.GameTypes
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
 
-            mPlayer1.thrust(gameTime, cam.View);
-            mPlayer2.thrust(gameTime, cam.View);
+            mPlayer1.updateShip(gameTime, cam.View);
+            mPlayer2.updateShip(gameTime, cam.View);
 
             mPlayer1.applyMovement();
             mPlayer2.applyMovement();
 
-            mPlayer1.updateShot(gameTime, cam.View);
-            mPlayer2.updateShot(gameTime, cam.View);
-
-
             if (mPlayer1.mShip.sheilds <= 0)
             {
-                mPlayer1.mShip.sheilds = 100;  //DEATH
+                mPlayer1.mShip.sheilds = player1BaseShield;  //DEATH
+                mPlayer1.mShip.damage = player1BaseDamage;
+                mPlayer1.mShip.currentFireState = SpriteObjects.Ship.fireState.Standard;
+                mPlayer1.mShip.currentPassiveState = SpriteObjects.Ship.passiveState.Standard;
+                mPlayer1.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
                 mPlayer1.reset2(mMapLoader.shipStartPosP1);
             }
 
             if (mPlayer2.mShip.sheilds <= 0)
             {
-                mPlayer2.mShip.sheilds = 100;  //DEATH
+                mPlayer2.mShip.sheilds = player2BaseShield;  //DEATH
+                mPlayer2.mShip.damage = player2BaseDamage;
+                mPlayer2.mShip.currentFireState = SpriteObjects.Ship.fireState.Standard;
+                mPlayer2.mShip.currentPassiveState = SpriteObjects.Ship.passiveState.Standard;
+                mPlayer2.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
 
@@ -134,13 +148,14 @@ namespace Gravitation.Screens.GameTypes
             {
                 mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
                 mPlayer1.moveForward();
+                mPlayer1.mShip.playThrustSound();
             });
 
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.pauseThrustSound();  mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
-            //mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
+            //mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
 
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
         }
@@ -153,13 +168,14 @@ namespace Gravitation.Screens.GameTypes
             {
                 mPlayer2.mShip.mShipParticles.Emitter.Enabled = true;
                 mPlayer2.moveForward();
+                mPlayer2.mShip.playThrustSound();
             });
 
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Up, delegate() { mPlayer2.mShip.mShipParticles.Emitter.Enabled = false; });
+            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Up, delegate() { mPlayer2.mShip.pauseThrustSound(); mPlayer2.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Right, mPlayer2.stall);
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
-            //mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
+            //mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
+            mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
 
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset);
         }

@@ -31,6 +31,7 @@ namespace Gravitation.SpriteObjects
         public World mworld;
         public Vector2 mposition;
         public bool Visible = false;
+        private bool upgradeSelected;
         private Dictionary<String,Int32> upgradeList; // <upgradeName, number of times used>
         private Random rnd = new Random();
         private bool move = false;
@@ -56,9 +57,8 @@ namespace Gravitation.SpriteObjects
 
             int index = (int) GetRandomNumber(0f, spawnPoints.Count());
 
-            this.mposition = selectRandomSpawn();//new Vector2((-0.5f * MeterInPixels),0);//MeterInPixels;
+            this.mposition = selectRandomSpawn()*MeterInPixels;//new Vector2((-0.5f * MeterInPixels),0);
             
-            Console.WriteLine("upgrade pos = " + this.mposition);
 
             this.upgradeList = upgradeList.ToDictionary(v => v, v => 0);
 
@@ -170,9 +170,19 @@ namespace Gravitation.SpriteObjects
             if (Visible)
             {
 
+                if (!upgradeSelected)
+                {
+                    upgradeSelected = true;
+                    String selectedUpgrade = randomSelect(upgradeList);
+                    foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+                    {
+                        fixturec.UserData = selectedUpgrade;
 
+                    }
 
-                Console.WriteLine("upgrade pos = " + this.mposition);
+                }
+
+ 
                 /* mShotParticles.SpriteBatchSettings.TransformationMatrix = _view;
                  mShotParticles.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
                  mShotParticles.UpdateParticleEmmiter(base.mSpriteBody.Position * (MeterInPixels), mrotation);
@@ -187,6 +197,13 @@ namespace Gravitation.SpriteObjects
             {
                 if (move)
                 {
+                    String removeUpgrade = "";
+                    foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+                    {
+                        fixturec.UserData = removeUpgrade;
+                    }
+
+
                     int firstVal = timeToWait;
                     int secondVal = (int)gameTime.ElapsedGameTime.Milliseconds;
 
@@ -202,17 +219,7 @@ namespace Gravitation.SpriteObjects
                 else
                 {
 
-                    String selectedUpgrade = randomSelect(upgradeList);
-
-
-                    foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
-                    {
-                        fixturec.UserData = selectedUpgrade;
-
-                    }
-
-
-                    Console.WriteLine("upgrade pos = " + this.mposition);
+                    //Console.WriteLine("upgrade pos = " + base.mSpriteBody.Position);
                     timeToWait = 0;
                     Visible = true;
                 }
@@ -229,6 +236,7 @@ namespace Gravitation.SpriteObjects
                 {
                     Visible = false;
                     move = true;
+                    upgradeSelected = false;
                     return false;
                 }
                 else
@@ -237,7 +245,7 @@ namespace Gravitation.SpriteObjects
                 }
                 
             }
-            else //if (Convert.ToString(base.mSpriteBody.ContactList.Other.UserData).Equals("Dynamic"))
+            else
             {
                 return true;
             }
@@ -251,14 +259,27 @@ namespace Gravitation.SpriteObjects
         {
 
             String powerup = "";
-            foreach (KeyValuePair<string, int> pair in upgradeList)
+
+            int index = (int)GetRandomNumber(0f, upgradeList.Count());
+            int value = upgradeList.ElementAt(index).Value;
+
+            if (value == upgradeList.Values.Min())
+            {
+                powerup = upgradeList.ElementAt(index).Key;
+                upgradeList[upgradeList.ElementAt(index).Key]++;
+            }
+            else
             {
 
-                if (pair.Value == upgradeList.Values.Min())
+                foreach (KeyValuePair<string, int> pair in upgradeList)
                 {
-                    powerup = pair.Key; // Founds
-                    upgradeList[pair.Key]++;
-                    break;
+
+                    if (pair.Value == upgradeList.Values.Min())
+                    {
+                        powerup = pair.Key; // Founds
+                        upgradeList[pair.Key]++;
+                        break;
+                    }
                 }
             }
 
@@ -304,7 +325,7 @@ namespace Gravitation.SpriteObjects
 
            
 
-            return position;
+            return position/MeterInPixels;
 
         }
 

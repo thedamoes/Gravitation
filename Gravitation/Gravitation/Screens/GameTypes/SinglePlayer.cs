@@ -75,10 +75,7 @@ namespace Gravitation.Screens.GameTypes
             //update Controlling agients
             mPlayer1.applyMovement();
 
-            mPlayer1.updateShot(gameTime, cam.View);
-
-            mPlayer1.thrust(gameTime, cam.View);
-
+            mPlayer1.updateShip(gameTime, cam.View);
 
             if (mPlayer1.mShip.sheilds <= 0)
             {
