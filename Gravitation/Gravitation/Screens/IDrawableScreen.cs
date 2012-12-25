@@ -18,5 +18,7 @@ namespace Gravitation.Screens
         void Draw(SpriteBatch sb, GameTime gameTime);
         void HandleKeyboard(KeyboardState curState, KeyboardState prevState);
         Matrix getView();
+
+        void windowCloseing();
     }
 }

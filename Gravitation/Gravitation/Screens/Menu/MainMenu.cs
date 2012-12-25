@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using XnaGUILib;
+using Gravitation.Screens.Menu.UserControls;
+using Gravitation.Screens.Menu.UserControls.BaseUserControls;
 
 namespace Gravitation.Screens.Menu
 {
@@ -30,6 +32,8 @@ namespace Gravitation.Screens.Menu
             singlePlayer_Swarm, singlePlayer_Dogfight, singlePlayer_Race,
             multiplayer_internet, multiplayer_local,
             button_config, sounds;
+
+        Microsoft.Xna.Framework.Content.ContentManager cm;
 
         private MenuL2Selection detailedSelectionContainer;
         private MenuButton[] singlePlayerL2Buttons = new MenuButton[3];
@@ -93,6 +97,7 @@ namespace Gravitation.Screens.Menu
             this.option_bttn.click += this.optionsSelected;
             this.singlePlayer_Dogfight.click += this.dogfightSelected;
             this.multiplayer_local.click += this.localPlayMultiplayerSelected;
+            this.multiplayer_internet.click += this.multiplayerInternetSelected;
             this.singlePlayer_Race.click += this.singleplayerRaceSelected;
 
             this.single_Player_bttn.highlighted += buttonUnhighlighted;
@@ -138,6 +143,8 @@ namespace Gravitation.Screens.Menu
             this.multiplayer_local.LoadContent(cm, "Menu/SelectedBackground");
             this.sounds.LoadContent(cm, "Menu/SelectedBackground");
             this.button_config.LoadContent(cm, "Menu/SelectedBackground");
+
+            this.cm = cm;
         }
 
         public void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -170,8 +177,17 @@ namespace Gravitation.Screens.Menu
                 this.mNextScreen.Draw(sb, gameTime);
         }
 
+        public override void windowCloseing()
+        {
+            base.windowCloseing();
+            if (this.mNextScreen != null)
+                this.mNextScreen.windowCloseing();
+        }
+
         public void HandleKeyboard(Microsoft.Xna.Framework.Input.KeyboardState curState, Microsoft.Xna.Framework.Input.KeyboardState prevState)
         {
+            if(this.mNextScreen != null)
+            this.mNextScreen.HandleKeyboard(curState, prevState);
         }
 
         public Microsoft.Xna.Framework.Matrix getView()
@@ -211,6 +227,12 @@ namespace Gravitation.Screens.Menu
         private void localPlayMultiplayerSelected(object senderm, EventArgs e)
         {
             this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth, typeof(Screens.GameTypes.DogFight), mPlayer, 2);
+            this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
+        }
+
+        private void multiplayerInternetSelected(object senderm, EventArgs e)
+        {
+            this.mNextScreen = new NetworkMenuScreens.NetworkedGameStartScreen(this.screenHeight, this.mScreenWidth, this.cm);
             this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
         #endregion

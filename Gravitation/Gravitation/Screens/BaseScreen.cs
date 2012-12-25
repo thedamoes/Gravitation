@@ -32,6 +32,11 @@ namespace Gravitation.Screens
             this.screenWidth = screenWidth;
         }
 
+        public virtual void windowCloseing()
+        {
+
+        }
+
         protected void fire<A>(EventHandler<A> evnt, A args) where A : EventArgs
         {
             if (evnt != null)

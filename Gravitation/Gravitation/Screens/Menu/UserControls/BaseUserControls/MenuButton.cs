@@ -7,7 +7,7 @@ using Gravitation.SpriteObjects;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Gravitation.Screens.Menu
+namespace Gravitation.Screens.Menu.UserControls.BaseUserControls
 {
     class MenuButton : Sprite, IDrawableScreen
     {
@@ -106,5 +106,11 @@ namespace Gravitation.Screens.Menu
         #endregion
 
 
+
+
+        public void windowCloseing()
+        {
+            
+        }
     }
 }

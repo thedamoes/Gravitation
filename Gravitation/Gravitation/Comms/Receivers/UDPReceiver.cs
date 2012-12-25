@@ -18,10 +18,11 @@ namespace Gravitation.Comms
             this.client = new UdpClient(base.endpoint);
         }
 
-        public override void startComms()
+        public override void startListening()
         {
             base.stoped = false;
 
+            // update to use asink later
             while (!base.stoped)
             {
                 if (this.client.Available > 0)

@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Gravitation.Program">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Game1">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAFAAAAwAAAAAAEAAAAAAAAAgABAAgAAAAAQQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.BaseGame" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAJwAAAgAAAAAgAAAAAACAAAkAAAAAAAAAAQQ=</HashCode>
+      <FileName>Screens\GameTypes\BaseGame.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.GameTypes.DogFight" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEAgAAAAAAAAAAAAAAAIEAAAIAAAAAAQQ=</HashCode>
+      <FileName>Screens\GameTypes\DogFight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.GameTypes.SinglePlayer" Collapsed="true">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAEAAAEAgAAAAAAAAAAEAAABIUAAAIAAAAAAQQ=</HashCode>
+      <FileName>Screens\GameTypes\SinglePlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.BaseScreen" Collapsed="true">
+    <Position X="1" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAEAAAAAAACAACAAABCAAQAAAAAA=</HashCode>
+      <FileName>Screens\BaseScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.CameraControls.Camera" Collapsed="true">
+    <Position X="0.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQACIAABACYAAAECUIdCAECghDgBEgCAEQAAkIAA=</HashCode>
+      <FileName>CameraControls\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.CameraControls.TwoPlayerCamera" Collapsed="true">
+    <Position X="0.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAACAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>CameraControls\TwoPlayerCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.EventArgs.ReceiverHolderEventArgs" Collapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\EventArgs\ReceiverHolderEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.EventArgs.ChatRecevedEventArgs" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Lobby\EventArgs\ChatRecevedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.EventArgs.PlayerConnectedEventArgs" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Lobby\EventArgs\PlayerConnectedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.GameLobbyComms" Collapsed="true">
+    <Position X="11.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIBAAAABAAAEAAIAgAEAAAAAgAAAAABAAAQAAAAEA=</HashCode>
+      <FileName>Comms\Lobby\GameLobbyComms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Lobby.ServerGameLobbyComms" Collapsed="true">
+    <Position X="11.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAA=</HashCode>
+      <FileName>Comms\Lobby\ServerGameLobbyComms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.MessageFactory" Collapsed="true">
+    <Position X="25.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\MessageFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.OnMessageRecevedEventArgs" Collapsed="true">
+    <Position X="30.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\OnShipStatusRecevedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.AbstractReceiver" Collapsed="true">
+    <Position X="11.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAQACAAAAAAAAAAAAAAEAQBAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\AbstractReceiver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.UDPReceiver" Collapsed="true">
+    <Position X="11.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\UDPReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Server" Collapsed="true">
+    <Position X="36" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAQAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.AbstractMessage" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAEAAAAAAAAAAAAIAABBAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\AbstractMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.ShipStateUpdate" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABAAAQAAAAgAAAAIAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\ShipStatusMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.LobbyMessages.ChatMessage" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACA=</HashCode>
+      <FileName>Comms\Messages\LobbyMessages\ChatMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Messages.LobbyMessages.NewPlayerConnected" Collapsed="true">
+    <Position X="13.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Messages\LobbyMessages\NewPlayerConnected.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Receivers.TCPRecevier" Collapsed="true">
+    <Position X="34.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\TCPRecevier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.AbstractServerTransever" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAKAAAAQAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\AbstractServerTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.AbstractTransever" Collapsed="true">
+    <Position X="1.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAQACAAAAAAAAgAAAAAEAQBAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\AbstractTransever.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.TCPServerTransever" Collapsed="true">
+    <Position X="2.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgAAAAAAAAAAEABAAEAIgAIAQAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Comms\Transevers\TCPServerTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.MessageRecevedStatestruct" Collapsed="true">
+    <Position X="27.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Comms\Transevers\TCPTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transevers.TCPTransever" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAQAQAAAACAAAgAAAAAAAAAAIABAAAAAA=</HashCode>
+      <FileName>Comms\Transevers\TCPTransever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.AbstractTransmitter" Collapsed="true">
+    <Position X="8.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAgAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\AbstractTransmitter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.TCPTransmiter" Collapsed="true">
+    <Position X="36" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\TCPTransmiter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Comms.Transmiters.UDPTransmiter" Collapsed="true">
+    <Position X="8.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\UDPTransmiter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.ControllerAgents.AIAgent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIACAAAAAAA=</HashCode>
+      <FileName>ControllerAgents\AIAgent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.ControllerAgents.LocalAgent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAACAoQEAAAAoaAAAABAAQAABgACCMBIACA=</HashCode>
+      <FileName>ControllerAgents\LocalAgent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.ControllerAgents.NetworkedAgent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAgAAAAAAAIAAAAAAAAAAhAACAAAAAAA=</HashCode>
+      <FileName>ControllerAgents\NetworkedAgent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.DataClasses.GameSelectedEventArgs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAg=</HashCode>
+      <FileName>DataClasses\GameSelectedEventArgs.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.DataClasses.GameConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAACAAAAAAAAAAAAABCAAAAAAAIAAAAAABA=</HashCode>
+      <FileName>DataClasses\ScreenDataComnmunicators.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.DataClasses.ShipConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAACAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\ScreenDataComnmunicators.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.DataClasses.DisplayNewScreen" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\ScreenDataComnmunicators.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.SoundHandler" Collapsed="true">
+    <Position X="32.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAABAAAAAAIAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>SoundHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.GameStates.shipState" Collapsed="true">
+    <Position X="29" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameStates\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.GameStates.GameState" Collapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>GameStates\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.GameStates.TwoPlayerGameState" Collapsed="true">
+    <Position X="5.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameStates\TwoPlayerGameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Input.XBOXControllerAnalog" Collapsed="true">
+    <Position X="30.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAEAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Input\ControlConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Input.ControlConfig" Collapsed="true">
+    <Position X="27.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAQAQQAACAQIAAAAAQAAAAACAgAIAAA=</HashCode>
+      <FileName>Input\ControlConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Maps.MapLoader" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EABAACgAEUAAAAAQAAgABEAQADhBAAAEIAEAAABAAow=</HashCode>
+      <FileName>Maps\MapLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAQAAAAEAAAAACIAAAAAgg=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapMapDimentions" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAACAAABAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfaces" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAIAAAAACAAAAAAAAABAgAQAAAAAAAAAAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesBackgoundPicture" Collapsed="true">
+    <Position X="36" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesBackgoundPictureAsset" Collapsed="true">
+    <Position X="23.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAIAgAIIAAAAAAAAEAAAAAAAgAAAAACA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesBackgoundPictureAssetScale" Collapsed="true">
+    <Position X="27.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesBackgoundPictureAssetPosition" Collapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesWall" Collapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesWallAsset" Collapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAABAAAAIAiAIIBAEAAAAAEAAAAAAAgAAAAACA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesWallAssetScale" Collapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesWallAssetPosition" Collapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesAsset" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIAAAAAABAAAAIAjAIIBAEAAAAAEAAAAAAAgAAAAACA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesAssetScale" Collapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSurfacesAssetPosition" Collapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapPosition" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSpawnPoint" Collapsed="true">
+    <Position X="36" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAEAAAwAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSpawnPointPlayer1" Collapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSpawnPointPlayer2" Collapsed="true">
+    <Position X="27.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSpawnPointDefault" Collapsed="true">
+    <Position X="23.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAYAA=</HashCode>
+      <FileName>Maps\mapSpecificationScheema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.GameTypes.TwoPlayerBaseGame" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABACEAAAAAgAAAAAAAAAAEAAAAAUEAIAACAAAIQQ=</HashCode>
+      <FileName>Screens\GameTypes\TwoPlayerBaseGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.GameTypes.TwoPlayerServerWrapper" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAgAAAAAAAAAAAAAAAAEIAAAAAAAAAQY=</HashCode>
+      <FileName>Screens\GameTypes\TwoPlayerServerWrapper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.MainMenu" Collapsed="true">
+    <Position X="19" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QARQAAADBAEDAkQAIAgMBEACAASUhBsABAAgSMCACQQ=</HashCode>
+      <FileName>Screens\Menu\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.MenuL2Selection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAgAAAAAAAAAAABAAAAEEAAAAAAAAAQQ=</HashCode>
+      <FileName>Screens\Menu\MenuL2Selection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.MenuScreen" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAACBAABAgQAAAgAAAAAAAAAAAEAAAAAIAAAASQ=</HashCode>
+      <FileName>Screens\Menu\MenuScreen.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.SelectShipScreen" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABIAAAgAAAQAAAABAAAAAAAEAAAAAAAAAAQQ=</HashCode>
+      <FileName>Screens\Menu\SelectShipScreen.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.ShipSettings" Collapsed="true">
+    <Position X="27.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAkAgAAAAAAAAAABAAAAAAEAEAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Screens\Menu\ShipSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.ToolPage" Collapsed="true">
+    <Position X="25.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAgAgAAgEAAAAAAAAAAEAAAQEEAQAEAAAQACAAA=</HashCode>
+      <FileName>Screens\Menu\ShipSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.NetworkMenuScreens.GameLobbyScreen" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEABAgAAAABAAEAAAAAAAAAAACAAEABQAAAAAA=</HashCode>
+      <FileName>Screens\Menu\NetworkMenuScreens\GameLobbyScreen.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.NetworkMenuScreens.NetworkedGameStartScreen" Collapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIBAAAggAAAAAAAgAAIAAAAAEAAAAACAAAAQQ=</HashCode>
+      <FileName>Screens\Menu\NetworkMenuScreens\NetworkedGameStartScreen.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.BaseUserControls.DockableControlHolder" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEEAAAABBABAAAAoAAAIAAAAAAAAAAIAgAAAAAAIA=</HashCode>
+      <FileName>Screens\Menu\UserControls\BaseUserControls\DockableControlHolder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.BaseUserControls.MenuButton" Collapsed="true">
+    <Position X="10" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAABAAAAgAAAIAAAAAABACAAAEADABCAAAAAQQ=</HashCode>
+      <FileName>Screens\Menu\UserControls\BaseUserControls\MenuButton.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.BaseUserControls.TextBox" Collapsed="true">
+    <Position X="23.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAQAAAAAEAAAAAIAABCAAAAAA=</HashCode>
+      <FileName>Screens\Menu\UserControls\BaseUserControls\TextBox.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.BaseUserControls.window" Collapsed="true">
+    <Position X="29" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Menu\UserControls\BaseUserControls\window.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.DataConverters.GameLobyControlToGridHeight" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Menu\UserControls\DataConverters\GameLobyControlToGridHeight.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.GameLobby" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Screens\Menu\UserControls\GameLobby.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.Screens.Menu.UserControls.IPSelection" Collapsed="true">
+    <Position X="25.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAEAAAAAAAAAAAAAAAgAAAAAABABAABAQAAAAA=</HashCode>
+      <FileName>Screens\Menu\UserControls\IPSelection.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Obstical" Collapsed="true">
+    <Position X="5.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpriteObjects\Obstical.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Ship" Collapsed="true">
+    <Position X="1" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCEAECEhAAggAAAABAIAAIAABBAQgABAAAAAkAAgQ=</HashCode>
+      <FileName>SpriteObjects\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Shot" Collapsed="true">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAAAggIAAEBBAAAAAAAAAQAJBgAAAAEIAQQ=</HashCode>
+      <FileName>SpriteObjects\Shot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.SolidSprite" Collapsed="true">
+    <Position X="6.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAgQ=</HashCode>
+      <FileName>SpriteObjects\SolidSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Sprite" Collapsed="true">
+    <Position X="6.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIAAAggAAgAAggYgQAqgAAAQAAAAAIAIBAAAAIAggAQ=</HashCode>
+      <FileName>SpriteObjects\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Upgrade" Collapsed="true">
+    <Position X="12.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQFBAkAAAAAQgKAABABAAAAAAACAAAJAQAAAAEIAAQ=</HashCode>
+      <FileName>SpriteObjects\Upgrade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gravitation.SpriteObjects.Wall" Collapsed="true">
+    <Position X="7.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpriteObjects\Wall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPSF.ParticleSystems.ShipParticleSystem" Collapsed="true">
+    <Position X="25.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEEAAAACAAAgAAABACAAAAAAAAAAAAAAAQgEAAQAAA=</HashCode>
+      <FileName>SpriteObjects\ParticleSystems\ShipParticleSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPSF.ParticleSystems.ShotParticleSystem" Collapsed="true">
+    <Position X="30.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEEAAAACAAAgAAAAACAAAAAAAAAAAAAAAQgEAAQAAA=</HashCode>
+      <FileName>SpriteObjects\ParticleSystems\ShotParticleSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Gravitation.Screens.IDrawableScreen" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAAAgAAAAAAAAAAAAAAAAEAAAAAAAAAAQQ=</HashCode>
+      <FileName>Screens\IDrawableScreen.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.Comms.Receivers.IReceiver" Collapsed="true">
+    <Position X="27.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAwAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Receivers\IReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.Comms.Transmiters.ITransmitter" Collapsed="true">
+    <Position X="30.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comms\Transmiters\ITransmitter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.ControllerAgents.IControllerInterface" Collapsed="true">
+    <Position X="23.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAIAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ControllerAgents\IControllerInterface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.DataClasses.IGameHolder" Collapsed="true">
+    <Position X="25.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>DataClasses\IGameHolder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gravitation.DataClasses.IScreenExitData" Collapsed="true">
+    <Position X="29" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataClasses\ScreenDataComnmunicators.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

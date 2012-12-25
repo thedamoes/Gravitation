@@ -53,6 +53,7 @@ namespace Gravitation
             Sound = new SoundHandler(Content);
             currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
             //currentScreen = new Screens.GameTypes.SinglePlayer(new DataClasses.GameConfiguration("../../../Maps/level1.xml", new SpriteObjects.Ship(), null));
+            
 
             currentScreen.gameSelected += this.gameSelected;
 
@@ -63,9 +64,6 @@ namespace Gravitation
             XnaGUIManager.Initialize(this);
 
             // create the tool window
-
-            
-
             this.IsMouseVisible = true; // display the GUI
 
             base.Initialize();
@@ -92,6 +90,14 @@ namespace Gravitation
            
 
             base.Update(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            base.OnExiting(sender, args);
+
+            if (this.currentScreen != null)
+                this.currentScreen.windowCloseing();
         }
 
         private void gameSelected(object sender, DataClasses.GameSelectedEventArgs e)

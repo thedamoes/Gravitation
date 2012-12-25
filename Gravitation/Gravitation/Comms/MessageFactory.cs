@@ -22,10 +22,15 @@ namespace Gravitation.Comms
             {
                 case 101:
                     return new Messages.ShipStateUpdate(messageData);
-                    break;
+                case 102:
+                    return new Messages.LobbyMessages.ChatMessage(messageData);
+                case 103:
+                    return new Messages.LobbyMessages.NewPlayerConnected(messageData);
                 default: // throw away unknowmn messages
-                    return null;
-                    break;
+                    {
+                        Console.Write("Error unrecognised message");
+                        return null;
+                    }
             }
 
 

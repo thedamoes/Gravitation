@@ -25,6 +25,7 @@ namespace Gravitation.Screens.GameTypes
         public void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             this.game.Update(gameTime);
+            this.server.sendGamestaeUpdate(game.GameState, gameTime.TotalGameTime);
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, Microsoft.Xna.Framework.GameTime gameTime)
@@ -40,6 +41,12 @@ namespace Gravitation.Screens.GameTypes
         public Microsoft.Xna.Framework.Matrix getView()
         {
             return this.game.getView();
+        }
+
+
+        public void windowCloseing()
+        {
+            
         }
     }
 }

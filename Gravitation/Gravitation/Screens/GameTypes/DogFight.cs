@@ -32,9 +32,7 @@ namespace Gravitation.Screens.GameTypes
             base.LoadContent(graphics, Content);
 
             int exampleUpgradeTime = 10; //seconds
-
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
-
             u.LoadContent(Content, graphics);
         }
 
@@ -55,8 +53,6 @@ namespace Gravitation.Screens.GameTypes
         {
             base.HandleKeyboard(state,prevState);
         }
-
-
 
         public override Matrix getView()
         {
