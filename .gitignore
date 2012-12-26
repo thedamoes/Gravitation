@@ -8,6 +8,10 @@ MapEditor/MapEditor/bin/*
 MapEditor/MapEditor/obj/*
 MapEditor/MapEditor/Properties/*
 
+ParticleSystem/*
+Physics/*
+VSMacros80/*
+
 *.cachefile
 *.log
 *.exe
