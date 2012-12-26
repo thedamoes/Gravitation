@@ -61,13 +61,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DebugViewXNA">
-      <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\DebugView XNA\bin\x86\Debug\DebugViewXNA.dll</HintPath>
+      <HintPath>..\..\Physics\DebugViews\DebugViewXNA\bin\x86\Debug\DebugViewXNA.dll</HintPath>
     </Reference>
     <Reference Include="DPSF">
-      <HintPath>C:\DPSF\DPSF.dll</HintPath>
+      <HintPath>..\..\ParticleSystem\DPSF.dll</HintPath>
     </Reference>
     <Reference Include="FarseerPhysicsXNA">
-      <HintPath>..\..\..\Farseer Physics Engine 3.3.1 Samples XNA\Farseer Physics Engine 3.3 XNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
+      <HintPath>..\..\Physics\DebugViews\DebugViewXNA\bin\x86\Debug\FarseerPhysicsXNA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
@@ -125,7 +125,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="XnaGUILib">
-      <HintPath>..\..\..\XnaGUILib\XnaGUILib\bin\x86\Debug\XnaGUILib.dll</HintPath>
+      <HintPath>bin\x86\Debug\XnaGUILib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
