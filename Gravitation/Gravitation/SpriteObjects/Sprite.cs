@@ -110,7 +110,23 @@ namespace Gravitation.SpriteObjects
         public List<Vertices> list;
 
 
-        protected Texture2D mSpriteTexture;
+        protected Texture2D mSpriteBodyTexture;
+        protected Texture2D mSpriteSheetTexture;
+
+        public int spriteSourceWidth = 0;
+        public int spriteSourceHeight = 0;
+        public int totalFrames = 0;
+        public int framesPerSec = 0;
+
+        private int animationX = 0;
+        private int animationY = 0;
+
+        private int time = 0;
+
+        private int frameTracker = 1;
+
+        private bool animationComplete = false;
+        
         protected const float MeterInPixels = 64f;
 
         private float mspriteRotation;
@@ -135,13 +151,82 @@ namespace Gravitation.SpriteObjects
 
         }
 
-        public virtual void LoadContent(ContentManager theContentManager, string theAssetName)
+        public virtual void LoadContent(ContentManager theContentManager, string bodyAssetName, string spriteSheetAssetName)
         {
-            mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
-            AssetName = theAssetName;
-            Source = new Rectangle(0, 0, mSpriteTexture.Width, mSpriteTexture.Height);
-            Size = new Rectangle(0, 0, (int)(mSpriteTexture.Width * WidthScale), (int)(mSpriteTexture.Height * HeightScale));
+            mSpriteBodyTexture = theContentManager.Load<Texture2D>(bodyAssetName);
+            mSpriteSheetTexture = theContentManager.Load<Texture2D>(spriteSheetAssetName);
 
+            AssetName = bodyAssetName;
+            Source = new Rectangle(0, 0, mSpriteBodyTexture.Width, mSpriteBodyTexture.Height);
+            Size = new Rectangle(0, 0, (int)(mSpriteBodyTexture.Width * WidthScale), (int)(mSpriteBodyTexture.Height * HeightScale));
+
+
+        }
+
+
+        public void setSpriteDrawn(int x, int y) //manually set a specific frame of the sprite sheet to be drawn to the screen //Note. should NOT be used for animations
+        {
+            Source = new Rectangle(x, y, mSpriteBodyTexture.Width, mSpriteBodyTexture.Height);
+        }
+
+        public void setAnimationOrigin(int x, int y) //Sets the Source rectangle to a specific row of the sprite sheet, so that updateAnimation will "Play" that row.
+        {
+            animationX = x;
+            animationY = y;
+            animationComplete = false;
+        }
+
+        public void setFramesPerSec(int fps)
+        {
+            framesPerSec = fps;
+        }
+
+        public void setTotalFrames(int totalFrames)
+        {
+            this.totalFrames = totalFrames;
+        }
+
+        public void setSpriteSourceHeightAndWidth(int height, int width)
+        {
+            spriteSourceHeight = height;
+            spriteSourceWidth = width;
+        }
+
+        public void playAnimation(GameTime gameTime, bool loop) //Cycles through a row of an animation multiple times
+        {
+
+            time += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (time >= 1000 / framesPerSec)
+            {
+
+                time = 0;
+                Source = new Rectangle(animationX + (frameTracker * spriteSourceWidth), animationY, spriteSourceWidth, spriteSourceHeight);
+
+                if (loop)
+                {
+                    if (frameTracker < totalFrames-1)
+                    {
+                        frameTracker++;
+                    }
+                    else
+                    {
+                        frameTracker = 0;
+                    }
+                }
+                else
+                {
+                    if (frameTracker < totalFrames-1 && !animationComplete)
+                    {
+                        frameTracker++;
+                    }
+                    else
+                    {
+                        animationComplete = true;
+                        frameTracker = 0;
+                    }
+                }
+            }
 
         }
 
@@ -154,7 +239,7 @@ namespace Gravitation.SpriteObjects
             }
 
 
-            theSpriteBatch.Draw(mSpriteTexture, mspritePos, Source,
+            theSpriteBatch.Draw(mSpriteSheetTexture, mspritePos, Source,
                 Color.White, mspriteRotation , spriteOrigin,
                 new Vector2(mWidthScale, mHeightScale), SpriteEffects.None, 0f);
 

@@ -88,9 +88,11 @@ namespace Gravitation.ControllerAgents
         #endregion
         public void fire()
         {
-
             mShip.fire();
-
+        }
+        public void altFire()
+        {
+            mShip.altFire();
         }
         public void stall()
         {
@@ -187,7 +189,10 @@ namespace Gravitation.ControllerAgents
             }
             else
             {
-                mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));
+                if(mShip.currentNegativeState != SpriteObjects.Ship.negativeState.Emped)
+                {
+                    mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));
+                }
             }
             resetParams();
         }
@@ -196,8 +201,10 @@ namespace Gravitation.ControllerAgents
         public void updateShip(GameTime gameTime, Matrix _view)
         {
             mShip.updateShot(gameTime, _view);
+            mShip.updateAltShot(gameTime, _view);
             mShip.thrust(gameTime, _view);
             mShip.updatePassiveShipState(gameTime, _view);
+            mShip.updateNegativeShipState(gameTime, _view);
         }
 
         public void loadShip(ContentManager cm, GraphicsDeviceManager graphics)

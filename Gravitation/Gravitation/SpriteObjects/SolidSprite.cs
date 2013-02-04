@@ -20,21 +20,22 @@ namespace Gravitation.SpriteObjects
         protected float mrotation;
 
 
-        public override void LoadContent(ContentManager theContentManager, string theAssetName)
+        public void LoadContent(ContentManager theContentManager, string theAssetName)
         {
-            base.mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
+            base.mSpriteBodyTexture = theContentManager.Load<Texture2D>(theAssetName);
+            base.mSpriteSheetTexture = theContentManager.Load<Texture2D>(theAssetName);
             base.AssetName = theAssetName;
-            base.Source = new Rectangle(0, 0, base.mSpriteTexture.Width, base.mSpriteTexture.Height);
-            base.Size = new Rectangle(0, 0, (int)(base.mSpriteTexture.Width * base.WidthScale), (int)(base.mSpriteTexture.Height * base.HeightScale));
+            base.Source = new Rectangle(0, 0, base.mSpriteBodyTexture.Width, base.mSpriteBodyTexture.Height);
+            base.Size = new Rectangle(0, 0, (int)(base.mSpriteBodyTexture.Width * base.WidthScale), (int)(base.mSpriteBodyTexture.Height * base.HeightScale));
 
 
-            uint[] data = new uint[base.mSpriteTexture.Width * base.mSpriteTexture.Height];
+            uint[] data = new uint[base.mSpriteBodyTexture.Width * base.mSpriteBodyTexture.Height];
 
             //Transfer the texture data to the array
-            base.mSpriteTexture.GetData(data);
+            base.mSpriteBodyTexture.GetData(data);
 
             //Find the vertices that makes up the outline of the shape in the texture
-            Vertices textureVertices = PolygonTools.CreatePolygon(data, base.mSpriteTexture.Width, false);
+            Vertices textureVertices = PolygonTools.CreatePolygon(data, base.mSpriteBodyTexture.Width, false);
 
             //The tool return vertices as they were found in the texture.
             //We need to find the real center (centroid) of the vertices for 2 reasons:
@@ -85,7 +86,7 @@ namespace Gravitation.SpriteObjects
 
             Vector2 spritePos = base.mSpriteBody.Position * MeterInPixels;
 
-            theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
+            theSpriteBatch.Draw(base.mSpriteSheetTexture, spritePos, base.Source,
                 Color.White, base.mSpriteBody.Rotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 

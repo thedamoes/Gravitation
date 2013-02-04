@@ -25,9 +25,10 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    public class Shot : Sprite
+    class AlternateShot : Sprite
     {
-        public delegate void DestroyMeHandler(Shot shotToDestroy);
+
+        public delegate void DestroyMeHandler(AlternateShot shotToDestroy);
 
        // public ShotParticleSystem mShotParticles = null;
         public World mworld;
@@ -36,11 +37,8 @@ namespace Gravitation.SpriteObjects
         public Vector2 mDirection;
         public bool Visible = false;
         public bool removed = false;
-        public int damage;
 
-        private DestroyMeHandler ondeathHandler;
-        private static String USERDATA;
-
+        public DestroyMeHandler ondeathHandler;
 
         ContentManager mtheContentManager;
         GraphicsDeviceManager mgraphics;
@@ -49,35 +47,25 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public Shot(World world, Vector2 position, float rotation, int damage, DestroyMeHandler onDeathHandler)
-        {
-            this.mworld = world;
-            this.mrotation = rotation;
-
-            this.mposition.Y = (position.Y * MeterInPixels) - (float)Math.Round(48f * Math.Sin(rotation + 1.57079633));
-            this.mposition.X = (position.X * MeterInPixels) - (float)Math.Round(48f * Math.Cos(rotation + 1.57079633));
-
-            this.damage = damage;
-            this.ondeathHandler = onDeathHandler;
-
-            USERDATA = "standard:" + damage;
-        }
-
-
-        public void LoadContent(ContentManager theContentManager, GraphicsDeviceManager graphics)
+        public void LoadContent(ContentManager theContentManager, GraphicsDeviceManager graphics, String textureName, String spriteSheet, int heightScale, int widthScale)
         {
             this.mtheContentManager = theContentManager;
             this.mgraphics = graphics;
 
-            base.mSpriteBodyTexture = theContentManager.Load<Texture2D>("shot");
-            base.mSpriteSheetTexture = theContentManager.Load<Texture2D>("shot");
-            base.AssetName = "shot";
-            base.Source = new Rectangle(0, 0, base.mSpriteBodyTexture.Width, base.mSpriteBodyTexture.Height);
+            base.mSpriteBodyTexture = theContentManager.Load<Texture2D>(textureName);
+            base.mSpriteSheetTexture = theContentManager.Load<Texture2D>(spriteSheet);
+
+
+            base.AssetName = textureName;
+            base.HeightScale = heightScale;
+            base.WidthScale = widthScale;
+
+            base.Source = new Rectangle(0, 0, base.mSpriteBodyTexture.Width, base.mSpriteBodyTexture.Height);//textureWidth, textureHeight);
             base.Size = new Rectangle(0, 0, (int)(base.mSpriteBodyTexture.Width * base.WidthScale), (int)(base.mSpriteBodyTexture.Height * base.HeightScale));
 
 
 
-            uint[] data = new uint[base.mSpriteBodyTexture.Width * base.mSpriteBodyTexture.Height];
+            uint[] data = new uint[base.mSpriteBodyTexture.Width/*textureWidth*/ * base.mSpriteBodyTexture.Height /*textureHeight*/];
 
             //Transfer the texture data to the array
             base.mSpriteBodyTexture.GetData(data);
@@ -102,7 +90,7 @@ namespace Gravitation.SpriteObjects
             list = BayazitDecomposer.ConvexPartition(textureVertices);
 
             //Scale the vertices so that they're not HUUUGE.
-            Vector2 vertScale = new Vector2((1 / MeterInPixels) * WidthScale, (1 / MeterInPixels) * HeightScale) * 1f;
+            Vector2 vertScale = new Vector2((1 / MeterInPixels) * 3/*WidthScale*/, (1 / MeterInPixels) * 3/*HeightScale*/) * 1f;
             foreach (Vertices verti in list)
             {
                 verti.Scale(ref vertScale);
@@ -118,16 +106,6 @@ namespace Gravitation.SpriteObjects
             base.mSpriteBody.Mass = 0.00000001f;
 
             base.mSpriteBody.OnCollision += Body_OnCollision;
-
-            base.mSpriteBody.CollisionCategories = Category.Cat10;
-            base.mSpriteBody.CollidesWith = Category.All & ~Category.Cat10;//Category.Cat1 & Category.Cat11;
-
-            foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
-            {
-                fixturec.UserData = USERDATA;
-
-            }
-
             
           //  mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
            // mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);
@@ -151,7 +129,7 @@ namespace Gravitation.SpriteObjects
                 Vector3 _cameraZoom = new Vector3(0.5f, 0.5f, 0.5f);
                  
                //mShotParticles.SpriteBatchSettings.TransformationMatrix = Matrix.Identity * Matrix.CreateScale(_cameraZoom);    
-
+                //base.mSpriteTexture = mtheContentManager.Load<Texture2D>("shot");
 
                 theSpriteBatch.Draw(base.mSpriteSheetTexture, spritePos, base.Source,
                 Color.White, mrotation, base.spriteOrigin,
@@ -168,7 +146,7 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public void Update(GameTime gameTime, Matrix _view)
+        public virtual void Update(GameTime gameTime, Matrix _view)
         {
             // Set Visible to false here On collision
 
@@ -197,12 +175,9 @@ namespace Gravitation.SpriteObjects
 
 
 
-        public void fire(Vector2 theStartPosition, float rotation, float shotSpeed)
+        public void fire(Vector2 position, float rotation, float shotSpeed)
         {
-
-            this.mposition.Y = (theStartPosition.Y * MeterInPixels) - (float)Math.Round(88f * Math.Sin(rotation + 1.57079633));
-            this.mposition.X = (theStartPosition.X * MeterInPixels) - (float)Math.Round(88f * Math.Cos(rotation + 1.57079633));
-
+            this.mposition = position;
 
             mDirection = new Vector2(0, shotSpeed);
 
@@ -238,6 +213,7 @@ namespace Gravitation.SpriteObjects
 
             return newvec;
         }
+
 
 
 

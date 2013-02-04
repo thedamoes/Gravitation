@@ -158,7 +158,7 @@ namespace Gravitation.Maps
         {
             // load map
             MapSurfacesBackgoundPicture backgrnd = mCurrentmap.Surfaces.BackgoundPicture;
-            mBackground.LoadContent(cm, backgrnd.Asset.name);
+            mBackground.LoadContent(cm, backgrnd.Asset.name, backgrnd.Asset.name);
 
             // load walls
             MapSurfacesWall[] wallSpecs = mCurrentmap.Surfaces.MapWalls;

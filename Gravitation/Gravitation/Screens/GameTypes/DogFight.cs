@@ -20,11 +20,13 @@ namespace Gravitation.Screens.GameTypes
         public DogFight(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
 
-            powerups.Add("shield");
-            powerups.Add("Shotgun");
-            powerups.Add("Laser");
-            powerups.Add("Machinegun");
-            powerups.Add("Spiral");
+          //  powerups.Add("shield");
+          //  powerups.Add("Shotgun");
+           // powerups.Add("Laser");
+           // powerups.Add("Machinegun");
+            //powerups.Add("Spiral");
+            powerups.Add("Emp");
+
         }
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)

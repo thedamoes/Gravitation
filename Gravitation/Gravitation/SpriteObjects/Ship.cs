@@ -30,7 +30,8 @@ namespace Gravitation.SpriteObjects
 
         public World world;
 
-        public List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+        private List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
+        private List<SpriteObjects.AlternateShot> altShots = new List<AlternateShot>();
         public ShipParticleSystem mShipParticles = null;
 
         public int sheilds = 100;
@@ -38,11 +39,14 @@ namespace Gravitation.SpriteObjects
 
         public int shotsPerSec = 3;
         public float shotSpeed = -20;
-
+        
 
         public fireState currentFireState = fireState.Standard;
         public passiveState currentPassiveState = passiveState.Standard;
-        public secondaryFire currentSecondaryFire = secondaryFire.Standard;
+        public secondaryFire currentSecondaryFire = secondaryFire.EmpShot;
+        public negativeState currentNegativeState = negativeState.Standard;
+
+        public int altFireQuantity = 50000;
 
         public enum fireState 
         {
@@ -73,6 +77,7 @@ namespace Gravitation.SpriteObjects
             Drones,
             RocketPods,
             RearGunner,
+            BouncyShots,
             Standard
         };
 
@@ -81,14 +86,19 @@ namespace Gravitation.SpriteObjects
             Standard,
             SpiralFire,
             NoGravity,
-            HighGravity,
-            InverseGravity,
             AutoCannon,
             Invincible,
+            IncreaseROF
+        };
+
+        public enum negativeState
+        {
+            Standard,
+            Emped,
+            HighGravity,
+            InverseGravity,
             ReverseControls,
-            DecreaseROF,
-            IncreaseROF,
-            BouncyShots
+            DecreaseROF
         };
 
 
@@ -102,8 +112,11 @@ namespace Gravitation.SpriteObjects
 
         private Random rand = new Random();
         private bool timer = true;
+        private bool altTimer = true;
         private int time = 0;
+        private int altTime = 0;
         private float spiralShotRotation = 0;
+        private int negativeEffectTime = 0;
 
         public Vector2 ShipPosition
         {
@@ -132,20 +145,21 @@ namespace Gravitation.SpriteObjects
         {
             this.graphics = graphics;
             this.theContentManager = theContentManager;
-            base.mSpriteTexture = theContentManager.Load<Texture2D>(theAssetName);
+            base.mSpriteBodyTexture = theContentManager.Load<Texture2D>(theAssetName);
+            base.mSpriteSheetTexture = theContentManager.Load<Texture2D>(theAssetName);
             base.AssetName = theAssetName;
-            base.Source = new Rectangle(0, 0, base.mSpriteTexture.Width, base.mSpriteTexture.Height);
-            base.Size = new Rectangle(0, 0, (int)(base.mSpriteTexture.Width * base.WidthScale), (int)(base.mSpriteTexture.Height * base.HeightScale));
+            base.Source = new Rectangle(0, 0, base.mSpriteBodyTexture.Width, base.mSpriteBodyTexture.Height);
+            base.Size = new Rectangle(0, 0, (int)(base.mSpriteBodyTexture.Width * base.WidthScale), (int)(base.mSpriteBodyTexture.Height * base.HeightScale));
 
 
 
-            uint[] data = new uint[base.mSpriteTexture.Width * base.mSpriteTexture.Height];
+            uint[] data = new uint[base.mSpriteBodyTexture.Width * base.mSpriteBodyTexture.Height];
 
             //Transfer the texture data to the array
-            base.mSpriteTexture.GetData(data);
+            base.mSpriteBodyTexture.GetData(data);
 
             //Find the vertices that makes up the outline of the shape in the texture
-            Vertices textureVertices = PolygonTools.CreatePolygon(data, base.mSpriteTexture.Width, false);
+            Vertices textureVertices = PolygonTools.CreatePolygon(data, base.mSpriteBodyTexture.Width, false);
 
             //The tool return vertices as they were found in the texture.
             //We need to find the real center (centroid) of the vertices for 2 reasons:
@@ -180,6 +194,12 @@ namespace Gravitation.SpriteObjects
 
             base.mSpriteBody.CollisionCategories = Category.Cat11;
             base.mSpriteBody.CollidesWith = Category.All;
+
+            foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
+            {
+                fixturec.UserData = "ship";
+
+            }
 
             mShipParticles = new ShipParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), base.mSpriteBody.Rotation, new Vector2(0, -20));
             mShipParticles.AutoInitialize(graphics.GraphicsDevice, theContentManager, this.mtheSpriteBatch);
@@ -331,6 +351,65 @@ namespace Gravitation.SpriteObjects
             mShots.Remove(shotToRemove);
         }
 
+
+        public void altFire()
+        {
+            switch(currentSecondaryFire){
+
+                case(secondaryFire.EmpShot):
+                {
+                    if (altFireQuantity > 0)
+                    {
+                        if (altTimer)
+                        {
+                            SpriteObjects.EmpShot aShot = new SpriteObjects.EmpShot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, this.removeAltShot);
+
+                            aShot.LoadContent(theContentManager, graphics);
+                            aShot.altFire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, shotSpeed); 
+                            altShots.Add(aShot);
+                            mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+
+                            altTimer = false;
+                            altFireQuantity--;
+                        }
+                    }
+                    break;
+                }
+
+            }
+        }
+
+        public void updateAltShot(GameTime gameTime, Matrix _view)
+        {
+            altTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            switch (currentSecondaryFire) //standard does nothing ie. empty
+            {
+                case (secondaryFire.EmpShot):
+                    {
+                        if (altTime >= (1000 / shotsPerSec)) //250
+                        {
+                            altTimer = true;
+                            altTime = 0;
+                        }
+                        break;
+                    }
+            }
+
+            foreach(SpriteObjects.AlternateShot shot in altShots)
+            {
+                if(shot.Visible == true)
+                shot.Update(gameTime, _view);
+            }
+        }
+
+        private void removeAltShot(AlternateShot shotToRemove)
+        {
+            altShots.Remove(shotToRemove);
+        }
+
+
+
         public void updatePassiveShipState(GameTime gameTime, Matrix _view)
         {
             switch (currentPassiveState)
@@ -355,6 +434,27 @@ namespace Gravitation.SpriteObjects
 
 
         }
+
+        public void updateNegativeShipState(GameTime gameTime, Matrix _view)
+        {
+            switch (currentNegativeState)
+            {
+                case (negativeState.Emped):
+                    {
+                        negativeEffectTime -= gameTime.ElapsedGameTime.Milliseconds;
+
+                        if (negativeEffectTime <= 0)
+                        {
+                            currentNegativeState = negativeState.Standard;
+                            negativeEffectTime = 0;
+                        }
+                        break;
+                    }
+            }
+
+
+        }
+
 
 
         public void thrust(GameTime gameTime, Matrix _view)
@@ -386,13 +486,34 @@ namespace Gravitation.SpriteObjects
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
-            
-            if(!Convert.ToString(fixtureb.UserData).Equals("wall"))
+
+            if (!Convert.ToString(fixtureb.UserData).Equals("wall") && !Convert.ToString(fixtureb.UserData).Equals("ship"))
             {
                 if (fixtureb.Body.IsBullet)
                 {
-                    int damage = Convert.ToInt32(fixtureb.UserData);
-                    sheilds -= damage;
+                    String data = Convert.ToString(fixtureb.UserData);
+                    String[] splitdata = data.Split(':');
+                    String shotType = splitdata[0];
+                    int shotEffect = Convert.ToInt32(splitdata[1]);
+                    
+                    
+                    switch(shotType)
+                    {
+                        case("standard"):
+                        {
+                            sheilds -= shotEffect;
+                            break;
+                        }
+
+                        case ("emp"):
+                        {
+                            currentNegativeState = negativeState.Emped;
+                            negativeEffectTime = (shotEffect*1000);
+                            break;
+                        }
+
+
+                    }
                     //been shot
                     return true;
                 }
@@ -427,6 +548,12 @@ namespace Gravitation.SpriteObjects
                                 currentPassiveState = passiveState.SpiralFire;
                                 break;
                             }
+                        case "Emp":
+                            {
+                                currentSecondaryFire = secondaryFire.EmpShot;
+                                altFireQuantity = 10;
+                                break;
+                            }
                     }
 
                     return false; //powerup
@@ -456,7 +583,7 @@ namespace Gravitation.SpriteObjects
 
             Vector2 spritePos = base.mSpriteBody.Position * MeterInPixels;
 
-            theSpriteBatch.Draw(base.mSpriteTexture, spritePos, base.Source,
+            theSpriteBatch.Draw(base.mSpriteSheetTexture, spritePos, base.Source,
                 Color.White, base.mSpriteBody.Rotation, base.spriteOrigin,
                 new Vector2(base.WidthScale, base.HeightScale), SpriteEffects.None, 0f);
 
@@ -464,6 +591,12 @@ namespace Gravitation.SpriteObjects
             mShipParticles.Draw();
 
             foreach (SpriteObjects.Shot aShot in mShots)
+            {
+                if (aShot.Visible == true)
+                    aShot.Draw(theSpriteBatch);
+            }
+
+            foreach (SpriteObjects.AlternateShot aShot in altShots)
             {
                 if (aShot.Visible == true)
                     aShot.Draw(theSpriteBatch);

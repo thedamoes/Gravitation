@@ -82,6 +82,7 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer1.mShip.currentFireState = SpriteObjects.Ship.fireState.Standard;
                 mPlayer1.mShip.currentPassiveState = SpriteObjects.Ship.passiveState.Standard;
                 mPlayer1.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
+                mPlayer1.mShip.currentNegativeState = SpriteObjects.Ship.negativeState.Standard;
                 mPlayer1.reset2(mMapLoader.shipStartPosP1);
             }
 
@@ -92,6 +93,7 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer2.mShip.currentFireState = SpriteObjects.Ship.fireState.Standard;
                 mPlayer2.mShip.currentPassiveState = SpriteObjects.Ship.passiveState.Standard;
                 mPlayer2.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
+                mPlayer2.mShip.currentNegativeState = SpriteObjects.Ship.negativeState.Standard;
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
             }
 
@@ -170,6 +172,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             //mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.V, mPlayer1.altFire);
 
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
         }
@@ -190,6 +193,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Left, mPlayer2.stall);
             //mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.RightShift, mPlayer2.fire);
             mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
+            mPlayer1ControllerConfig.registerIsNownKey(Keys.RightControl, mPlayer2.altFire);
 
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset);
         }

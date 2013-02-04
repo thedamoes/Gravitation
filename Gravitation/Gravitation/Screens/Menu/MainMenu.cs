@@ -127,7 +127,7 @@ namespace Gravitation.Screens.Menu
             mFont = cm.Load<SpriteFont>("font");
             mHeaderFont = cm.Load<SpriteFont>("Header");
 
-            mBackground.LoadContent(cm,"Menu/menuBG");
+            mBackground.LoadContent(cm, "Menu/menuBG", "Menu/menuBG");
 
             // main buttons
             this.single_Player_bttn.LoadContent(cm, "Menu/SelectedBackground");

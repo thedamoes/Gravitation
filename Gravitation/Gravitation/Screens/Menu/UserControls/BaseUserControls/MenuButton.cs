@@ -50,9 +50,9 @@ namespace Gravitation.Screens.Menu.UserControls.BaseUserControls
             sb.DrawString(mFont, this.myText, this.txtPosition, Color.White);
         }
 
-        public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager theContentManager, string theAssetName)
+        public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager theContentManager, string theAssetName)
         {
-            base.LoadContent(theContentManager, theAssetName);
+            base.LoadContent(theContentManager, theAssetName, theAssetName);
 
             mFont = theContentManager.Load<SpriteFont>("font");
 
