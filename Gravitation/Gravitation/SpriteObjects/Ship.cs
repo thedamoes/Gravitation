@@ -31,7 +31,7 @@ namespace Gravitation.SpriteObjects
         public World world;
 
         private List<SpriteObjects.Shot> mShots = new List<SpriteObjects.Shot>();
-        private List<SpriteObjects.AlternateShot> altShots = new List<AlternateShot>();
+        public List<SpriteObjects.AlternateShot> altShots = new List<AlternateShot>();
         public ShipParticleSystem mShipParticles = null;
 
         public int sheilds = 100;
@@ -43,10 +43,10 @@ namespace Gravitation.SpriteObjects
 
         public fireState currentFireState = fireState.Standard;
         public passiveState currentPassiveState = passiveState.Standard;
-        public secondaryFire currentSecondaryFire = secondaryFire.EmpShot;
+        public secondaryFire currentSecondaryFire = secondaryFire.Standard;
         public negativeState currentNegativeState = negativeState.Standard;
 
-        public int altFireQuantity = 50000;
+        public int altFireQuantity = 0;
 
         public enum fireState 
         {
@@ -66,14 +66,10 @@ namespace Gravitation.SpriteObjects
             Mines,
             Turrets,
             Tether,
-            ControlledTether,
-            ElasticTether,
-            ThrusterTether,
             WeponisedThruster,
             Net,
             HeavyNet,
             FreezeNet,
-            CeasefireNet,
             Drones,
             RocketPods,
             RearGunner,
@@ -375,9 +371,30 @@ namespace Gravitation.SpriteObjects
                     }
                     break;
                 }
+                case (secondaryFire.Net):
+                {
+                    if (altFireQuantity > 0)
+                    {
+                        if (altTimer)
+                        {
+
+                            SpriteObjects.Net aNet = new SpriteObjects.Net(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, this.removeAltShot);
+                            aNet.LoadContent(theContentManager, graphics);
+                            aNet.altFire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, (shotSpeed / 2)); // lower velocity than a bullet (so as not to be completely un dodgeable)
+                            altShots.Add(aNet);
+                            mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
+
+                            altTimer = false;
+                            altFireQuantity--;
+                        }
+                    }
+
+                    break;
+                }
 
             }
         }
+
 
         public void updateAltShot(GameTime gameTime, Matrix _view)
         {
@@ -387,7 +404,16 @@ namespace Gravitation.SpriteObjects
             {
                 case (secondaryFire.EmpShot):
                     {
-                        if (altTime >= (1000 / shotsPerSec)) //250
+                        if (altTime >= (1000 / shotsPerSec)) //3 shots per sec
+                        {
+                            altTimer = true;
+                            altTime = 0;
+                        }
+                        break;
+                    }
+                case (secondaryFire.Net):
+                    {
+                        if (altTime >= (3000 / shotsPerSec)) //1 shots per sec
                         {
                             altTimer = true;
                             altTime = 0;
@@ -396,10 +422,11 @@ namespace Gravitation.SpriteObjects
                     }
             }
 
-            foreach(SpriteObjects.AlternateShot shot in altShots)
+            //foreach(SpriteObjects.AlternateShot shot in altShots)
+            for (int x = 0; x < altShots.Count; x++ )
             {
-                if(shot.Visible == true)
-                shot.Update(gameTime, _view);
+                if (altShots.ElementAt(x).Visible == true)
+                    altShots.ElementAt(x).Update(gameTime, _view);
             }
         }
 
@@ -512,18 +539,29 @@ namespace Gravitation.SpriteObjects
                             break;
                         }
 
+                        case ("net"):
+                        {
+                            sheilds -= shotEffect;
+                            if(shotEffect > 0)
+                            {
+                                Console.Out.WriteLine("Damage = " + shotEffect);
+                                Console.Out.WriteLine("sheilds = " + sheilds);
+                            }
+                            break;
+                        }
+
 
                     }
                     //been shot
                     return true;
                 }
-                else
+                else if (!Convert.ToString(fixtureb.UserData).Equals(""))
                 {
                     String powerupData = Convert.ToString(fixtureb.UserData);
-                    
+
                     switch (powerupData)
                     {
-                        case "shield" :
+                        case "shield":
                             {
                                 sheilds = 200;
                                 break;
@@ -551,12 +589,22 @@ namespace Gravitation.SpriteObjects
                         case "Emp":
                             {
                                 currentSecondaryFire = secondaryFire.EmpShot;
-                                altFireQuantity = 10;
+                                altFireQuantity = 5;
+                                break;
+                            }
+                        case "Net":
+                            {
+                                currentSecondaryFire = secondaryFire.Net;
+                                altFireQuantity = 1;
                                 break;
                             }
                     }
 
                     return false; //powerup
+                }
+                else
+                {
+                    return true;
                 }
             }
             else

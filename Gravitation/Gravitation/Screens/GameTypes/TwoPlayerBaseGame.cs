@@ -84,6 +84,29 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer1.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
                 mPlayer1.mShip.currentNegativeState = SpriteObjects.Ship.negativeState.Standard;
                 mPlayer1.reset2(mMapLoader.shipStartPosP1);
+
+                for (int x = 0; x < mPlayer2.mShip.altShots.Count; x++) 
+                {
+                    if (mPlayer2.mShip.altShots.ElementAt(x) is Gravitation.SpriteObjects.Net) 
+                    {
+                        if (((Gravitation.SpriteObjects.Net)mPlayer2.mShip.altShots.ElementAt(x)).collided)
+                        {
+                            ((Gravitation.SpriteObjects.Net)mPlayer2.mShip.altShots.ElementAt(x)).removeNet();
+                        }
+                    }
+                }
+
+
+                for (int x = 0; x < mPlayer1.mShip.altShots.Count; x++)
+                {
+                    if (mPlayer1.mShip.altShots.ElementAt(x) is Gravitation.SpriteObjects.Net)
+                    {
+                        if (((Gravitation.SpriteObjects.Net)mPlayer1.mShip.altShots.ElementAt(x)).collided)
+                        {
+                            ((Gravitation.SpriteObjects.Net)mPlayer1.mShip.altShots.ElementAt(x)).removeNet();
+                        }
+                    }
+                }
             }
 
             if (mPlayer2.mShip.sheilds <= 0)
@@ -95,6 +118,29 @@ namespace Gravitation.Screens.GameTypes
                 mPlayer2.mShip.currentSecondaryFire = SpriteObjects.Ship.secondaryFire.Standard;
                 mPlayer2.mShip.currentNegativeState = SpriteObjects.Ship.negativeState.Standard;
                 mPlayer2.reset2(mMapLoader.shipStartPosP2);
+
+                for (int x = 0; x < mPlayer1.mShip.altShots.Count; x++) 
+                {
+                    if (mPlayer1.mShip.altShots.ElementAt(x) is Gravitation.SpriteObjects.Net)
+                    {
+                        if (((Gravitation.SpriteObjects.Net)mPlayer1.mShip.altShots.ElementAt(x)).collided)
+                        {
+                            ((Gravitation.SpriteObjects.Net)mPlayer1.mShip.altShots.ElementAt(x)).removeNet();
+                        }
+                    }
+                }
+
+
+                for (int x = 0; x < mPlayer2.mShip.altShots.Count; x++)
+                {
+                    if (mPlayer2.mShip.altShots.ElementAt(x) is Gravitation.SpriteObjects.Net)
+                    {
+                        if (((Gravitation.SpriteObjects.Net)mPlayer2.mShip.altShots.ElementAt(x)).collided)
+                        {
+                            ((Gravitation.SpriteObjects.Net)mPlayer2.mShip.altShots.ElementAt(x)).removeNet();
+                        }
+                    }
+                }
             }
 
             /*
@@ -117,7 +163,6 @@ namespace Gravitation.Screens.GameTypes
             Matrix view = Matrix.CreateTranslation(new Vector3((cam.position / MeterInPixels) - (cam.screenCenter / MeterInPixels), 0f)) *
                                                 Matrix.CreateTranslation(new Vector3((cam.screenCenter / MeterInPixels), 0f)) *
                                                  Matrix.CreateScale(cam.zoom);
-
 
             debugView.RenderDebugData(ref projection, ref view);
 

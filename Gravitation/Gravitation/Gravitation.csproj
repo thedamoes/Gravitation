@@ -201,6 +201,8 @@
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\AlternateShot.cs" />
     <Compile Include="SpriteObjects\EmpShot.cs" />
+    <Compile Include="SpriteObjects\Net.cs" />
+    <Compile Include="SpriteObjects\NetLink.cs" />
     <Compile Include="SpriteObjects\Obstical.cs" />
     <Compile Include="SpriteObjects\ParticleSystems\ShipParticleSystem.cs" />
     <Compile Include="SpriteObjects\Ship.cs" />

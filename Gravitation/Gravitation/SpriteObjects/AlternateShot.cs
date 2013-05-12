@@ -25,7 +25,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    class AlternateShot : Sprite
+    public class AlternateShot : Sprite
     {
 
         public delegate void DestroyMeHandler(AlternateShot shotToDestroy);
@@ -97,15 +97,15 @@ namespace Gravitation.SpriteObjects
             }
 
 
-            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mworld, list, 0f, (mposition / MeterInPixels), BodyType.Dynamic);
-            base.mSpriteBody.Restitution = 0.3f;
+            base.mSpriteBody = BodyFactory.CreateCompoundPolygon(mworld, list, 1f, (mposition / MeterInPixels), BodyType.Dynamic);
+            base.mSpriteBody.Restitution = 0.03f;
             base.mSpriteBody.Friction = 1f;
             base.mSpriteBody.IsStatic = false;
             base.mSpriteBody.IsBullet = true;
             base.mSpriteBody.IgnoreGravity = true;
             base.mSpriteBody.Mass = 0.00000001f;
 
-            base.mSpriteBody.OnCollision += Body_OnCollision;
+            //base.mSpriteBody.OnCollision += Body_OnCollision;
             
           //  mShotParticles = new ShotParticleSystem(null, base.mSpriteBody.Position * (MeterInPixels), mrotation, new Vector2(0, -20));
            // mShotParticles.AutoInitialize(mgraphics.GraphicsDevice, mtheContentManager, this.mtheSpriteBatch);

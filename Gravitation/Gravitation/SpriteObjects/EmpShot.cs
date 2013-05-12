@@ -25,7 +25,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    class EmpShot : AlternateShot
+    public class EmpShot : AlternateShot
     {
         //public delegate void DestroyMeHandler(AlternateShot shotToDestroy);
 
@@ -70,6 +70,8 @@ namespace Gravitation.SpriteObjects
         public void LoadContent(ContentManager theContentManager, GraphicsDeviceManager graphics)
         {
             base.LoadContent(theContentManager, graphics, empTextureName, empSpriteSheet, spriteHeightScale, spriteWidthScale);
+
+            base.mSpriteBody.OnCollision += Body_OnCollision;
 
             base.mSpriteBody.CollisionCategories = Category.Cat10;
             base.mSpriteBody.CollidesWith = Category.All & ~Category.Cat10;//Category.Cat1 & Category.Cat11;

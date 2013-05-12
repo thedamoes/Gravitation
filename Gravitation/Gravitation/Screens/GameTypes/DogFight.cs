@@ -5,6 +5,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Joints;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Common;
 
 namespace Gravitation.Screens.GameTypes
 {
@@ -20,13 +26,13 @@ namespace Gravitation.Screens.GameTypes
         public DogFight(DataClasses.GameConfiguration gameConfig): base(gameConfig)
         {
 
-          //  powerups.Add("shield");
-          //  powerups.Add("Shotgun");
-           // powerups.Add("Laser");
-           // powerups.Add("Machinegun");
-            //powerups.Add("Spiral");
+            powerups.Add("shield");
+            powerups.Add("Shotgun");
+            powerups.Add("Laser");
+            powerups.Add("Machinegun");
+            powerups.Add("Spiral");
             powerups.Add("Emp");
-
+            powerups.Add("Net");
         }
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
@@ -36,6 +42,7 @@ namespace Gravitation.Screens.GameTypes
             int exampleUpgradeTime = 10; //seconds
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
             u.LoadContent(Content, graphics);
+
         }
 
         public override void Update(GameTime gameTime)

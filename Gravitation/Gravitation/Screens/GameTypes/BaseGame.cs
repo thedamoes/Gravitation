@@ -49,7 +49,7 @@ namespace Gravitation.Screens
             debugView.DefaultShapeColor = Color.White;
             debugView.SleepingShapeColor = Color.LightGray;
             debugView.RemoveFlags(DebugViewFlags.Controllers);
-            debugView.RemoveFlags(DebugViewFlags.Joint);
+            //debugView.RemoveFlags(DebugViewFlags.Joint);
 
 
 
