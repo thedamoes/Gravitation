@@ -215,7 +215,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.pauseThrustSound();  mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-            //mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.V, mPlayer1.altFire);
 
@@ -240,7 +240,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.RightControl, mPlayer2.altFire);
 
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset);
+            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.R, mPlayer2.reset);
         }
 
         public override Matrix getView()

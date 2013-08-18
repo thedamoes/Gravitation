@@ -25,7 +25,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    public class Ship : Sprite
+    public class Ship : Sprite, HUD.IHasLife
     {
 
         public World world;
@@ -114,16 +114,26 @@ namespace Gravitation.SpriteObjects
         private float spiralShotRotation = 0;
         private int negativeEffectTime = 0;
 
+        #region Properties
         public Vector2 ShipPosition
         {
             set { mPosition = value; }
             get { return base.Position; }
         }
-
         public World World
         {
             set { world = value; }
         }
+        public int SheildValue
+        {
+            get { return this.sheilds; }
+        }
+        public int HealthValue
+        {
+            get { return this.damage; }
+        }
+        #endregion
+
 
         public Ship(SoundHandler player, float power, float sheildStrength)
         {
@@ -662,6 +672,8 @@ namespace Gravitation.SpriteObjects
 
             return newvec;
         }
+
+
 
     }
 }

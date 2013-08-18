@@ -135,7 +135,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
 
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.R, mPlayer1.reset);
         }
 
         private void initaliseXBOXControlerControls()
