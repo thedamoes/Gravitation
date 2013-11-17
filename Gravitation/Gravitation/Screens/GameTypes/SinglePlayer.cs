@@ -12,6 +12,7 @@ using FarseerPhysics;
 
 using DPSF;
 using DPSF.ParticleSystems;
+using Gravitation.SpriteObjects.HUD;
 
 
 
@@ -27,7 +28,7 @@ namespace Gravitation.Screens.GameTypes
         private Input.ControlConfig mPlayer1ControllerConfig;
         private SpriteObjects.Upgrade u;
         private List<String> powerups = new List<string>();
-
+        private HUD _hud = new HUD();
 
         private GameTime mgameTime;
 
@@ -41,13 +42,14 @@ namespace Gravitation.Screens.GameTypes
             powerups.Add("f");
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
             this.cam = new CameraControls.Camera();
+            initaliseHUD();
         }
 
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
             base.LoadContent(graphics, Content);
-
+            _hud.LoadContent(Content);
             cam.initCamera(graphics,
                 base.mMapLoader.leftWallPosX,
                 base.mMapLoader.rightWallPosX,
@@ -61,9 +63,7 @@ namespace Gravitation.Screens.GameTypes
             int exampleUpgradeTime = 10; //seconds
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
 
-
             u.LoadContent(Content, graphics);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -154,6 +154,12 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickLeft, mPlayer1.stall);
 
             mPlayer1ControllerConfig.registerXBOXButtonPress(Buttons.RightShoulder, mPlayer1.fire);
+        }
+
+        private void initaliseHUD()
+        {
+            _hud.AddHUDDObject(new LifeBar(mPlayer1.mShip, new Vector2(20, 480)));
+            ScreenManager.GetScreenManager.ScreenOverlay = _hud;
         }
 
         public override Matrix getView()

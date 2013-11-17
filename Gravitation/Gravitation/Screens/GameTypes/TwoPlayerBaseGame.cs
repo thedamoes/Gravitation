@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Gravitation.GameStates;
+using Gravitation.SpriteObjects.HUD;
 
 namespace Gravitation.Screens.GameTypes
 {
@@ -21,6 +22,8 @@ namespace Gravitation.Screens.GameTypes
 
         private int player2BaseShield = 0;
         private int player2BaseDamage = 0;
+
+        private HUD _hud = new HUD();
 
         protected CameraControls.TwoPlayerCamera cam;
 
@@ -61,6 +64,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2 = new ControllerAgents.LocalAgent(ship2);
 
             cam = new CameraControls.TwoPlayerCamera();
+            initaliseHUD();
         }
 
         public override void Update(GameTime gameTime)
@@ -190,6 +194,8 @@ namespace Gravitation.Screens.GameTypes
 
             initalisePlayer1Controles();
             initalisePlayer2Controles();
+            _hud.LoadContent(Content);
+
         }
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
         {
@@ -241,6 +247,13 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsNownKey(Keys.RightControl, mPlayer2.altFire);
 
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.R, mPlayer2.reset);
+        }
+
+        private void initaliseHUD()
+        {
+            _hud.AddHUDDObject(new LifeBar(mPlayer1.mShip, new Vector2(20, 480)));
+            _hud.AddHUDDObject(new LifeBar(mPlayer2.mShip, new Vector2(300, 480)));
+            ScreenManager.GetScreenManager.ScreenOverlay = _hud;
         }
 
         public override Matrix getView()

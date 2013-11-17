@@ -198,9 +198,12 @@
     <Compile Include="Screens\Menu\UserControls\BaseUserControls\TextBox.xaml.cs">
       <DependentUpon>TextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="SoundHandler.cs" />
     <Compile Include="SpriteObjects\AlternateShot.cs" />
     <Compile Include="SpriteObjects\EmpShot.cs" />
+    <Compile Include="SpriteObjects\HUD\HUD.cs" />
+    <Compile Include="SpriteObjects\HUD\HUDItem.cs" />
     <Compile Include="SpriteObjects\HUD\IHasLife.cs" />
     <Compile Include="SpriteObjects\HUD\LifeBar.cs" />
     <Compile Include="SpriteObjects\Net.cs" />

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gravitation.Screens
 {
-    interface IDrawableScreen
+    public interface IDrawableScreen
     {
         event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
 
