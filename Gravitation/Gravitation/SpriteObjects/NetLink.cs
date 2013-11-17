@@ -121,7 +121,7 @@ namespace Gravitation.SpriteObjects
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
         {
 
-            if (!Convert.ToString(fixtureb.UserData).Equals("wall") && !Convert.ToString(fixtureb.UserData).Equals("ship"))
+            if (!Convert.ToString(fixtureb.UserData).Equals("wall") && !Convert.ToString(fixtureb.UserData).Contains("ship"))
             {
                 if (fixtureb.Body.IsBullet)
                 {
@@ -143,7 +143,7 @@ namespace Gravitation.SpriteObjects
             }
             else
             {
-                if (fixedJoint == null && Convert.ToString(fixtureb.UserData).Equals("ship"))
+                if (fixedJoint == null && Convert.ToString(fixtureb.UserData).Contains("ship"))
                 {
 
                     Manifold manifold;

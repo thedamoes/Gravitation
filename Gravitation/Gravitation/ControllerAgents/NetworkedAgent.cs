@@ -5,6 +5,8 @@ using System.Text;
 using Gravitation.Comms;
 using System.Net;
 using System.Threading;
+using FarseerPhysics.DebugViews;
+using Microsoft.Xna.Framework;
 
 namespace Gravitation.ControllerAgents
 {
@@ -43,7 +45,7 @@ namespace Gravitation.ControllerAgents
         }
 
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sBatch)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sBatch, DebugViewXNA debugView, Matrix projection, Matrix view)
         {
             this.ship.Draw(sBatch);
         }

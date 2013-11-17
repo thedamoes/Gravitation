@@ -129,6 +129,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIEngine\AIBehaviours\AvoidObsticles.cs" />
+    <Compile Include="AIEngine\AIBehaviours\Behaviour.cs" />
+    <Compile Include="AIEngine\AIBehaviours\FireOnSight.cs" />
+    <Compile Include="AIEngine\AIBehaviours\SeekPlayer.cs" />
+    <Compile Include="AIEngine\AIEngine.cs" />
     <Compile Include="CameraControls\Camera.cs" />
     <Compile Include="CameraControls\TwoPlayerCamera.cs" />
     <Compile Include="Comms\EventArgs\ReceiverHolderEventArgs.cs" />
@@ -215,6 +220,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="SpriteObjects\Upgrade.cs" />
     <Compile Include="SpriteObjects\Wall.cs" />
+    <Compile Include="Utils\GravitationUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="comsTesterClient.py" />

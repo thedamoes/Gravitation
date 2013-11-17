@@ -5,6 +5,12 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using FarseerPhysics.Dynamics;
+
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Common;
+using FarseerPhysics.Factories;
+
 using Gravitation.GameStates;
 
 namespace Gravitation.Screens.GameTypes
@@ -21,6 +27,15 @@ namespace Gravitation.Screens.GameTypes
 
         private int player2BaseShield = 0;
         private int player2BaseDamage = 0;
+
+        private float _angle;
+
+        bool hitClosest;
+
+        Vector2 point;
+        Vector2 point1;
+        Vector2 point2;
+        Vector2 normal;
 
         protected CameraControls.TwoPlayerCamera cam;
 
@@ -49,6 +64,7 @@ namespace Gravitation.Screens.GameTypes
             player1BaseShield = gameConfig.Ship.sheilds;
             ship.ShipPosition = mMapLoader.shipStartPosP1;
             ship.World = base.mWorld;
+            ship.ShipId = "1";
 
             // load ship 2
             SpriteObjects.Ship ship2 = gameConfig.Ship2;
@@ -56,16 +72,19 @@ namespace Gravitation.Screens.GameTypes
             player2BaseShield = gameConfig.Ship2.sheilds;
             ship2.ShipPosition = mMapLoader.shipStartPosP2;
             ship2.World = base.mWorld;
+            ship2.ShipId = "2";
 
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
             mPlayer2 = new ControllerAgents.LocalAgent(ship2);
 
             cam = new CameraControls.TwoPlayerCamera();
+
+            _angle = 0.0f;
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            
             cam.updateCamera(mPlayer1.myPosition, mPlayer2.myPosition);
             //update Controlling agients
 
@@ -148,6 +167,32 @@ namespace Gravitation.Screens.GameTypes
              */
 
 
+            // THE BELOW GOES IN THE UPDATE STATEMENT
+
+            const float l = 11.0f;
+            point1 = new Vector2(23f, -12.5f);
+            Vector2 d = new Vector2(l * (float)Math.Cos(_angle), l * (float)Math.Sin(_angle));
+            point2 = point1 + d;
+
+            point = Vector2.Zero;
+            normal = Vector2.Zero;
+            hitClosest = false;
+
+            base.mWorld.RayCast((f, p, n, fr) =>
+            {
+                //Console.WriteLine("Hit Closest");
+                hitClosest = true;
+                point = p;
+                normal = n;
+                return fr;
+            }, point1, point2);
+
+
+
+            //rotate the beam
+            _angle += 0.25f * 3.14159f / 180.0f;
+
+
             base.Update(gameTime);
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, GameTime gameTime)
@@ -164,14 +209,60 @@ namespace Gravitation.Screens.GameTypes
                                                 Matrix.CreateTranslation(new Vector3((cam.screenCenter / MeterInPixels), 0f)) *
                                                  Matrix.CreateScale(cam.zoom);
 
+
+            if (hitClosest)
+            {
+                debugView.BeginCustomDraw(ref projection, ref view);
+                debugView.DrawPoint(point, .5f, new Color(0.4f, 0.9f, 0.4f));
+
+                debugView.DrawSegment(point1, point, new Color(0.8f, 0.8f, 0.8f));
+
+                Vector2 head = point + 0.5f * normal;
+                debugView.DrawSegment(point, head, new Color(0.9f, 0.9f, 0.4f));
+                debugView.EndCustomDraw();
+
+                //d = √ (x₂ - x₁)^2 + (y₂ - y₁)^2
+                double x1 = point1.X;
+                double x2 = point.X;
+                double y1 = point1.Y;
+                double y2 = point.Y;
+
+                double xPoints = (x2-x1)*(x2-x1);
+                double yPoints = (y2-y1)*(y2-y1);
+
+
+                double totalLength = Math.Sqrt((xPoints + yPoints));
+
+                //Console.WriteLine("Total length of line  = " + totalLength);
+
+            } else {
+                debugView.BeginCustomDraw(ref projection, ref view);
+                debugView.DrawSegment(point1, point2, new Color(0.8f, 0.8f, 0.8f));
+                debugView.EndCustomDraw();
+
+                double x1 = point1.X;
+                double x2 = point2.X;
+                double y1 = point1.Y;
+                double y2 = point2.Y;
+
+                double xPoints = (x2-x1)*(x2-x1);
+                double yPoints = (y2-y1)*(y2-y1);
+
+                double totalLength = Math.Sqrt((xPoints + yPoints));
+
+                //Console.WriteLine("Total length of line  = " + totalLength);
+            }
+
+
+
             debugView.RenderDebugData(ref projection, ref view);
 
 
 
 #endif
             base.Draw(sb, gameTime);
-            mPlayer1.Draw(sb);
-            mPlayer2.Draw(sb);
+            mPlayer1.Draw(sb, debugView, projection,  view);
+            mPlayer2.Draw(sb, debugView, projection, view);
 
         }
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
@@ -209,7 +300,7 @@ namespace Gravitation.Screens.GameTypes
             {
                 mPlayer1.mShip.mShipParticles.Emitter.Enabled = true;
                 mPlayer1.moveForward();
-                mPlayer1.mShip.playThrustSound();
+                //mPlayer1.mShip.playThrustSound();
             });
 
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.pauseThrustSound();  mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
@@ -230,7 +321,7 @@ namespace Gravitation.Screens.GameTypes
             {
                 mPlayer2.mShip.mShipParticles.Emitter.Enabled = true;
                 mPlayer2.moveForward();
-                mPlayer2.mShip.playThrustSound();
+                //mPlayer2.mShip.playThrustSound();
             });
 
             mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Up, delegate() { mPlayer2.mShip.pauseThrustSound(); mPlayer2.mShip.mShipParticles.Emitter.Enabled = false; });

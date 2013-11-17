@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using FarseerPhysics.DebugViews;
+using FarseerPhysics.Dynamics;
+using Gravitation.AIEngine;
+using Gravitation.AIEngine.AIBehaviours;
+using Gravitation.Utils;
 
 namespace Gravitation.ControllerAgents
 {
-    class AIAgent : IControllerInterface
+    public class AIAgent : IControllerInterface
     {
         #region members
 
@@ -16,8 +21,9 @@ namespace Gravitation.ControllerAgents
         // Y = how mutch forward
 
         private float mRotatation = 0;
+        private World mWorld;
 
-        private const float DIRECTION_WEIGHT = 3.5f; //2.5
+        private const float DIRECTION_WEIGHT = 0.05f; //2.5
         private const float ROTATION_WEIGHT = 0.5f;
 
         public Vector2 myPosition
@@ -31,8 +37,29 @@ namespace Gravitation.ControllerAgents
 
         private ContentManager cm;
 
+        private Body otherShipBody;
+
+        private AIEngine.AIEngine ai;
+
         #endregion
-        void IControllerInterface.applyMovement()
+
+        public AIAgent(SpriteObjects.Ship ship, World world)
+        {
+            this.mShip = ship;
+            this.mDirection = new Vector2(0, 0);
+            this.mWorld = world;
+
+            List<behaviour> behaviours = new List<behaviour>();
+            behaviours.Add(behaviour.SeekPlayer);
+            behaviours.Add(behaviour.FireOnSight);
+            behaviours.Add(behaviour.AvoidObsticles);
+            ai = new AIEngine.AIEngine(DIRECTION_WEIGHT, ROTATION_WEIGHT, behaviours);
+        }
+
+
+        #region IControlInterfaceMembers
+
+        public void applyMovement()
         {
         /*
          * TODO: for this class
@@ -66,7 +93,7 @@ namespace Gravitation.ControllerAgents
          * > It then passes the input through the current active behaviour states
          * which each influence the current roational and directional vectors differently.
          * 
-         * > Each of these behavious should be easily "layerable" on top of a given previous behaviour.
+         * > Each of these behaviours should be easily "layerable" on top of a given previous behaviour.
          * Also each of the behaviours will have a dynamic "weight" associated with it.
          * 
          * > This weight will effect which outputs are more prominent when the final directional and rotational 
@@ -111,18 +138,155 @@ namespace Gravitation.ControllerAgents
          * 
          */
 
-            throw new NotImplementedException();
+            //AIEngine.calculate(mShip, otherShipBody);
+            //mDirection = AIEngine.getDirection();
+            //mRotatation = AIEngine.AIEngine();
+            ai.calculate(mShip, otherShipBody);
+            mDirection += ai.Direction;
+            mRotatation = ai.Rotation;
+
+            if (mDirection == Vector2.Zero && mRotatation == 0) // optimisation
+            {
+                return;
+            }
+
+            float shipAngle;
+
+
+            //following if satement is to limit the rotation velocity so we don't spin LIGHT SPPPEEEED
+            if (mShip.mSpriteBody.AngularVelocity > 5)
+            {
+                mShip.mSpriteBody.AngularVelocity = 5;
+                //do nothing
+            }
+            else if (mShip.mSpriteBody.AngularVelocity < -5)
+            {
+                mShip.mSpriteBody.AngularVelocity = -5;
+                //do nothing
+            }
+            else
+            {
+                mShip.mSpriteBody.ApplyTorque(mRotatation);
+            }
+
+            shipAngle = mShip.mSpriteBody.Rotation;
+
+
+            float Yvel = mShip.mSpriteBody.LinearVelocity.Y;
+            float Xvel = mShip.mSpriteBody.LinearVelocity.X;
+
+            int posSpd = (int)Math.Max(Math.Sqrt(Yvel * Yvel), Math.Sqrt(Xvel * Xvel));
+
+            int totalSpeed = posSpd;
+            int speedLimit = 50;//10
+
+            float excessX = 0;
+            float excessY = 0;
+
+            if (Xvel > speedLimit)
+            {
+                excessX = Xvel - speedLimit;
+            }
+            else if (Xvel < -speedLimit)
+            {
+                excessX = Xvel + speedLimit;
+            }
+
+            if (Yvel > speedLimit)
+            {
+                excessY = Yvel - speedLimit;
+            }
+            else if (Yvel < -speedLimit)
+            {
+                excessY = Yvel + speedLimit;
+            }
+
+            if (totalSpeed > speedLimit) //15
+            {
+                mShip.mSpriteBody.ApplyLinearImpulse(new Vector2(-excessX, -excessY));
+            }
+            else
+            {
+                if (mShip.currentNegativeState != SpriteObjects.Ship.negativeState.Emped)
+                {
+                    mShip.mSpriteBody.ApplyForce(GravitationUtils.rotateVector(mDirection, shipAngle));
+                }
+            }
+            resetParams();
+            
+        }
+
+        public void updateShip(GameTime gameTime, Matrix _view)
+        {
+            if (otherShipBody == null)
+            {
+                foreach (Body mBody in mWorld.BodyList)
+                {
+                    if (Convert.ToString(mBody.FixtureList[0].UserData).StartsWith("ship"))
+                    {
+                        String otherShipId = Convert.ToString(mBody.FixtureList[0].UserData).Split(':')[1];
+
+                        if (!otherShipId.Equals(this.mShip.ShipId))
+                        {
+                            otherShipBody = mBody;
+                        }
+
+                    }
+                }
+            }
+
+            mShip.updateShot(gameTime, _view);
+            mShip.updateAltShot(gameTime, _view);
+            mShip.thrust(gameTime, _view);
+            mShip.updatePassiveShipState(gameTime, _view);
+            mShip.updateNegativeShipState(gameTime, _view);
         }
 
         public void loadShip(Microsoft.Xna.Framework.Content.ContentManager cm, Microsoft.Xna.Framework.GraphicsDeviceManager graphics)
         {
-            throw new NotImplementedException();
+            this.cm = cm;
+
+            mShip.LoadContent(cm, "Ship", graphics);
+            mShip.isAIControlled = true;
         }
 
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sBatch)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sBatch, DebugViewXNA debugView, Matrix projection, Matrix view)
         {
-            throw new NotImplementedException();
+            mShip.Draw(sBatch, debugView, projection, view);
         }
+
+        #endregion
+
+        public void reset2(Vector2 spawnpoint)
+        {
+            mShip.mSpriteBody.Position = (spawnpoint * 0.015625f); //FIGURE OUT WHY THIS IS!!
+            mShip.mSpriteBody.Rotation = 0;
+            mShip.mSpriteBody.AngularVelocity = 0.0f;
+            mShip.mSpriteBody.LinearVelocity = new Vector2(0, 0);
+            mDirection = Vector2.Zero;
+            mRotatation = 0f;
+            ai.reset();
+
+        }
+
+        public void reset()
+        {
+            mShip.mSpriteBody.Position = new Vector2(4.25f, 3.75f);
+            mShip.mSpriteBody.Rotation = 0;
+            mShip.mSpriteBody.AngularVelocity = 0.0f;
+            mShip.mSpriteBody.LinearVelocity = new Vector2(0, 0);
+            mDirection = Vector2.Zero;
+            mRotatation = 0f;
+            ai.reset();
+
+        }
+
+        private void resetParams()
+        {
+            this.mDirection = Vector2.Zero;
+            this.mRotatation = 0f;
+        }
+
     }
 }

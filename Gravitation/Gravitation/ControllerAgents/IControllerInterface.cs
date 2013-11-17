@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.DebugViews;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -17,6 +18,6 @@ namespace Gravitation.ControllerAgents
     {
         void applyMovement();
         void loadShip(ContentManager cm, GraphicsDeviceManager graphics);
-        void Draw(SpriteBatch sBatch);
+        void Draw(SpriteBatch sBatch, DebugViewXNA debugView, Matrix projection, Matrix view);
     }
 }

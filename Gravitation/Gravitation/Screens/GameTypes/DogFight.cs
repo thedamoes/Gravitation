@@ -28,7 +28,6 @@ namespace Gravitation.Screens.GameTypes
 
             powerups.Add("shield");
             powerups.Add("Shotgun");
-            powerups.Add("Laser");
             powerups.Add("Machinegun");
             powerups.Add("Spiral");
             powerups.Add("Emp");

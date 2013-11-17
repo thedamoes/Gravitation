@@ -18,6 +18,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
+using Gravitation.Utils;
 
 using DPSF;
 using DPSF.ParticleSystems;
@@ -97,6 +98,17 @@ namespace Gravitation.SpriteObjects
             DecreaseROF
         };
 
+        public bool isAIControlled
+        {
+            get { return this.aiControlled; }
+            set { this.aiControlled = value; }
+        }
+
+
+        public List<float> getRayCastLengths
+        {
+            get { return this.rayCastLengths; }
+        }
 
         ContentManager theContentManager;
         GraphicsDeviceManager graphics;
@@ -104,20 +116,43 @@ namespace Gravitation.SpriteObjects
 
         private Vector2 mPosition;
 
+        private String shipId;
+
         private SoundHandler mPlayer;
 
         private Random rand = new Random();
         private bool timer = true;
         private bool altTimer = true;
+        private bool aiControlled = false;
         private int time = 0;
         private int altTime = 0;
         private float spiralShotRotation = 0;
         private int negativeEffectTime = 0;
 
+
+        private static int numberOfRayCasts = 8;
+        private static float radianIncrementation = (float)Math.PI * (360f / numberOfRayCasts) / 180.0f;
+
+        private List<bool> raycastHitList = new List<bool>(numberOfRayCasts);
+
+        private List<Vector2> raycastPointList = new List<Vector2>(numberOfRayCasts);
+        private List<Vector2> raycastStartPointList = new List<Vector2>(numberOfRayCasts);
+        private List<Vector2> raycastEndPointList = new List<Vector2>(numberOfRayCasts);
+        private List<Vector2> raycastNormalList = new List<Vector2>(numberOfRayCasts);
+
+        public static float BASE_SHIP_RAYCAST_LENGTH = -5;
+        private List<float> rayCastLengths = new List<float>();
+
         public Vector2 ShipPosition
         {
             set { mPosition = value; }
             get { return base.Position; }
+        }
+
+        public String ShipId
+        {
+            set { shipId = value; }
+            get { return this.shipId; }
         }
 
         public World World
@@ -134,6 +169,20 @@ namespace Gravitation.SpriteObjects
 
             this.damage = (int)power; // need to change this 
             this.sheilds = this.sheilds - (10*(int)sheildStrength); // and this too
+            
+            Vector2 y = new Vector2(0,0);
+
+            for (int x = 0; x < numberOfRayCasts; x++)
+            {
+                raycastHitList.Add(false);
+
+                raycastPointList.Add(y);
+                raycastStartPointList.Add(y);
+                raycastEndPointList.Add(y);
+                raycastNormalList.Add(y);
+                rayCastLengths.Add(BASE_SHIP_RAYCAST_LENGTH);
+            }
+
 
         }
 
@@ -193,7 +242,7 @@ namespace Gravitation.SpriteObjects
 
             foreach (Fixture fixturec in base.mSpriteBody.FixtureList)
             {
-                fixturec.UserData = "ship";
+                fixturec.UserData = "ship"+":"+shipId;
 
             }
 
@@ -220,6 +269,13 @@ namespace Gravitation.SpriteObjects
                             SpriteObjects.Shot aShot = new SpriteObjects.Shot(world, base.mSpriteBody.Position, base.mSpriteBody.Rotation, damage, this.removeShot);
 
                             aShot.LoadContent(theContentManager, graphics);
+
+                            //foreach (Fixture fixturec in aShot.mSpriteBody.FixtureList)
+                            //{
+                            //    fixturec.UserData = fixturec.UserData + ":" + this.shipId;  // TODO : setup shots to have shipid , so as to avoid friendly fire, also so raycast doesn't catch own shots
+
+                            //}
+
                             aShot.fire(base.mSpriteBody.Position, base.mSpriteBody.Rotation, shotSpeed);
                             mShots.Add(aShot);
                             mPlayer.playSound(SoundHandler.Sounds.SHIP_FIRE1);
@@ -435,10 +491,9 @@ namespace Gravitation.SpriteObjects
             altShots.Remove(shotToRemove);
         }
 
-
-
         public void updatePassiveShipState(GameTime gameTime, Matrix _view)
         {
+
             switch (currentPassiveState)
             {
                 case (passiveState.SpiralFire):
@@ -457,6 +512,37 @@ namespace Gravitation.SpriteObjects
                         
                         break;
                     }
+            }
+
+            if (isAIControlled)
+            {
+                Vector2 raycaststart;
+                Vector2 raycastD;
+
+                for (int x = 0; x < numberOfRayCasts; x++)
+                {
+                    raycaststart = this.mSpriteBody.Position + GravitationUtils.rotateVector(new Vector2(0, -0.6f), this.mSpriteBody.Rotation + (radianIncrementation * x));
+
+                    raycastStartPointList[x] = raycaststart;
+
+                    raycastD = GravitationUtils.rotateVector(new Vector2(0, BASE_SHIP_RAYCAST_LENGTH), this.mSpriteBody.Rotation + (radianIncrementation * x));
+                    raycastEndPointList[x] = raycastStartPointList[x] + raycastD;
+
+                    raycastPointList[x] = Vector2.Zero;
+                    raycastNormalList[x] = Vector2.Zero;
+                    raycastHitList[x] = false;
+
+                    world.RayCast((f, p, n, fr) =>
+                    {
+                        //String data = Convert.ToString(f.UserData);
+                        //Console.WriteLine("Ship data retrieved = " + data);
+                        raycastHitList[x] = true;
+                        raycastPointList[x] = p;
+                        raycastNormalList[x] = n;
+                        return fr;
+                    }, raycastStartPointList[x], raycastEndPointList[x]);
+
+                }
             }
 
 
@@ -495,7 +581,7 @@ namespace Gravitation.SpriteObjects
             foreach (DefaultSpriteParticle particle in mShipParticles.Particles)
             {
                 //mShipParticles.UpdateParticle(particle, -rotateVector(new Vector2(0, (-2 +(-0.1f * (float)Math.Sqrt((base.mSpriteBody.LinearVelocity.Y) * (base.mSpriteBody.LinearVelocity.Y))))), base.mSpriteBody.Rotation));
-                mShipParticles.UpdateParticle(particle, rotateVector(new Vector2(0, 10), base.mSpriteBody.Rotation), base.mSpriteBody.Rotation);
+                mShipParticles.UpdateParticle(particle, GravitationUtils.rotateVector(new Vector2(0, 10), base.mSpriteBody.Rotation), base.mSpriteBody.Rotation);
             }
 
         }
@@ -623,9 +709,9 @@ namespace Gravitation.SpriteObjects
         }
 
 
-
-        public override void Draw(SpriteBatch theSpriteBatch)
+        public override void Draw(SpriteBatch theSpriteBatch, DebugViewXNA debugView, Matrix projection, Matrix view)
         {
+
             //Create a single body with multiple fixtures
             this.mtheSpriteBatch = theSpriteBatch;
 
@@ -649,19 +735,64 @@ namespace Gravitation.SpriteObjects
                 if (aShot.Visible == true)
                     aShot.Draw(theSpriteBatch);
             }
-           
+
+            if (isAIControlled)
+            {
+                for (int x = 0; x < numberOfRayCasts; x++)
+                {
+                    if (raycastHitList[x])
+                    {
+                        debugView.BeginCustomDraw(ref projection, ref view);
+                        debugView.DrawPoint(raycastPointList[x], .5f, new Color(0.4f, 0.9f, 0.4f));
+
+                        debugView.DrawSegment(raycastStartPointList[x], raycastPointList[x], new Color(0.8f, 0.8f, 0.8f));
+
+                        Vector2 head = raycastPointList[x] + 0.5f * raycastNormalList[x];
+                        debugView.DrawSegment(raycastPointList[x], head, new Color(0.9f, 0.9f, 0.4f));
+                        debugView.EndCustomDraw();
+
+                        //d = √ (x₂ - x₁)^2 + (y₂ - y₁)^2
+                        double x1 = raycastStartPointList[x].X;
+                        double x2 = raycastPointList[x].X;
+                        double y1 = raycastStartPointList[x].Y;
+                        double y2 = raycastPointList[x].Y;
+
+                        double xPoints = (x2 - x1) * (x2 - x1);
+                        double yPoints = (y2 - y1) * (y2 - y1);
+
+
+                        float totalLength = (float) Math.Sqrt((xPoints + yPoints));
+
+                        if(rayCastLengths.Count < numberOfRayCasts) {
+                            rayCastLengths.Add(totalLength);
+                        } else {
+                            rayCastLengths[x] = totalLength;
+                        }
+
+                        //Console.WriteLine("Total length of ship line ["+x+"] = " + totalLength);
+
+                    }
+                    else
+                    {
+                        debugView.BeginCustomDraw(ref projection, ref view);
+                        debugView.DrawSegment(raycastStartPointList[x], raycastEndPointList[x], new Color(0.8f, 0.8f, 0.8f));
+                        debugView.EndCustomDraw();
+
+
+                        // Could do the same calculation with start and enpoints here but
+                        //its a bit pointless since the number will always be the constant
+
+                        if (rayCastLengths.Count < numberOfRayCasts)
+                        {
+                            rayCastLengths.Add(-BASE_SHIP_RAYCAST_LENGTH); 
+                        }
+                        else
+                        {
+                            rayCastLengths[x] = -BASE_SHIP_RAYCAST_LENGTH;
+                        }
+                    }
+                }
+            }
         }
-
-
-        private Vector2 rotateVector(Vector2 direction, float angle)
-        {
-            Vector2 newvec = new Vector2();
-
-            newvec.X = (float)((Math.Cos(angle) * direction.X) - (Math.Sin(angle) * direction.Y));
-            newvec.Y = (float)((Math.Sin(angle) * direction.X) + (Math.Cos(angle) * direction.Y));
-
-            return newvec;
-        }
-
     }
 }

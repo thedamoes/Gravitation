@@ -246,6 +246,21 @@ namespace Gravitation.SpriteObjects
         }
 
 
+        public virtual void Draw(SpriteBatch theSpriteBatch, DebugViewXNA debugView, Matrix projection, Matrix view)
+        {
+            if (mSpriteBody != null)
+            {
+                mspritePos = mSpriteBody.Position * MeterInPixels;
+                mspriteRotation = mSpriteBody.Rotation;
+            }
+
+
+            theSpriteBatch.Draw(mSpriteSheetTexture, mspritePos, Source,
+                Color.White, mspriteRotation, spriteOrigin,
+                new Vector2(mWidthScale, mHeightScale), SpriteEffects.None, 0f);
+
+        }
+
     }
 }
 

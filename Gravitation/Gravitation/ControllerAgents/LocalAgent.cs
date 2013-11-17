@@ -6,6 +6,8 @@ using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using FarseerPhysics.DebugViews;
+using Gravitation.Utils;
 
 using DPSF;
 using DPSF.ParticleSystems;
@@ -63,6 +65,7 @@ namespace Gravitation.ControllerAgents
         {
             mDirection.Y -= DIRECTION_WEIGHT;
             mShip.mShipParticles.Emitter.BurstParticles = 1000;
+            mShip.playThrustSound();
         }
 
         #region analogHandlers
@@ -134,7 +137,6 @@ namespace Gravitation.ControllerAgents
             
             float shipAngle;
 
-
             //following if satement is to limit the rotation velocity so we don't spin LIGHT SPPPEEEED
             if (mShip.mSpriteBody.AngularVelocity > 5)
             {
@@ -191,7 +193,7 @@ namespace Gravitation.ControllerAgents
             {
                 if(mShip.currentNegativeState != SpriteObjects.Ship.negativeState.Emped)
                 {
-                    mShip.mSpriteBody.ApplyForce(rotateVector(mDirection,shipAngle));
+                    mShip.mSpriteBody.ApplyForce(GravitationUtils.rotateVector(mDirection, shipAngle));
                 }
             }
             resetParams();
@@ -212,26 +214,16 @@ namespace Gravitation.ControllerAgents
             this.cm = cm;
 
             mShip.LoadContent(cm ,"Ship", graphics);
-
+            mShip.isAIControlled = false; // for regular game play set to false, for debugging things like raycasts on the ship object set to true
         }
-        public void Draw(SpriteBatch sBatch)
+        public void Draw(SpriteBatch sBatch, DebugViewXNA debugView, Matrix projection, Matrix view)
         {
-            mShip.Draw(sBatch);
+            mShip.Draw(sBatch, debugView, projection, view);
 
         }
 
         #endregion
 
-
-        private Vector2 rotateVector(Vector2 direction, float angle)
-        {
-            Vector2 newvec = new Vector2();
-
-            newvec.X = (float)((Math.Cos(angle) * direction.X) - (Math.Sin(angle) * direction.Y));
-            newvec.Y = (float)((Math.Sin(angle) * direction.X) + (Math.Cos(angle) * direction.Y));
-
-            return newvec;
-        }
         private void resetParams()
         {
             mDirection = Vector2.Zero;

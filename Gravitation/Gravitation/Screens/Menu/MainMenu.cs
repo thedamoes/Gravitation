@@ -211,16 +211,18 @@ namespace Gravitation.Screens.Menu
             this.detailedSelectionContainer.setView(this.optionsL2Buttons);
         }
 
-        private void dogfightSelected(object sender, EventArgs e)
+        private void dogfightSelected(object senderm, EventArgs e)
         {
 
-            base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
-                                                                                        new DataClasses.GameConfiguration("../../../Maps/testLevel.xml", mShip, null))));
+           // base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, new DataClasses.GameSelectedEventArgs(new Screens.GameTypes.SinglePlayer(
+             //                                                                           new DataClasses.GameConfiguration("../../../Maps/testLevel.xml", mShip, null))));
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth, typeof(Screens.GameTypes.SinglePlayer), mPlayer, 2);
+            this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
 
         private void singleplayerRaceSelected(object senderm, EventArgs e)
         {
-            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer),mPlayer,1);
+            this.mNextScreen = new SelectShipScreen(this.screenHeight, this.mScreenWidth,typeof(Screens.GameTypes.SinglePlayer),mPlayer,2);
             this.mNextScreen.gameSelected += delegate(object sender, DataClasses.GameSelectedEventArgs args) { base.fire<DataClasses.GameSelectedEventArgs>(this.gameSelected, args); };
         }
 

@@ -18,6 +18,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Common.Decomposition;
 using FarseerPhysics.Common.PolygonManipulation;
 using FarseerPhysics.DebugViews;
+using Gravitation.Utils;
 
 using DPSF;
 using DPSF.ParticleSystems;
@@ -186,10 +187,10 @@ namespace Gravitation.SpriteObjects
 
                 if (base.mSpriteBody.LinearVelocity.Y < -20)
                 {
-                    base.mSpriteBody.LinearVelocity = rotateVector(mDirection, mrotation);
+                    base.mSpriteBody.LinearVelocity = GravitationUtils.rotateVector(mDirection, mrotation);
                 }
                 else
-                    base.mSpriteBody.LinearVelocity = rotateVector(mDirection, mrotation);
+                    base.mSpriteBody.LinearVelocity = GravitationUtils.rotateVector(mDirection, mrotation);
             }
             else
                 return;
@@ -214,7 +215,7 @@ namespace Gravitation.SpriteObjects
 
             float shotAngle = mrotation;
 
-            base.mSpriteBody.LinearVelocity = rotateVector(mDirection, mrotation);
+            base.mSpriteBody.LinearVelocity = GravitationUtils.rotateVector(mDirection, mrotation);
         }
 
         private bool Body_OnCollision(Fixture fixturea, Fixture fixtureb, Contact contact)
@@ -227,20 +228,5 @@ namespace Gravitation.SpriteObjects
             this.removed = true;
             return true;
         }
-
-
-        private Vector2 rotateVector(Vector2 direction, float angle)
-        {
-            Vector2 newvec = new Vector2();
-
-            newvec.X = (float)((Math.Cos(angle) * direction.X) - (Math.Sin(angle) * direction.Y));
-            newvec.Y = (float)((Math.Sin(angle) * direction.X) + (Math.Cos(angle) * direction.Y));
-
-            return newvec;
-        }
-
-
-
-
     }
 }
