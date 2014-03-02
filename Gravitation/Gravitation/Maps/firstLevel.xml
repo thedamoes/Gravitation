@@ -5,108 +5,93 @@ xmlns="mapSpecificationScheema.xsd"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
   <MapDimentions>
-    <Width>12760</Width>
-    <Height>122258</Height>
+    <Width>500</Width>
+    <Height>500</Height>
   </MapDimentions>
-	<Surfaces>
+  <Surfaces>
     <BackgoundPicture>
-      <Asset name="smudgystars">
+      <Asset name="grid">
         <Scale>
-          <X>2</X>
-          <Y>2</Y>
+          <X>4</X>
+          <Y>3</Y>
         </Scale>
         <Rotation>0.0</Rotation>
         <Position>
           <X>0</X>
-          <Y>-800</Y>
+          <Y>-500</Y>
         </Position>
       </Asset>
-		</BackgoundPicture>
-		<MapWalls>
-			<Wall walltype="left">
-				<Asset name="floor">
-					<Height>300</Height>
-					<Width>100</Width>
-					<Scale>
-						<X>0.5</X>
-						<Y>15</Y>
-					</Scale>
+    </BackgoundPicture>
+    <MapWalls>
+      <Wall walltype="left">
+        <Asset name="longWall">
+          <Height>300</Height>
+          <Width>100</Width>
+          <Scale>
+            <X>1</X>
+            <Y>1</Y>
+          </Scale>
           <Rotation>0.0</Rotation>
-					<Position>
+          <Position>
             <X>0</X>
-            <Y>20</Y>
-					</Position>
-				</Asset>
-			</Wall>
-			
-			<Wall walltype="right">
-				<Asset name="floor">
-					<Height>300</Height>
-					<Width>100</Width>
-					<Scale>
-						<X>0.5</X>
-						<Y>15</Y>
-					</Scale>
+            <Y>0</Y>
+          </Position>
+        </Asset>
+      </Wall>
+
+      <Wall walltype="right">
+        <Asset name="longWall">
+          <Height>300</Height>
+          <Width>100</Width>
+          <Scale>
+            <X>1</X>
+            <Y>1</Y>
+          </Scale>
           <Rotation>0.0</Rotation>
-					<Position>
-            <X>2000</X>
-            <Y>20</Y>
-					</Position>
-				</Asset>
-			</Wall>
+          <Position>
+            <X>500</X>
+            <Y>0</Y>
+          </Position>
+        </Asset>
+      </Wall>
 
-			<Wall walltype="bottom">
-				<Asset name="platform">
-					<Height>100</Height>
-					<Width>300</Width>
-					<Scale>
-						<X>10</X>
-						<Y>1</Y>
-					</Scale>
+      <Wall walltype="bottom">
+        <Asset name="longPlatform">
+          <Height>100</Height>
+          <Width>300</Width>
+          <Scale>
+            <X>1</X>
+            <Y>1</Y>
+          </Scale>
           <Rotation>0.0</Rotation>
-					<Position>
-						<X>1050</X>
-            <Y>400</Y>
-					</Position>
-				</Asset>
-			</Wall>
+          <Position>
+            <X>0</X>
+            <Y>0</Y>
+          </Position>
+        </Asset>
+      </Wall>
 
-		
-			<Wall walltype="top">
-				<Asset name="platform">
-					<Height>100</Height>
-					<Width>300</Width>
-					<Scale>
-						<X>10</X>
-						<Y>1</Y>
-					</Scale>
+
+      <Wall walltype="top">
+        <Asset name="longPlatform">
+          <Height>100</Height>
+          <Width>300</Width>
+          <Scale>
+            <X>1</X>
+            <Y>1</Y>
+          </Scale>
           <Rotation>0.0</Rotation>
-					<Position>
-						<X>1050</X>
-						<Y>-700</Y>
-					</Position>
-				</Asset>
-			</Wall>
+          <Position>
+            <X>0</X>
+            <Y>-500</Y>
+          </Position>
+        </Asset>
+      </Wall>
 
 
-		</MapWalls>
-
-		<Obsticals>
-			<Asset name="rock2f">
-					<Height>100</Height>
-					<Width>100</Width>
-					<Scale>
-						<X>1</X>
-						<Y>1</Y>
-					</Scale>
-          <Rotation>2.0</Rotation>
-					<Position>
-						<X>500</X>
-						<Y>-500</Y>
-					</Position>
-			</Asset>
-
-      <Asset name="rock2f">
+    </MapWalls>
+    <Obsticals>
+      <Asset name="wall">
         <Height>100</Height>
         <Width>100</Width>
         <Scale>
@@ -114,39 +99,31 @@ xsi:noNamespaceSchemaLocation="mapSpecificationScheema.xsd">
           <Y>1</Y>
         </Scale>
         <Position>
-          <X>1000</X>
-          <Y>-300</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Position>
       </Asset>
-      
-		</Obsticals>
-
-	</Surfaces>
-
-	<Powerups>
-	  <Position>
-		  <X>50</X>
-		  <Y>100</Y>
-	  </Position>
+    </Obsticals>
+  </Surfaces>
+  <Powerups>
     <Position>
-      <X>50</X>
-      <Y>100</Y>
-    </Position>
-  </Powerups>
-
-  <SpawnPoint>
-    <Player1>
-      <X>500</X>
-      <Y>350</Y>
-    </Player1>
-    <Player2>
       <X>0</X>
       <Y>0</Y>
+    </Position>
+  </Powerups>
+  <SpawnPoint>
+    <Player1>
+      <X>100</X>
+      <Y>-100</Y>
+    </Player1>
+    <Player2>
+      <X>300</X>
+      <Y>-100</Y>
     </Player2>
     <default>
-      <X>600</X>
+      <X>100</X>
       <Y>0</Y>
     </default>
   </SpawnPoint>
-	
+
 </Map>

@@ -79,8 +79,8 @@ namespace Gravitation.AIEngine
                     case behaviour.FireOnSight:
                         {
                             // Add Instance
-                            FireOnSight fos = new FireOnSight();
-                            enabledBehaviours.Add(fos);
+                            //FireOnSight fos = new FireOnSight();
+                            //enabledBehaviours.Add(fos);
                             break;
                         }
                     case behaviour.Wander:
@@ -110,17 +110,40 @@ namespace Gravitation.AIEngine
 
         public void calculate(SpriteObjects.Ship mShip, Body otherShipsBody)
         {
-
+            //loop round stores values for behaviours allowing higher weighted values
+            //to be used first.
+            Dictionary<int, float> possibleRotationVals = new Dictionary<int, float>();
+            Dictionary<int, Vector2> possibleDirectionVals = new Dictionary<int, Vector2>();
             foreach (Behaviour b in enabledBehaviours) { //make sure behaviours are instantiated with their weights
 
                 Vector2 thrust = b.getDirection(mShip, otherShipsBody, DIRECTION_WEIGHT);
                 if(thrust.X == 0) {
-                    mDirection = (thrust.Y == 0) ? Vector2.Zero : mDirection + thrust;
+                    thrust = (thrust.Y == 0) ? Vector2.Zero : mDirection + thrust;
+                    possibleDirectionVals.Add(b.getWeight(), thrust);
                 }
 
                 float rotation = b.getRotation(mShip, otherShipsBody, ROTATION_WEIGHT);
-                mRotation = (rotation != 99) ? rotation: mRotation;
+                possibleRotationVals.Add(b.getWeight(), rotation);
                 b.performAction(mShip, otherShipsBody);
+            }
+
+            foreach(int weight in possibleDirectionVals.Keys.OrderByDescending(x => x)) {
+                if (possibleDirectionVals[weight].Y > 0)
+                {
+                    continue;
+                }
+                mDirection = possibleDirectionVals[weight];
+                break;
+            }
+
+            foreach (int weight in possibleRotationVals.Keys.OrderByDescending(x => x))
+            {
+                if (possibleRotationVals[weight] == 99)
+                {
+                    continue;
+                }
+                mRotation = possibleRotationVals[weight];
+                break;
             }
 
             if(mRotation == 0) {

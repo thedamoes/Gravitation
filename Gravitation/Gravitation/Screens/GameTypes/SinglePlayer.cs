@@ -12,6 +12,7 @@ using FarseerPhysics;
 
 using DPSF;
 using DPSF.ParticleSystems;
+using Gravitation.SpriteObjects.HUD;
 
 
 
@@ -34,7 +35,7 @@ namespace Gravitation.Screens.GameTypes
 
         private int player2BaseShield = 0;
         private int player2BaseDamage = 0;
-
+        private HUD _hud = new HUD();
 
         private GameTime mgameTime;
 
@@ -65,18 +66,21 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1 = new ControllerAgents.LocalAgent(ship);
             mAI2 = new ControllerAgents.AIAgent(aIShip, base.mWorld);
             this.cam = new CameraControls.Camera();
+            initaliseHUD();
         }
 
 
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
             base.LoadContent(graphics, Content);
-
+            _hud.LoadContent(Content);
             cam.initCamera(graphics,
                 base.mMapLoader.leftWallPosX,
                 base.mMapLoader.rightWallPosX,
                 base.mMapLoader.topWallPosY,
-                base.mMapLoader.bottonWallPosY);
+                base.mMapLoader.bottonWallPosY, 
+                base.mMapLoader.MapDimentions.X,
+                base.mMapLoader.MapDimentions.Y);
 
             // load players
             mPlayer1.loadShip(Content, graphics);
@@ -86,7 +90,6 @@ namespace Gravitation.Screens.GameTypes
             int exampleUpgradeTime = 10; //seconds
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
             u.LoadContent(Content, graphics);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -169,7 +172,7 @@ namespace Gravitation.Screens.GameTypes
                     }
                 }
             }
-
+            Console.WriteLine("Player one position is X = [" + MeterInPixels * mPlayer1.mShip.Position.X + "]  Y = [" + MeterInPixels * mPlayer1.mShip.Position.Y + "]");
             base.Update(gameTime);
         }
 
@@ -224,7 +227,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.V, mPlayer1.altFire);
 
-            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer1.reset);
+            mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.R, mPlayer1.reset);
         }
 
         private void initaliseXBOXControlerControls()
@@ -244,6 +247,12 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerXBOXButtonIsDownAndWasUp(Buttons.LeftThumbstickLeft, mPlayer1.stall);
 
             mPlayer1ControllerConfig.registerXBOXButtonPress(Buttons.RightShoulder, mPlayer1.fire);
+        }
+
+        private void initaliseHUD()
+        {
+            _hud.AddHUDDObject(new LifeBar(mPlayer1.mShip, new Vector2(20, 480)));
+            ScreenManager.GetScreenManager.ScreenOverlay = _hud;
         }
 
         public override Matrix getView()

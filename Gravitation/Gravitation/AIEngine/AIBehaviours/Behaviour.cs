@@ -16,6 +16,7 @@ namespace Gravitation.AIEngine.AIBehaviours
 {
     public abstract class Behaviour
     {
+        public abstract int getWeight(); // larger weight = more important
         public abstract Vector2 getDirection(SpriteObjects.Ship mShip, Body otherShipsBody, float directionWeight);
         public abstract float getRotation(SpriteObjects.Ship mShip, Body otherShipsBody, float rotationWeight);
         public abstract void performAction(SpriteObjects.Ship mShip, Body otherShipsBody);

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Gravitation.Screens
 {
-    interface IDrawableScreen
+    public interface IDrawableScreen
     {
         event EventHandler<DataClasses.GameSelectedEventArgs> gameSelected;
 
@@ -17,6 +17,7 @@ namespace Gravitation.Screens
         void Update(GameTime gameTime);
         void Draw(SpriteBatch sb, GameTime gameTime);
         void HandleKeyboard(KeyboardState curState, KeyboardState prevState);
+        //void GoFullScreen(bool fullscreen);
         Matrix getView();
 
         void windowCloseing();

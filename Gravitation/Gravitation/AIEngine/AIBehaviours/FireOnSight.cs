@@ -17,6 +17,8 @@ namespace Gravitation.AIEngine.AIBehaviours
 {
     class FireOnSight : Behaviour
     {
+        private int behaviourWeight = 1;
+
         public FireOnSight()
         {
         }
@@ -55,6 +57,11 @@ namespace Gravitation.AIEngine.AIBehaviours
             {
                 mShip.fire();
             }
+        }
+
+        public override int getWeight()
+        {
+            return this.behaviourWeight;
         }
     }
 }

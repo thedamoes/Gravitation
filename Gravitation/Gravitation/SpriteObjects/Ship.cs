@@ -26,7 +26,7 @@ using DPSF.ParticleSystems;
 
 namespace Gravitation.SpriteObjects
 {
-    public class Ship : Sprite
+    public class Ship : Sprite, HUD.IHasLife
     {
 
         public World world;
@@ -129,7 +129,6 @@ namespace Gravitation.SpriteObjects
         private float spiralShotRotation = 0;
         private int negativeEffectTime = 0;
 
-
         private static int numberOfRayCasts = 8;
         private static float radianIncrementation = (float)Math.PI * (360f / numberOfRayCasts) / 180.0f;
 
@@ -143,6 +142,7 @@ namespace Gravitation.SpriteObjects
         public static float BASE_SHIP_RAYCAST_LENGTH = -5;
         private List<float> rayCastLengths = new List<float>();
 
+        #region Properties
         public Vector2 ShipPosition
         {
             set { mPosition = value; }
@@ -154,11 +154,20 @@ namespace Gravitation.SpriteObjects
             set { shipId = value; }
             get { return this.shipId; }
         }
-
         public World World
         {
             set { world = value; }
         }
+        public int SheildValue
+        {
+            get { return this.sheilds; }
+        }
+        public int HealthValue
+        {
+            get { return this.damage; }
+        }
+        #endregion
+
 
         public Ship(SoundHandler player, float power, float sheildStrength)
         {

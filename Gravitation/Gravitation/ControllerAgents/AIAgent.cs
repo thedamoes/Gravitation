@@ -50,9 +50,9 @@ namespace Gravitation.ControllerAgents
             this.mWorld = world;
 
             List<behaviour> behaviours = new List<behaviour>();
-            behaviours.Add(behaviour.SeekPlayer);
-            behaviours.Add(behaviour.FireOnSight);
-            behaviours.Add(behaviour.AvoidObsticles);
+            //behaviours.Add(behaviour.SeekPlayer);
+            //behaviours.Add(behaviour.FireOnSight);
+            //behaviours.Add(behaviour.AvoidObsticles);
             ai = new AIEngine.AIEngine(DIRECTION_WEIGHT, ROTATION_WEIGHT, behaviours);
         }
 

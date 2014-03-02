@@ -12,6 +12,7 @@ using FarseerPhysics.Common;
 using FarseerPhysics.Factories;
 
 using Gravitation.GameStates;
+using Gravitation.SpriteObjects.HUD;
 
 namespace Gravitation.Screens.GameTypes
 {
@@ -36,6 +37,7 @@ namespace Gravitation.Screens.GameTypes
         Vector2 point1;
         Vector2 point2;
         Vector2 normal;
+        private HUD _hud = new HUD();
 
         protected CameraControls.TwoPlayerCamera cam;
 
@@ -78,8 +80,8 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2 = new ControllerAgents.LocalAgent(ship2);
 
             cam = new CameraControls.TwoPlayerCamera();
-
             _angle = 0.0f;
+            initaliseHUD();
         }
 
         public override void Update(GameTime gameTime)
@@ -273,7 +275,9 @@ namespace Gravitation.Screens.GameTypes
                 base.mMapLoader.leftWallPosX,
                 base.mMapLoader.rightWallPosX,
                 base.mMapLoader.topWallPosY,
-                base.mMapLoader.bottonWallPosY);
+                base.mMapLoader.bottonWallPosY, 
+                0, 
+                0);
 
             // load players
             mPlayer1.loadShip(Content, graphics);
@@ -281,6 +285,8 @@ namespace Gravitation.Screens.GameTypes
 
             initalisePlayer1Controles();
             initalisePlayer2Controles();
+            _hud.LoadContent(Content);
+
         }
         public override void HandleKeyboard(KeyboardState state, KeyboardState prevState)
         {
@@ -306,7 +312,7 @@ namespace Gravitation.Screens.GameTypes
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.W, delegate() { mPlayer1.mShip.pauseThrustSound();  mPlayer1.mShip.mShipParticles.Emitter.Enabled = false; });
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.D, mPlayer1.stall);
             mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.A, mPlayer1.stall);
-            //mPlayer1ControllerConfig.registerIsUpAndWasDown(Keys.F, mPlayer1.fire);
+
             mPlayer1ControllerConfig.registerIsNownKey(Keys.F, mPlayer1.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.V, mPlayer1.altFire);
 
@@ -331,7 +337,14 @@ namespace Gravitation.Screens.GameTypes
             mPlayer2ControllerConfig.registerIsNownKey(Keys.RightShift, mPlayer2.fire);
             mPlayer1ControllerConfig.registerIsNownKey(Keys.RightControl, mPlayer2.altFire);
 
-            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.Space, mPlayer2.reset);
+            mPlayer2ControllerConfig.registerIsUpAndWasDown(Keys.R, mPlayer2.reset);
+        }
+
+        private void initaliseHUD()
+        {
+            _hud.AddHUDDObject(new LifeBar(mPlayer1.mShip, new Vector2(20, 480)));
+            _hud.AddHUDDObject(new LifeBar(mPlayer2.mShip, new Vector2(300, 480)));
+            ScreenManager.GetScreenManager.ScreenOverlay = _hud;
         }
 
         public override Matrix getView()

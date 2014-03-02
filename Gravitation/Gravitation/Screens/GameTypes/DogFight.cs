@@ -11,6 +11,7 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Common;
+using Gravitation.SpriteObjects.HUD;
 
 namespace Gravitation.Screens.GameTypes
 {
@@ -37,7 +38,6 @@ namespace Gravitation.Screens.GameTypes
         public override void LoadContent(GraphicsDeviceManager graphics, ContentManager Content)
         {
             base.LoadContent(graphics, Content);
-
             int exampleUpgradeTime = 10; //seconds
             u = new SpriteObjects.Upgrade(base.mWorld, mMapLoader.getPowerupSpawns, powerups, exampleUpgradeTime);
             u.LoadContent(Content, graphics);

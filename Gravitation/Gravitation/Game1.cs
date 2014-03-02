@@ -21,6 +21,7 @@ using XnaGUILib;
 
 using DPSF;
 using DPSF.ParticleSystems;
+using Gravitation.SpriteObjects.HUD;
 
 
 namespace Gravitation
@@ -38,24 +39,28 @@ namespace Gravitation
         private KeyboardState _oldKeyState;
         private GamePadState _oldPadState;
 
-        
-
-        private Screens.IDrawableScreen currentScreen;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 700;
-            graphics.PreferredBackBufferHeight = 500;
+
+            //graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
+
+
+            //graphics.PreferredBackBufferWidth = 700;
+            //graphics.PreferredBackBufferHeight = 500;
+
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
+
+            //graphics.ToggleFullScreen(); uncomment this for fullscreen, though might be useful to leave it commented until camera's sorted [Damien - 2/3/2014]
 
             Sound = new SoundHandler(Content);
-            currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
-            //currentScreen = new Screens.GameTypes.SinglePlayer(new DataClasses.GameConfiguration("../../../Maps/level1.xml", new SpriteObjects.Ship(), null));
-            
-
+            Screens.IDrawableScreen currentScreen = new Screens.Menu.MenuScreen(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, Sound, graphics, Content);
             currentScreen.gameSelected += this.gameSelected;
+            Screens.ScreenManager.GetScreenManager.CurrentScreen = currentScreen;
+            //currentScreen = new Screens.GameTypes.SinglePlayer(new DataClasses.GameConfiguration("../../../Maps/level1.xml", new SpriteObjects.Ship(), null));
 
         }
         protected override void Initialize()
@@ -72,7 +77,7 @@ namespace Gravitation
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            currentScreen.LoadContent(graphics, Content);
+            Screens.ScreenManager.GetScreenManager.CurrentScreen.LoadContent(graphics, Content);
         }
 
         protected override void UnloadContent()
@@ -85,8 +90,8 @@ namespace Gravitation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             HandleKeyboard();
-            
-            currentScreen.Update(gameTime);
+
+            Screens.ScreenManager.GetScreenManager.CurrentScreen.Update(gameTime);
            
 
             base.Update(gameTime);
@@ -96,41 +101,45 @@ namespace Gravitation
         {
             base.OnExiting(sender, args);
 
-            if (this.currentScreen != null)
-                this.currentScreen.windowCloseing();
+            if (Screens.ScreenManager.GetScreenManager.CurrentScreen != null)
+                Screens.ScreenManager.GetScreenManager.CurrentScreen.windowCloseing();
         }
 
         private void gameSelected(object sender, DataClasses.GameSelectedEventArgs e)
         {
-            currentScreen = e.getGame();
-            currentScreen.LoadContent(graphics, Content);
+            Screens.ScreenManager.GetScreenManager.CurrentScreen = e.getGame();
+            Screens.ScreenManager.GetScreenManager.CurrentScreen.LoadContent(graphics, Content);
         }
 
         private void HandleKeyboard()
         {
             KeyboardState state = Keyboard.GetState();
 
-            currentScreen.HandleKeyboard(state, _oldKeyState);
+            Screens.ScreenManager.GetScreenManager.CurrentScreen.HandleKeyboard(state, _oldKeyState);
 
             if (state.IsKeyDown(Keys.Escape))
+            {
                 Exit();
-
-            if (state.IsKeyDown(Keys.Space) && !_oldKeyState.IsKeyDown(Keys.Space))
-                Sound.playSound(SoundHandler.Sounds.SHIP_CRASH1);
-
+            }
             _oldKeyState = state;
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, currentScreen.getView());
-
-            currentScreen.Draw(spriteBatch, gameTime);
-
-            spriteBatch.End();
-            
+            Screens.ScreenManager.GetScreenManager.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
+
+
+        void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
+
+        }
+
     }
 }

@@ -17,7 +17,8 @@ namespace Gravitation.AIEngine.AIBehaviours
 {
     class SeekPlayer : Behaviour
     {
-
+        private int behaviourWeight = 7;
+            
         public override Vector2 getDirection(SpriteObjects.Ship mShip, Body otherShipsBody, float directionWeight)
         {
             Vector2 thrust = Vector2.Zero;
@@ -54,7 +55,7 @@ namespace Gravitation.AIEngine.AIBehaviours
 
         public override float getRotation(SpriteObjects.Ship mShip, Body otherShipsBody, float rotationWeight)
         {
-            float rotationChange = 0f;
+            float rotationChange = 99f;
 
             if (otherShipsBody == null || mShip.mSpriteBody == null)
             {
@@ -89,6 +90,11 @@ namespace Gravitation.AIEngine.AIBehaviours
         public override void performAction(SpriteObjects.Ship mShip, Body otherShipsBody)
         {
             //no action to take.
+        }
+
+        public override int getWeight()
+        {
+            return this.behaviourWeight;
         }
     }
 }

@@ -49,31 +49,35 @@ namespace Gravitation.CameraControls
             _cameraZoom = new Vector3(MAX_ZOOM, MAX_ZOOM, MAX_ZOOM);
         }
 
-        public void initCamera(GraphicsDeviceManager graphics, float leftWallPos, float rightWallPos, float topWallPos, float bottomWallPos)
+        public void initCamera(GraphicsDeviceManager graphics, float leftWallPos, float rightWallPos, float topWallPos, float bottomWallPos, float mapWidth, float mapHeight)
         {
             // Initialize camera controls
             _view = Matrix.Identity *
                         Matrix.CreateScale(_cameraZoom);
             _cameraPosition = Vector2.Zero;
-            _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
-                                                graphics.GraphicsDevice.Viewport.Height / 2f);
+           // _screenCenter = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2f,
+          //                                      graphics.GraphicsDevice.Viewport.Height / 2f);
 
-            screenHeight = graphics.GraphicsDevice.Viewport.Height;
-            screenWidth = graphics.GraphicsDevice.Viewport.Width;
+            _screenCenter = new Vector2(mapWidth / 2f, mapHeight / 2f);
 
-            this.mapHeightInPixels = bottomWallPos - topWallPos;
-            this.mapWidthInPixels = rightWallPos - leftWallPos;
+            screenHeight = (int) mapHeight;//graphics.GraphicsDevice.Viewport.Height;
+            screenWidth = (int) mapWidth;//graphics.GraphicsDevice.Viewport.Width;
+
+            //this.mapHeightInPixels = bottomWallPos - topWallPos;
+            //this.mapWidthInPixels = rightWallPos - leftWallPos;
 
             float screenIncreaseFactor = 1/zoom.X;
             float acctualScreenWidth = screenWidth * screenIncreaseFactor;
             float acctualScreenHeight = screenHeight * screenIncreaseFactor;
 
-            this.prizemBase = new Rectangle((int)((leftWallPos) + acctualScreenWidth/2),
-                                            (int)((topWallPos) + acctualScreenHeight/2), 
-                                            (int)(this.mapWidthInPixels - acctualScreenWidth),
-                                            (int)(this.mapHeightInPixels - acctualScreenHeight));
+            this.prizemBase = new Rectangle((int)(leftWallPos), //+ acctualScreenWidth/2),
+                                            (int)(topWallPos), //+acctualScreenHeight/2),
+                                            (int)(mapWidth),
+                                            (int)(mapHeight));
 
-            this.prizemTip = new Vector3(prizemBase.Center.X, prizemBase.Center.Y, this.mapWidthInPixels / screenWidth); // max zoom point
+            //this.prizemTip = new Vector3(prizemBase.Center.X, prizemBase.Center.Y, this.mapWidthInPixels / screenWidth); // max zoom point
+
+            this.prizemTip = new Vector3(prizemBase.Center.X, prizemBase.Center.Y, mapWidth); // max zoom point
 
             this.initPrisemEdgeGradients();
             this.initYIntercepts();
